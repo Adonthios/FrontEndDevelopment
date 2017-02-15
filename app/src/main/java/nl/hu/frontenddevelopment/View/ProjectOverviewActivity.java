@@ -1,8 +1,5 @@
 package nl.hu.frontenddevelopment.View;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
