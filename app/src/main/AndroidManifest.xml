@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.LoginActivity"
+            android:name=".View.SignInActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme"></activity>
