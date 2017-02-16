@@ -1,6 +1,7 @@
 package nl.hu.frontenddevelopment.Controller;
 
 import android.content.Context;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,27 +14,34 @@ import java.util.List;
 
 import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
+import nl.hu.frontenddevelopment.View.ProjectOverviewActivity;
 
 /**
  * Created by Lars on 2/15/2017.
  */
 
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHolder> {
+public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHolder>{
+
     private ArrayList<Project> projects;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-
-
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public CardView mCardView;
         public TextView title,description;
+
         public MyViewHolder(View v) {
             super(v);
             mCardView = (CardView) v.findViewById(R.id.cardview);
             title = (TextView) v.findViewById(R.id.project_title);
             description = (TextView) v.findViewById(R.id.project_description);
+            v.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            int pos = getAdapterPosition();
+            Project project = projects.get(pos);
+
+            ProjectOverviewActivity activity = (ProjectOverviewActivity) v.getContext();
+            FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
         }
     }
 

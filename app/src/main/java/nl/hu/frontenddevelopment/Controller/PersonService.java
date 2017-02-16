@@ -13,7 +13,7 @@ public class PersonService {
 
     public List<Person> getPersonList() {
 
-        // Haal uit de database en/of contacten
+        //TODO Haal uit de database en/of contacten
         return personList;
     }
 }

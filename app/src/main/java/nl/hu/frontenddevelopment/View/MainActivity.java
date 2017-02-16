@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,7 +34,7 @@ public class MainActivity extends BaseActivity {
 
         // Check if the user is signed in, if not send to the login page
         super.userSignedInCheck();
-
+        Log.d("MainActivity", "After Check");
         startActivity(new Intent(this, ProjectOverviewActivity.class));
     }
 }

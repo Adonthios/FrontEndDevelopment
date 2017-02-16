@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Controller.SignInActivity" />
-        <activity android:name=".View.ProjectOverviewActivity"></activity>
+        <activity android:name=".View.ProjectOverviewActivity" />
     </application>
 
 </manifest>
