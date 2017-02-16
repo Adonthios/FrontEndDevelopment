@@ -76,4 +76,33 @@ public class Person extends BaseModel {
     public void setProfilePhoto(Image profilePhoto) {
         this.profilePhoto = profilePhoto;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Person person = (Person) o;
+
+        if (name != null ? !name.equals(person.name) : person.name != null) return false;
+        if (email != null ? !email.equals(person.email) : person.email != null) return false;
+        if (function != null ? !function.equals(person.function) : person.function != null)
+            return false;
+        if (phonenumber != null ? !phonenumber.equals(person.phonenumber) : person.phonenumber != null)
+            return false;
+        if (sidenote != null ? !sidenote.equals(person.sidenote) : person.sidenote != null)
+            return false;
+        return profilePhoto != null ? profilePhoto.equals(person.profilePhoto) : person.profilePhoto == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (function != null ? function.hashCode() : 0);
+        result = 31 * result + (phonenumber != null ? phonenumber.hashCode() : 0);
+        result = 31 * result + (sidenote != null ? sidenote.hashCode() : 0);
+        result = 31 * result + (profilePhoto != null ? profilePhoto.hashCode() : 0);
+        return result;
+    }
 }

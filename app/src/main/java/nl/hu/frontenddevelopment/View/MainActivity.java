@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nl.hu.frontenddevelopment.Controller.SignInActivity;
 import nl.hu.frontenddevelopment.R;
 
 public class MainActivity extends AppCompatActivity
