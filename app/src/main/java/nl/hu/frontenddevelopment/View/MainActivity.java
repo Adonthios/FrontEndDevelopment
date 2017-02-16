@@ -31,7 +31,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    //    userSignedInCheck();
+        // Check if the user is signed in, if not send to the login page
+        super.userSignedInCheck();
+
         startActivity(new Intent(this, ProjectOverviewActivity.class));
     }
 }
