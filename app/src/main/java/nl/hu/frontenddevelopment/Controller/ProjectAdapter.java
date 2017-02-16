@@ -37,7 +37,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
     public ProjectAdapter(ArrayList<Project> projects) {
         this.projects = projects;
     }
