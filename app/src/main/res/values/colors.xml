@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Theme Colors -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryLight">#C5CAE9</color>
 
+    <!-- Text Colors -->
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorTextIcons">#FF4081</color>
+    <color name="colorTextSecondary">#757575</color>
+
+    <!-- Accent Colors -->
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="colorAccent">#FF4081</color>
     <color name="black_overlay">#66000000</color>
+
+    <!-- Drawer Menu -->
+    <color name="colorDrawerPrimary">#3F51B5</color>
+    <color name="colorDrawerPrimaryLight">#5262b9</color>
+    <color name="colorDrawerPrimaryDark">#303F9F</color>
+
 </resources>
