@@ -4,19 +4,28 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!-- depricated lol -->
-    <string name="action_settings">Settings</string>
-    <string name="logout_settings">Logout</string>
-
-    <!-- sign in page -->
+    <!-- Sign in page -->
     <string name="sign_in">Sign in</string>
+
+    <!-- Drawer section titles -->
+    <string name="drawer_section_title_account">Account</string>
+
+    <!-- Drawer titles -->
+    <string name="drawer_title_projects">Projects</string>
+    <string name="drawer_title_project_new">New project</string>
+    <string name="drawer_title_settings">Settings</string>
+    <string name="drawer_title_signout">Sign Out</string>
+
+    <!-- Search -->
+    <string name="search_hint">Search by project name</string>
+
+
 
     <string name="title_activity_login">LoginActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="search_hint">search by project name</string>
-    <string name="title_activity_main2">Main2Activity</string>
+   <!-- <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">Main2Activity</string>-->
 </resources>

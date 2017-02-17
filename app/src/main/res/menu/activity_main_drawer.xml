@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- TODO: Set the strings in the strings.xml-->
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_projects"
             android:icon="@drawable/ic_folder_black_24dp"
-            android:title="Projects" />
+            android:title="@string/drawer_title_projects" />
         <item
             android:id="@+id/drawer_project_add"
             android:icon="@drawable/ic_create_new_folder_black_24dp"
-            android:title="Add project" />
+            android:title="@string/drawer_title_project_new" />
     </group>
 
-    <item android:title="Account">
+    <item android:title="@string/drawer_section_title_account">
         <menu>
             <item
                 android:id="@+id/drawer_account_settings"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Settings" />
+                android:title="@string/drawer_title_settings" />
             <item
                 android:id="@+id/drawer_account_signout"
                 android:icon="@drawable/ic_exit_to_app_black_24dp"
-                android:title="Signout" />
+                android:title="@string/drawer_title_signout" />
         </menu>
     </item>
 

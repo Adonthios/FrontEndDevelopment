@@ -50,6 +50,9 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = BaseActivity.this;
+
+        /*   navigationView = (NavigationView) findViewById(R.id.nav_view);
+        setUpNav();*/
     }
 
     @Override
@@ -72,6 +75,7 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
+        Log.d("ds", "setUpNav:" + navigationView );
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -98,6 +102,9 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
 
                 case (R.id.drawer_account_signout):
                     // Sign out
+
+                    Log.d("BaseActivity", "Signing out");
+
                     mFirebaseAuth.signOut();
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient);
                     nextActivity(SignInActivity.class);
@@ -131,16 +138,22 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if (id == R.id.drawer_projects) {
+            //Show the overview
+        } else if (id == R.id.drawer_project_add) {
+            // Add menu
+        } else if (id == R.id.drawer_account_settings){
+            // Show account settings
+        } else if(id == R.id.drawer_account_signout){
+            // Sign out
 
-        if (id == R.id.action_logout) {
+            Log.d("BaseActivity", "Signing out");
+
+            mFirebaseAuth.signOut();
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+            nextActivity(SignInActivity.class);
             return true;
         }
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
