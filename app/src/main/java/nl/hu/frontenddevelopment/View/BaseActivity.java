@@ -93,9 +93,9 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
                     // Add menu
                     break;
 
-                case (R.id.nav_account_settings):
+             /*   case (R.id.nav_account_settings):
                         // Show account settings
-                        break;
+                        break;*/
 
                 case (R.id.nav_account_signout):
                     // Sign out
@@ -139,7 +139,7 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
             //Show the overview
         } else if (id == R.id.nav_project_add) {
             // Add menu
-        } else if (id == R.id.nav_account_settings){
+        /*} else if (id == R.id.nav_account_settings){*/
             // Show account settings
         } else if(id == R.id.nav_account_signout){
             // Sign out

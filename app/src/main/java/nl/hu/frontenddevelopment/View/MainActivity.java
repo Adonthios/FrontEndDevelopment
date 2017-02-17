@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity {
 
     // urls to load navigation header background image
     // and profile image
-    private static final String urlNavHeaderBg = "http://i.imgur.com/AMf9X7E.jpg";
+    private static final String urlNavHeaderBg = "http://www.gettingsmart.com/wp-content/uploads/2016/02/meeting-project-management-feature-964x670.jpg";
     private static final String urlProfileImg = "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAADrAAAAJDcyNTEyOTkyLTkxZGYtNDMyNS1iZmYxLTM5ZWNiODcyNDI4Ng.jpg";
 
     // index to identify current nav menu item
@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity {
      */
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Front End Development");
+        txtName.setText("AT-App");
         txtWebsite.setText("Test@website.com");
 
         // loading header background image
@@ -219,7 +219,6 @@ public class MainActivity extends BaseActivity {
                 // notifications fragment
                 NotificationsFragment notificationsFragment = new NotificationsFragment();
                 return notificationsFragment;
-
             case 4:
                 // settings fragment
                 SettingsFragment settingsFragment = new SettingsFragment();
@@ -256,10 +255,10 @@ public class MainActivity extends BaseActivity {
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_PHOTOS;
                         break;
-                    case R.id.nav_account_settings:
+                    /*case R.id.nav_account_settings:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_MOVIES;
-                        break;
+                        break;*/
                     case R.id.nav_account_signout:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_NOTIFICATIONS;
