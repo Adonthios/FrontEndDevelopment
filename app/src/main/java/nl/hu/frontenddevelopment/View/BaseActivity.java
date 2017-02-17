@@ -50,9 +50,6 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = BaseActivity.this;
-
-        /*   navigationView = (NavigationView) findViewById(R.id.nav_view);
-        setUpNav();*/
     }
 
     @Override
@@ -88,19 +85,19 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
             drawerLayout.closeDrawers();
             Intent intent;
             switch (item.getItemId()) {
-                case(R.id.drawer_projects) :
+                case(R.id.nav_projects) :
                     //Show the overview
                     break;
 
-                case(R.id.drawer_project_add):
+                case(R.id.nav_project_add):
                     // Add menu
                     break;
 
-                case (R.id.drawer_account_settings):
+                case (R.id.nav_account_settings):
                         // Show account settings
                         break;
 
-                case (R.id.drawer_account_signout):
+                case (R.id.nav_account_signout):
                     // Sign out
 
                     Log.d("BaseActivity", "Signing out");
@@ -138,13 +135,13 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.drawer_projects) {
+        if (id == R.id.nav_projects) {
             //Show the overview
-        } else if (id == R.id.drawer_project_add) {
+        } else if (id == R.id.nav_project_add) {
             // Add menu
-        } else if (id == R.id.drawer_account_settings){
+        } else if (id == R.id.nav_account_settings){
             // Show account settings
-        } else if(id == R.id.drawer_account_signout){
+        } else if(id == R.id.nav_account_signout){
             // Sign out
 
             Log.d("BaseActivity", "Signing out");

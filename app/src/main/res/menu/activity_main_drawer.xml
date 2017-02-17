@@ -3,11 +3,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/drawer_projects"
+            android:id="@+id/nav_projects"
             android:icon="@drawable/ic_folder_black_24dp"
             android:title="@string/drawer_title_projects" />
         <item
-            android:id="@+id/drawer_project_add"
+            android:id="@+id/nav_project_add"
             android:icon="@drawable/ic_create_new_folder_black_24dp"
             android:title="@string/drawer_title_project_new" />
     </group>
@@ -15,11 +15,11 @@
     <item android:title="@string/drawer_section_title_account">
         <menu>
             <item
-                android:id="@+id/drawer_account_settings"
+                android:id="@+id/nav_account_settings"
                 android:icon="@drawable/ic_menu_manage"
                 android:title="@string/drawer_title_settings" />
             <item
-                android:id="@+id/drawer_account_signout"
+                android:id="@+id/nav_account_signout"
                 android:icon="@drawable/ic_exit_to_app_black_24dp"
                 android:title="@string/drawer_title_signout" />
         </menu>
