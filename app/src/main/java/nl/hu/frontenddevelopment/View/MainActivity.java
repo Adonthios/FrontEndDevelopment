@@ -33,10 +33,13 @@ import nl.hu.frontenddevelopment.Fragment.SettingsFragment;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
 
+// TODO: Rename the Fragments to our way
+// TODO: Make the HomeFragment the default one to show the projects
 public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
     public static final String ANONYMOUS = "anonymous";
 
+    // TODO: Kunnen in en uit-loggen :P
     // Firebase instance variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
@@ -51,30 +54,26 @@ public class MainActivity extends BaseActivity {
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
-    // urls to load navigation header background image
-    // and profile image
+    // TODO: Dit inladen van het Google+ account??
+    // Set the URL's to load the navigation header background and profile image
     private static final String urlNavHeaderBg = "http://www.gettingsmart.com/wp-content/uploads/2016/02/meeting-project-management-feature-964x670.jpg";
     private static final String urlProfileImg = "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAADrAAAAJDcyNTEyOTkyLTkxZGYtNDMyNS1iZmYxLTM5ZWNiODcyNDI4Ng.jpg";
 
-    // index to identify current nav menu item
+    // Set the index to identify current nav menu item
     public static int navItemIndex = 0;
 
-    // tags used to attach the fragments
-    private static final String TAG_HOME = "home";
-    private static final String TAG_PHOTOS = "photos";
-    private static final String TAG_MOVIES = "movies";
-    private static final String TAG_NOTIFICATIONS = "notifications";
-    private static final String TAG_SETTINGS = "settings";
-    public static String CURRENT_TAG = TAG_HOME;
+    // Set the tags for the header bar title
+    private static final String TAG_PROJECTS = "projects";
+    private static final String TAG_PROJECT_ADD = "add project";
+    private static final String TAG_SIGNOUT = "sign out";
+    public static String CURRENT_TAG = TAG_PROJECTS;
 
     // toolbar titles respected to selected nav menu item
     private String[] activityTitles;
 
-    // flag to load home fragment when user presses back key
+    // Flag to load home fragment when user presses back key
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -97,9 +96,11 @@ public class MainActivity extends BaseActivity {
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
 
-        // load toolbar titles from string resources
+        // Load toolbar titles from string resources
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
+        // TODO: Actie toevoegen om een nieuw project te maken
+        // Floating button at the homepage to add a new project
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,15 +108,13 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        // load nav menu header data
+        // Load the navigation menu header data
         loadNavHeader();
-
-        // initializing navigation menu
         setUpNavigationView();
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
-            CURRENT_TAG = TAG_HOME;
+            CURRENT_TAG = TAG_PROJECTS;
             loadHomeFragment();
         }
     }
@@ -130,22 +129,14 @@ public class MainActivity extends BaseActivity {
         txtName.setText("AT-App");
         txtWebsite.setText("Test@website.com");
 
-        // loading header background image
-        Glide.with(this).load(urlNavHeaderBg)
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imgNavHeaderBg);
+        // Load the header background
+        Glide.with(this).load(urlNavHeaderBg).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imgNavHeaderBg);
 
-        // Loading profile image
-        Glide.with(this).load(urlProfileImg)
-                .crossFade()
-                .thumbnail(0.5f)
-                .bitmapTransform(new CircleTransform(this))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imgProfile);
+        // Load the profile image
+        Glide.with(this).load(urlProfileImg).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
 
-        // showing dot next to notifications label
-        navigationView.getMenu().getItem(1).setActionView(R.layout.menu_dot);
+        // Display the dot next to the Projects tab
+        navigationView.getMenu().getItem(0).setActionView(R.layout.menu_dot);
     }
 
     /***
@@ -179,8 +170,7 @@ public class MainActivity extends BaseActivity {
                 // update the main content by replacing fragments
                 Fragment fragment = getHomeFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                        android.R.anim.fade_out);
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
                 fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
                 fragmentTransaction.commitAllowingStateLoss();
             }
@@ -201,6 +191,7 @@ public class MainActivity extends BaseActivity {
         invalidateOptionsMenu();
     }
 
+    // TODO: rename the fragments the way we want them to be
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case 0:
@@ -249,11 +240,11 @@ public class MainActivity extends BaseActivity {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.nav_projects:
                         navItemIndex = 0;
-                        CURRENT_TAG = TAG_HOME;
+                        CURRENT_TAG = TAG_PROJECTS;
                         break;
                     case R.id.nav_project_add:
                         navItemIndex = 1;
-                        CURRENT_TAG = TAG_PHOTOS;
+                        CURRENT_TAG = TAG_PROJECT_ADD;
                         break;
                     /*case R.id.nav_account_settings:
                         navItemIndex = 2;
@@ -261,7 +252,7 @@ public class MainActivity extends BaseActivity {
                         break;*/
                     case R.id.nav_account_signout:
                         navItemIndex = 2;
-                        CURRENT_TAG = TAG_NOTIFICATIONS;
+                        CURRENT_TAG = TAG_SIGNOUT;
                         break;
                     default:
                         navItemIndex = 0;
@@ -298,7 +289,8 @@ public class MainActivity extends BaseActivity {
         };
 
         //Setting the actionbarToggle to drawer layout
-        drawer.setDrawerListener(actionBarDrawerToggle);
+        /*drawer.setDrawerListener(actionBarDrawerToggle);*/
+        drawer.addDrawerListener(actionBarDrawerToggle);
 
         //calling sync state is necessary or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
@@ -314,11 +306,10 @@ public class MainActivity extends BaseActivity {
         // This code loads home fragment when back key is pressed
         // when user is in other fragment than home
         if (shouldLoadHomeFragOnBackPress) {
-            // checking if user is on other navigation menu
-            // rather than home
+            // checking if user is on other navigation menu rather than home
             if (navItemIndex != 0) {
                 navItemIndex = 0;
-                CURRENT_TAG = TAG_HOME;
+                CURRENT_TAG = TAG_PROJECTS;
                 loadHomeFragment();
                 return;
             }
@@ -371,7 +362,7 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // show or hide the fab
+    // Show or hide the fab at the home page
     private void toggleFab() {
         if (navItemIndex == 0)
             fab.show();
