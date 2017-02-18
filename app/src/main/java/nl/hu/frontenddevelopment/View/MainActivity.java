@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,10 +27,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import nl.hu.frontenddevelopment.Fragment.HomeFragment;
+import nl.hu.frontenddevelopment.Controller.XmlClickable;
+import nl.hu.frontenddevelopment.Fragment.ProjectNewFragment;
 import nl.hu.frontenddevelopment.Fragment.MoviesFragment;
 import nl.hu.frontenddevelopment.Fragment.NotificationsFragment;
-import nl.hu.frontenddevelopment.Fragment.PhotosFragment;
 import nl.hu.frontenddevelopment.Fragment.SettingsFragment;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
@@ -44,15 +46,20 @@ public class MainActivity extends BaseActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
 
-
-
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
     private ImageView imgNavHeaderBg, imgProfile;
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
-    private FloatingActionButton fab;
+
+    // FloatingActionButtons
+    private FloatingActionButton fab_project_new, fab_actor_new;
+
+    // Normal buttons in fragments
+    private Button project_new_button;
+
+    private XmlClickable currentFragment;
 
     // TODO: Dit inladen van het Google+ account??
     // Set the URL's to load the navigation header background and profile image
@@ -83,11 +90,14 @@ public class MainActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        currentFragment = (XmlClickable) getHomeFragment();
+
         mHandler = new Handler();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        setAllTheButtons();
 
         // Navigation view header
         navHeader = navigationView.getHeaderView(0);
@@ -99,14 +109,7 @@ public class MainActivity extends BaseActivity {
         // Load toolbar titles from string resources
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
-        // TODO: Actie toevoegen om een nieuw project te maken
-        // Floating button at the homepage to add a new project
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
+        setAllTheButtonActions();
 
         // Load the navigation menu header data
         loadNavHeader();
@@ -136,7 +139,7 @@ public class MainActivity extends BaseActivity {
         Glide.with(this).load(urlProfileImg).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
 
         // Display the dot next to the Projects tab
-        navigationView.getMenu().getItem(0).setActionView(R.layout.menu_dot);
+    //    navigationView.getMenu().getItem(0).setActionView(R.layout.menu_dot);
     }
 
     /***
@@ -144,19 +147,19 @@ public class MainActivity extends BaseActivity {
      * selected from navigation menu
      */
     private void loadHomeFragment() {
-        // selecting appropriate nav menu item
+        // Selecting appropriate nav menu item
         selectNavMenu();
 
-        // set toolbar title
+        // Set toolbar title
         setToolbarTitle();
 
-        // if user select the current navigation menu again, don't do anything
-        // just close the navigation drawer
+        // If user select the current navigation menu again, don't do anything
+        // Just close the navigation drawer
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
             drawer.closeDrawers();
 
-            // show or hide the fab button
-            toggleFab();
+            // Show or hide the fab buttons
+            toggleFabs();
             return;
         }
 
@@ -181,13 +184,13 @@ public class MainActivity extends BaseActivity {
             mHandler.post(mPendingRunnable);
         }
 
-        // show or hide the fab button
-        toggleFab();
+        // Show or hide the fab buttons
+        toggleFabs();
 
-        //Closing drawer on item click
+        // Closing drawer on item click
         drawer.closeDrawers();
 
-        // refresh toolbar menu
+        // Refresh toolbar menu
         invalidateOptionsMenu();
     }
 
@@ -195,27 +198,32 @@ public class MainActivity extends BaseActivity {
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case 0:
-                // home
-                HomeFragment homeFragment = new HomeFragment();
-                return homeFragment;
+                // Project overview
+                ProjectOverviewFragment projectOverviewFragment = new ProjectOverviewFragment();
+                currentFragment = (XmlClickable) projectOverviewFragment;
+                return projectOverviewFragment;
             case 1:
-                // photos
-                PhotosFragment photosFragment = new PhotosFragment();
-                return photosFragment;
+                // New project
+                ProjectNewFragment projectNewFragment = new ProjectNewFragment();
+                currentFragment = projectNewFragment;
+                return projectNewFragment;
             case 2:
-                // movies fragment
+                // x
                 MoviesFragment moviesFragment = new MoviesFragment();
+                currentFragment = (XmlClickable) moviesFragment;
                 return moviesFragment;
             case 3:
-                // notifications fragment
+                // y
                 NotificationsFragment notificationsFragment = new NotificationsFragment();
+                currentFragment = (XmlClickable) notificationsFragment;
                 return notificationsFragment;
             case 4:
-                // settings fragment
+                // z
                 SettingsFragment settingsFragment = new SettingsFragment();
+                currentFragment = (XmlClickable) settingsFragment;
                 return settingsFragment;
             default:
-                return new HomeFragment();
+                return new ProjectOverviewFragment();
         }
     }
 
@@ -228,16 +236,16 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setUpNavigationView() {
-        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        // Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             // This method will trigger on item Click of navigation menu
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-                //Check to see which item was being clicked and perform appropriate action
+                // Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
-                    //Replacing the main content with ContentFragment Which is our Inbox View;
+                    // Replacing the main content with ContentFragment;
                     case R.id.nav_projects:
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_PROJECTS;
@@ -246,10 +254,6 @@ public class MainActivity extends BaseActivity {
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_PROJECT_ADD;
                         break;
-                    /*case R.id.nav_account_settings:
-                        navItemIndex = 2;
-                        CURRENT_TAG = TAG_MOVIES;
-                        break;*/
                     case R.id.nav_account_signout:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_SIGNOUT;
@@ -258,23 +262,19 @@ public class MainActivity extends BaseActivity {
                         navItemIndex = 0;
                 }
 
-                //Checking if the item is in checked state or not, if not make it in checked state
+                // Checking if the item is in checked state or not, if not make it in checked state
                 if (menuItem.isChecked()) {
                     menuItem.setChecked(false);
                 } else {
                     menuItem.setChecked(true);
                 }
                 menuItem.setChecked(true);
-
                 loadHomeFragment();
-
                 return true;
             }
         });
 
-
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.app_name, R.string.app_name) {
-
             @Override
             public void onDrawerClosed(View drawerView) {
                 // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
@@ -288,11 +288,10 @@ public class MainActivity extends BaseActivity {
             }
         };
 
-        //Setting the actionbarToggle to drawer layout
-        /*drawer.setDrawerListener(actionBarDrawerToggle);*/
+        // Setting the actionbarToggle to drawer layout
         drawer.addDrawerListener(actionBarDrawerToggle);
 
-        //calling sync state is necessary or else your hamburger icon wont show up
+        // Calling sync state is necessary or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
     }
 
@@ -303,10 +302,9 @@ public class MainActivity extends BaseActivity {
             return;
         }
 
-        // This code loads home fragment when back key is pressed
-        // when user is in other fragment than home
+        // This code loads home fragment when back key is pressed when user is in other fragment than home
         if (shouldLoadHomeFragOnBackPress) {
-            // checking if user is on other navigation menu rather than home
+            // Checking if user is on other navigation menu rather than home
             if (navItemIndex != 0) {
                 navItemIndex = 0;
                 CURRENT_TAG = TAG_PROJECTS;
@@ -314,59 +312,73 @@ public class MainActivity extends BaseActivity {
                 return;
             }
         }
-
         super.onBackPressed();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-
-        // show menu only when home fragment is selected
+        // Show menu only when home fragment is selected
         if (navItemIndex == 0) {
             getMenuInflater().inflate(R.menu.main, menu);
         }
-
-        // when fragment is notifications, load the menu created for notifications
-       /* if (navItemIndex == 3) {
-            getMenuInflater().inflate(R.menu.notifications, menu);
-        }*/
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // TODO: Log the user out
+        // Noinspection SimplifiableIfStatement
         if (id == R.id.nav_account_signout) {
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
             return true;
         }
-
-        // user is in notifications fragment
-        // and selected 'Mark all as Read'
-        /*if (id == R.id.action_mark_all_read) {
-            Toast.makeText(getApplicationContext(), "All notifications marked as read!", Toast.LENGTH_LONG).show();
-        }*/
-
-        // user is in notifications fragment
-        // and selected 'Clear All'
-        /*if (id == R.id.action_clear_notifications) {
-            Toast.makeText(getApplicationContext(), "Clear all notifications!", Toast.LENGTH_LONG).show();
-        }*/
-
         return super.onOptionsItemSelected(item);
     }
 
+    // Define all the Buttons
+    private void setAllTheButtons(){
+        fab_project_new = (FloatingActionButton) findViewById(R.id.fab_project_new);
+        fab_actor_new = (FloatingActionButton) findViewById(R.id.fab_actor_new);
+    }
+
+    // TODO: Actie toevoegen om een nieuw project te maken
+    // Set all the actions to the buttons
+    private void setAllTheButtonActions(){
+        // New project action
+        fab_project_new.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            Snackbar.make(view, "New project page", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        });
+
+        // New actor action
+        fab_actor_new.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            Snackbar.make(view, "New actor page", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        });
+    }
+
+    public void myClickMethod(View v) {
+        currentFragment.myClickMethod(v);
+    }
+
     // Show or hide the fab at the home page
-    private void toggleFab() {
-        if (navItemIndex == 0)
-            fab.show();
-        else
-            fab.hide();
+    private void toggleFabs() {
+        if (navItemIndex == 0) {
+            fab_project_new.show();
+        } else {
+            fab_project_new.hide();
+        }
+
+        if (navItemIndex == 1) {
+            fab_actor_new.show();
+        } else {
+            fab_actor_new.hide();
+        }
     }
 }

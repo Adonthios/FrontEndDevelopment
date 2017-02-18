@@ -3,23 +3,25 @@ package nl.hu.frontenddevelopment.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import nl.hu.frontenddevelopment.Controller.XmlClickable;
 import nl.hu.frontenddevelopment.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
+ * {@link ProjectNewFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link ProjectNewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class ProjectNewFragment extends Fragment implements XmlClickable {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +33,7 @@ public class HomeFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public HomeFragment() {
+    public ProjectNewFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +43,11 @@ public class HomeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
+     * @return A new instance of fragment ProjectNewFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static ProjectNewFragment newInstance(String param1, String param2) {
+        ProjectNewFragment fragment = new ProjectNewFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,7 +68,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_project_new, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -85,6 +87,16 @@ public class HomeFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void myClickMethod(View v) {
+        Log.d("ProjectNewFragment","view id lol: "+v.getId());
+       /* switch(v.getId()){
+            // Just like you were doing
+        }*/
+        Log.d("ProjectNewFragment", "clicked");
+        Snackbar.make(v, "TESSTTTT LOLOL", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     /**

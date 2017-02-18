@@ -13,11 +13,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import nl.hu.frontenddevelopment.Controller.ProjectAdapter;
+import nl.hu.frontenddevelopment.Controller.XmlClickable;
 import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
 
 
-public class ProjectOverviewFragment extends Fragment {
+public class ProjectOverviewFragment extends Fragment implements XmlClickable {
 
     private ArrayList<Project> projects;
     // TODO: Rename and change types of parameters
@@ -52,5 +53,10 @@ public class ProjectOverviewFragment extends Fragment {
         projects.add(new Project("Of Mice and Men", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt."));
         projects.add(new Project("The Great gatsby","Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt."));
         projects.add(new Project("Freakonomics", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt."));
+    }
+
+    @Override
+    public void myClickMethod(View v) {
+
     }
 }

@@ -28,6 +28,16 @@
         <item>Settings</item>
     </string-array>
 
+    <!-- project new -->
+    <string name="project_new_name">Project name</string>
+    <string name="project_new_name_text">Project name</string>
+    <string name="project_new_description">Project description</string>
+    <string name="project_new_description_text">Project description</string>
+
+
+
+
+
 
     <string name="title_activity_login">LoginActivity</string>
     <string name="dummy_button">Dummy Button</string>
