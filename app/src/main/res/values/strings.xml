@@ -51,10 +51,6 @@
     <string name="button_save_project">Save project</string>
     <string name="button_new_actor">New actor</string>
 
-
-
-
-
     <string name="title_activity_login">LoginActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

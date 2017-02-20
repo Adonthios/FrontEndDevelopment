@@ -1,5 +1,7 @@
 package nl.hu.frontenddevelopment.View;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -28,10 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import nl.hu.frontenddevelopment.Controller.XmlClickable;
-import nl.hu.frontenddevelopment.Fragment.ProjectNewFragment;
-import nl.hu.frontenddevelopment.Fragment.MoviesFragment;
-import nl.hu.frontenddevelopment.Fragment.NotificationsFragment;
-import nl.hu.frontenddevelopment.Fragment.SettingsFragment;
+import nl.hu.frontenddevelopment.Fragment.*;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
 
@@ -59,7 +57,7 @@ public class MainActivity extends BaseActivity {
     // Normal buttons in fragments
     private Button project_new_button;
 
-    private XmlClickable currentFragment;
+    private Intent currentIntent;
 
     // TODO: Dit inladen van het Google+ account??
     // Set the URL's to load the navigation header background and profile image
@@ -90,7 +88,7 @@ public class MainActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        currentFragment = (XmlClickable) getHomeFragment();
+        currentIntent = getHomeActivity();
 
         mHandler = new Handler();
 
@@ -162,20 +160,17 @@ public class MainActivity extends BaseActivity {
             toggleFabs();
             return;
         }
-
+        Intent intent = getHomeActivity();
         // Sometimes, when fragment has huge data, screen seems hanging
         // when switching between navigation menus
         // So using runnable, the fragment is loaded with cross fade effect
         // This effect can be seen in GMail app
+
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
                 // update the main content by replacing fragments
-                Fragment fragment = getHomeFragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
-                fragmentTransaction.commitAllowingStateLoss();
+                startActivity(getHomeActivity());
             }
         };
 
@@ -195,19 +190,15 @@ public class MainActivity extends BaseActivity {
     }
 
     // TODO: rename the fragments the way we want them to be
-    private Fragment getHomeFragment() {
+    private Intent getHomeActivity() {
         switch (navItemIndex) {
             case 0:
                 // Project overview
-                ProjectOverviewFragment projectOverviewFragment = new ProjectOverviewFragment();
-                currentFragment = (XmlClickable) projectOverviewFragment;
-                return projectOverviewFragment;
+                return new Intent(this, ProjectOverviewActivity.class);
             case 1:
                 // New project
-                ProjectNewFragment projectNewFragment = new ProjectNewFragment();
-                currentFragment = projectNewFragment;
-                return projectNewFragment;
-            case 2:
+                return new Intent(this, ProjectNewActivity.class);
+            /*case 2:
                 // x
                 MoviesFragment moviesFragment = new MoviesFragment();
                 currentFragment = (XmlClickable) moviesFragment;
@@ -221,9 +212,9 @@ public class MainActivity extends BaseActivity {
                 // z
                 SettingsFragment settingsFragment = new SettingsFragment();
                 currentFragment = (XmlClickable) settingsFragment;
-                return settingsFragment;
+                return settingsFragment;*/
             default:
-                return new ProjectOverviewFragment();
+                return new Intent(this,ProjectOverviewActivity.class);
         }
     }
 
@@ -363,10 +354,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    public void myClickMethod(View v) {
-        currentFragment.myClickMethod(v);
-    }
-
     // Show or hide the fab at the home page
     private void toggleFabs() {
         if (navItemIndex == 0) {
@@ -381,4 +368,6 @@ public class MainActivity extends BaseActivity {
             fab_actor_new.hide();
         }
     }
+
+
 }

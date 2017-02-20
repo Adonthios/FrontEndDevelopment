@@ -1,19 +1,20 @@
 package nl.hu.frontenddevelopment.Controller;
 
 import android.content.Context;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-import java.util.List;
 
+import nl.hu.frontenddevelopment.Fragment.ProjectDetailFragment;
+import nl.hu.frontenddevelopment.Fragment.ProjectOverviewFragment;
 import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
+import nl.hu.frontenddevelopment.View.MainActivity;
 import nl.hu.frontenddevelopment.View.ProjectOverviewActivity;
 
 /**
@@ -23,6 +24,7 @@ import nl.hu.frontenddevelopment.View.ProjectOverviewActivity;
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHolder>{
 
     private ArrayList<Project> projects;
+    private Context context;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public CardView mCardView;
@@ -39,14 +41,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
         public void onClick(View v) {
             int pos = getAdapterPosition();
             Project project = projects.get(pos);
-
-            ProjectOverviewActivity activity = (ProjectOverviewActivity) v.getContext();
-            FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
+            ((ProjectOverviewActivity) context).setDetailFragment();
         }
     }
 
-    public ProjectAdapter(ArrayList<Project> projects) {
+    public ProjectAdapter(Context context, ArrayList<Project> projects) {
         this.projects = projects;
+        this.context = context;
     }
 
     // Create new views (invoked by the layout manager)

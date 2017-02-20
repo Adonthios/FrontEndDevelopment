@@ -116,12 +116,6 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(new Intent(this, activity.getClass()));
     }
 
-
-
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
