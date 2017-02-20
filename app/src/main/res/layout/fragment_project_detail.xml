@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp">
 
-                    <!-- actor add -->
+                    <!-- Actor add -->
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_gravity="center_vertical"
