@@ -2,12 +2,165 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nl.hu.frontenddevelopment.View.ProjectDetailFragment">
+    tools:context="nl.hu.frontenddevelopment.Fragment.ProjectNewFragment">
 
-    <!-- TODO: Update blank(that's rasict) fragment layout -->
-    <TextView
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/app_name" />
+        android:layout_height="match_parent">
 
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_margin="20px">
+
+                <!-- Project name -->
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:id="@+id/project_new_name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/project_new_name"
+                        android:textSize="10pt">
+                    </TextView>
+                    <EditText
+                        android:id="@+id/project_new_name_text"
+                        android:layout_height="match_parent"
+                        android:hint="@string/project_new_name_text"
+                        android:inputType="textPersonName"
+                        android:layout_width="fill_parent">
+                    </EditText>
+                </LinearLayout>
+
+                <!-- Project description -->
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:id="@+id/project_new_description"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/project_new_description"
+                        android:textSize="10pt">
+                    </TextView>
+                    <EditText
+                        android:id="@+id/project_new_description_text"
+                        android:layout_height="match_parent"
+                        android:hint="@string/project_new_description_text"
+                        android:inputType="textPersonName"
+                        android:layout_width="fill_parent">
+                    </EditText>
+                </LinearLayout>
+
+                <!-- Actor -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+
+                    <!-- actor add -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dip"
+                        android:layout_marginBottom="20dp">
+                        <TextView
+                            android:id="@+id/project_detail_actor_name"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/project_detail_actor_name"
+                            android:textSize="10pt">
+                        </TextView>
+                        <EditText
+                            android:id="@+id/project_detail_actor_name_text"
+                            android:layout_height="match_parent"
+                            android:hint="@string/project_detail_actor_name_text"
+                            android:inputType="textPersonName"
+                            android:layout_width="fill_parent">
+                        </EditText>
+                        <TextView
+                            android:id="@+id/project_detail_actor_description"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/project_detail_actor_description"
+                            android:textSize="10pt">
+                        </TextView>
+                        <EditText
+                            android:id="@+id/project_detail_actor_description_text"
+                            android:layout_height="match_parent"
+                            android:hint="@string/project_detail_actor_description_text"
+                            android:inputType="textPersonName"
+                            android:layout_width="fill_parent">
+                        </EditText>
+                        <Button android:id="@+id/project_detail_new_actor"
+                            android:onClick="myClickMethod"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dip"
+                            android:background="@color/colorPrimary"
+                            android:textColor="@color/colorTextPrimary"
+                            android:text="@string/button_new_actor"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/project_detail_actor"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/project_detail_actors"
+                        android:textSize="10pt">
+                    </TextView>
+                    <ListView
+                        android:id="@+id/project_detail_actor_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:descendantFocusability="beforeDescendants">
+                    </ListView>
+                </LinearLayout>
+
+                <!-- Button -->
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+
+                    <!--<Button android:id="@+id/project_new_button"
+                        android:onClick="myClickMethod"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:background="@color/colorPrimary"
+                        android:textColor="@color/colorTextPrimary"
+                        android:text="@string/button_save_project"/>-->
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </FrameLayout>

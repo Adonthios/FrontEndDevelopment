@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Front End Development</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -34,6 +33,23 @@
     <string name="project_new_description">Project description</string>
     <string name="project_new_description_text">Project description</string>
 
+    <!-- project detail -->
+    <string name="project_detail_name">Project name</string>
+    <string name="project_detail_name_text">Project name</string>
+    <string name="project_detail_description">Project description</string>
+    <string name="project_detail_description_text">Project description</string>
+    <!-- project detail actors -->
+    <string name="project_detail_actors">Actors</string>
+    <string name="project_detail_actor_name">Actor name</string>
+    <string name="project_detail_actor_name_text">Actor name</string>
+    <string name="project_detail_actor_description">Actor description</string>
+    <string name="project_detail_actor_description_text">Actor description</string>
+
+
+    <!-- buttons -->
+    <string name="button_save">Save</string>
+    <string name="button_save_project">Save project</string>
+    <string name="button_new_actor">New actor</string>
 
 
 
