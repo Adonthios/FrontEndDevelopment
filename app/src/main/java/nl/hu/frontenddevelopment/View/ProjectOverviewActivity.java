@@ -20,7 +20,7 @@ public class ProjectOverviewActivity extends BaseActivity {
         View v = findViewById(R.id.contentFragment);
         String tag = v.getTag().toString();
         if(tag.equals("tablet")){
-            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.detailFragment, ProjectDetailFragment.newInstance()).commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction(). addToBackStack(null).replace(R.id.detailFragment, ProjectDetailFragment.newInstance()).commitAllowingStateLoss();
         }else {
             getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.contentFragment, ProjectDetailFragment.newInstance()).commitAllowingStateLoss();
         }
