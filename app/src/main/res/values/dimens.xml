@@ -6,4 +6,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!--Default textSizes -->
+    <dimen name="titel_size">30sp</dimen>
+    <dimen name="text_size">20sp</dimen>
+
+    <!--Default padding -->
+    <dimen name="text_padding">10dp</dimen>
+
+
 </resources>

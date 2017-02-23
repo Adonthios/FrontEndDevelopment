@@ -1,7 +1,9 @@
 package nl.hu.frontenddevelopment.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import nl.hu.frontenddevelopment.Fragment.ProjectDetailFragment;
 import nl.hu.frontenddevelopment.Fragment.ProjectOverviewFragment;
@@ -22,7 +24,7 @@ public class ProjectOverviewActivity extends BaseActivity {
         if(tag.equals("tablet")){
             getSupportFragmentManager().beginTransaction(). addToBackStack(null).replace(R.id.detailFragment, ProjectDetailFragment.newInstance()).commitAllowingStateLoss();
         }else {
-            getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.contentFragment, ProjectDetailFragment.newInstance()).commitAllowingStateLoss();
+            startActivity(new Intent(this, ProjectDetailActivity.class));
         }
     }
     public void setOverviewFragment(){

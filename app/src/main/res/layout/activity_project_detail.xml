@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_project_detail"
     android:layout_width="match_parent"
@@ -10,4 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="nl.hu.frontenddevelopment.View.ProjectDetailActivity">
 
-</RelativeLayout>
+    <fragment
+        class="nl.hu.frontenddevelopment.Fragment.ProjectDetailFragment"
+        android:id="@+id/detailProject"
+        android:tag="mobile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

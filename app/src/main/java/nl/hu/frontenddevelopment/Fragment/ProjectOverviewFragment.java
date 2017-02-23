@@ -10,9 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
-
 import nl.hu.frontenddevelopment.Controller.ProjectAdapter;
 import nl.hu.frontenddevelopment.Controller.XmlClickable;
 import nl.hu.frontenddevelopment.Model.Project;
@@ -21,7 +19,6 @@ import nl.hu.frontenddevelopment.R;
 public class ProjectOverviewFragment extends Fragment implements XmlClickable {
 
         private ArrayList<Project> projects;
-        // TODO: Rename and change types of parameters
 
         @Override
         public void onCreate(Bundle savedInstanceState) {

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import nl.hu.frontenddevelopment.Controller.ProjectAdapter;
 import nl.hu.frontenddevelopment.R;
@@ -26,6 +27,7 @@ public class ProjectDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Toast.makeText(getContext(),"onCreateView", Toast.LENGTH_SHORT).show();
         View rootView = inflater.inflate(R.layout.fragment_project_detail, container, false);
         return rootView;
     }
