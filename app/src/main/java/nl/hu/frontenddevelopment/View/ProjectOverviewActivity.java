@@ -22,12 +22,12 @@ public class ProjectOverviewActivity extends BaseActivity {
         View v = findViewById(R.id.contentFragment);
         String tag = v.getTag().toString();
         if(tag.equals("tablet")){
-            getSupportFragmentManager().beginTransaction(). addToBackStack(null).replace(R.id.detailFragment, ProjectDetailFragment.newInstance()).commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ProjectDetailFragment.newInstance()).commitAllowingStateLoss();
         }else {
             startActivity(new Intent(this, ProjectDetailActivity.class));
         }
     }
     public void setOverviewFragment(){
-        getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.contentFragment, ProjectOverviewFragment.newInstance()).commitAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ProjectOverviewFragment.newInstance()).commitAllowingStateLoss();
     }
 }

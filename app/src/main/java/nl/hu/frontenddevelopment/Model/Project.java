@@ -8,31 +8,35 @@ import java.util.List;
  */
 
 public class Project extends BaseModel {
-    public String name;
+    public String title;
     public String description;
     public List<Actor> actorList;
 
-    public Project(String name, String description) {
+    public Project(){
+
+    }
+
+    public Project(String title, String description) {
         super();
-        this.name = name;
+        this.title = title;
         this.description = description;
         this.actorList = new ArrayList<Actor>();
     }
 
-    public Project(String name, String description, ArrayList<Actor> actorList) {
+    public Project(String title, String description, ArrayList<Actor> actorList) {
         super();
-        this.name = name;
+        this.title = title;
         this.description = description;
         this.actorList = actorList;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
+    public void setTitle(String title) {
         super.Update();
-        this.name = name;
+        this.title = title;
     }
 
     public String getDescription() {
@@ -60,7 +64,7 @@ public class Project extends BaseModel {
 
         Project project = (Project) o;
 
-        if (name != null ? !name.equals(project.name) : project.name != null) return false;
+        if (title != null ? !title.equals(project.title) : project.title != null) return false;
         if (description != null ? !description.equals(project.description) : project.description != null)
             return false;
         return actorList != null ? actorList.equals(project.actorList) : project.actorList == null;
@@ -68,7 +72,7 @@ public class Project extends BaseModel {
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = title != null ? title.hashCode() : 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (actorList != null ? actorList.hashCode() : 0);
         return result;

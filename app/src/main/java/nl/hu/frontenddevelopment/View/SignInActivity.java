@@ -1,4 +1,4 @@
-package nl.hu.frontenddevelopment.Controller;
+package nl.hu.frontenddevelopment.View;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import nl.hu.frontenddevelopment.R;
-import nl.hu.frontenddevelopment.View.MainActivity;
 
 public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {

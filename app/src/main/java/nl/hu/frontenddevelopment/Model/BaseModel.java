@@ -9,6 +9,7 @@ import java.util.Date;
 public class BaseModel {
     public Date dateCreated;
     public Date dateUpdated;
+    public String key;
 
     public BaseModel() {
         this.dateCreated = new Date();

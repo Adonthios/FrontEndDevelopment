@@ -10,11 +10,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-import nl.hu.frontenddevelopment.Fragment.ProjectDetailFragment;
-import nl.hu.frontenddevelopment.Fragment.ProjectOverviewFragment;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
-import nl.hu.frontenddevelopment.View.MainActivity;
 import nl.hu.frontenddevelopment.View.ProjectOverviewActivity;
 
 /**
@@ -23,8 +26,10 @@ import nl.hu.frontenddevelopment.View.ProjectOverviewActivity;
 
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHolder>{
 
-    private ArrayList<Project> projects;
+    private ArrayList<Project> projects = new ArrayList<>();
     private Context context;
+    private DatabaseReference mFirebaseDatabaseReference;
+    private static String TAG = "ProjectAdapter";
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public CardView mCardView;
@@ -45,9 +50,40 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
         }
     }
 
-    public ProjectAdapter(Context context, ArrayList<Project> projects) {
-        this.projects = projects;
-        this.context = context;
+    public ProjectAdapter() {
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mFirebaseDatabaseReference.child("projects").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Project project = dataSnapshot.getValue(Project.class);
+                project.key = dataSnapshot.getKey();
+                projects.add(project);
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Project project = dataSnapshot.getValue(Project.class);
+                project.key = dataSnapshot.getKey();
+                projects.remove(project);
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     // Create new views (invoked by the layout manager)
@@ -64,7 +100,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.title.setText(projects.get(position).name);
+        holder.title.setText(projects.get(position).title);
         holder.description.setText(projects.get(position).description);
     }
 

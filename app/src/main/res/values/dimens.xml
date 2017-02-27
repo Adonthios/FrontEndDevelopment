@@ -13,6 +13,7 @@
 
     <!--Default padding -->
     <dimen name="text_padding">10dp</dimen>
+    <dimen name="fap_padding">15dp</dimen>
 
 
 </resources>
