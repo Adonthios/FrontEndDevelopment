@@ -141,7 +141,6 @@ public class MainActivity extends BaseActivity {
         // Just close the navigation drawer
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
             drawer.closeDrawers();
-
             // Show or hide the fab buttons
             toggleFabs();
             return;
