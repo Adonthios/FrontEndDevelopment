@@ -1,6 +1,41 @@
+
 package nl.hu.frontenddevelopment.View;
 
+import android.app.ProgressDialog;
+import android.support.annotation.VisibleForTesting;
+import android.support.v7.app.AppCompatActivity;
 
+import nl.hu.frontenddevelopment.R;
+
+public class BaseActivity extends AppCompatActivity {
+
+    @VisibleForTesting
+    public ProgressDialog mProgressDialog;
+
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.loading));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        hideProgressDialog();
+    }
+
+}
+/*
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,9 +65,11 @@ import com.google.firebase.auth.FirebaseUser;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
 
+*/
 /**
  * Created by Schultzie on 16-2-2017.
- */
+ *//*
+
 
 public class BaseActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private FirebaseAuth mFirebaseAuth;
@@ -72,16 +109,20 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onCreate(savedInstanceState);
         mContext = BaseActivity.this;
 
+*/
 /*        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        setUpNavigationView();*/
+        setUpNavigationView();*//*
 
-       /* initActions();
+
+       */
+/* initActions();
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
             CURRENT_TAG = TAG_PROJECTS;
             loadHomeFragment();
-        }*/
+        }*//*
+
     }
 
     private void initActions() {
@@ -94,8 +135,10 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
     public void setContentView(int layoutResId) {
         super.setContentView(layoutResId);
 
-        /*drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);*/
+        */
+/*drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);*//*
+
 
         initActions();
 
@@ -114,7 +157,8 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
             return;
         }
 
-        /*Intent intent = getHomeActivity();
+        */
+/*Intent intent = getHomeActivity();
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
@@ -123,7 +167,8 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
         };
         if (mPendingRunnable != null) {
             mHandler.post(mPendingRunnable);
-        }*/
+        }*//*
+
 
         toggleFabs();
         drawer.closeDrawers();
@@ -131,7 +176,8 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
 
       //  setUpNavigationView();
 
-        /*initToolbar();
+        */
+/*initToolbar();
 
         Log.d("Kom ik hier?", "ja!");
         initVars();
@@ -141,7 +187,8 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
 
         Log.d("Set up themm nav", "LOLOLOLOLOL!");
         setUpNav();
-*/
+*//*
+
         // Load the page
      //   loadHomeFragment();
     }
@@ -247,7 +294,9 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
             //Show the overview
         } else if (id == R.id.nav_project_add) {
             // Add menu
-        /*} else if (id == R.id.nav_account_settings){*/
+        */
+/*} else if (id == R.id.nav_account_settings){*//*
+
             // Show account settings
         } else if(id == R.id.nav_account_signout){
             // Sign out
@@ -311,11 +360,13 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void toggleFabs() {
         // TODO: hide or show the FAB's
-       /* if (navItemIndex == 0) {
+       */
+/* if (navItemIndex == 0) {
             fab_button.show();
         } else {
             fab_button.hide();
-        }*/
+        }*//*
+
     }
 
     private void setUpNavigationView() {
@@ -379,3 +430,4 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onBackPressed();
     }
 }
+*/
