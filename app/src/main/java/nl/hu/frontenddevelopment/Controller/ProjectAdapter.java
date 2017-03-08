@@ -1,6 +1,8 @@
 package nl.hu.frontenddevelopment.Controller;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -34,19 +36,29 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public CardView mCardView;
         public TextView title,description;
+        public FloatingActionButton fab;
 
         public MyViewHolder(View v) {
             super(v);
+            context = v.getContext();
             mCardView = (CardView) v.findViewById(R.id.cardview);
             title = (TextView) v.findViewById(R.id.project_title);
             description = (TextView) v.findViewById(R.id.project_description);
+            fab = (FloatingActionButton) v.findViewById(R.id.fab_project_edit);
+            fab.setOnClickListener(e -> editProject());
             v.setOnClickListener(this);
         }
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
             Project project = projects.get(pos);
-            ((ProjectOverviewActivity) context).setDetailFragment();
+            ((ProjectOverviewActivity) context).setDetailProject();
+        }
+
+        private void editProject(){
+            int pos = getAdapterPosition();
+            Project project = projects.get(pos);
+            ((ProjectOverviewActivity) context).editProject(project.getTitle(),project.getDescription(),project.getKey());
         }
     }
 
@@ -56,7 +68,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Project project = dataSnapshot.getValue(Project.class);
-                project.key = dataSnapshot.getKey();
+                project.setKey(dataSnapshot.getKey());
                 projects.add(project);
                 notifyDataSetChanged();
             }
@@ -69,7 +81,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Project project = dataSnapshot.getValue(Project.class);
-                project.key = dataSnapshot.getKey();
                 projects.remove(project);
                 notifyDataSetChanged();
             }
