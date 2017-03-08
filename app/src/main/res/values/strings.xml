@@ -100,8 +100,13 @@
     <string name="firebase_user_management">Firebase User Management</string>
     <string name="loading">Loading…</string>
     <string name="title_activity_chooser">ChooserActivity</string>
+
+
+
     <string name="label_emailpassword">Email/Password Authentication</string>
-    <string name="desc_emailpassword">Use an email and password to authenticate with Firebase.</string>
+    <string name="desc_emailpassword">Use an email and password to sign in</string>
+
+
 
 
 </resources>

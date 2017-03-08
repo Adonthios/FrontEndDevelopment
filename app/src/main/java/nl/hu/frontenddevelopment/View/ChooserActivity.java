@@ -35,12 +35,6 @@ public class ChooserActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chooser);
 
-        Log.d("ChooserActivity","test 1: ");
-        Log.d("ChooserActivity","test 2: ");
-        Log.d("ChooserActivity","test 3: ");
-
-
-
         // Set up ListView and Adapter
         ListView listView = (ListView) findViewById(R.id.list_view);
 
@@ -53,13 +47,7 @@ public class ChooserActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        Log.d("ChooserActivity","hier: ");
-        Log.d("ChooserActivity","hieroooo: ");
-
-
         Class clicked = CLASSES[position];
-        Log.d("ChooserActivity","clicked: " + clicked);
         startActivity(new Intent(this, clicked));
     }
 
