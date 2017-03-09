@@ -3,9 +3,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!-- Sign in page -->
-    <string name="sign_in">Sign in</string>
-
     <!-- Drawer section titles -->
     <string name="drawer_section_title_account">Account</string>
 
@@ -21,10 +18,10 @@
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
         <item>Home</item>
-        <item>Photos</item>
-        <item>Movies</item>
-        <item>Notifications</item>
-        <item>Settings</item>
+        <item>Projects</item>
+        <item>New Project</item>
+        <item>Item 4</item>
+        <item>Item 5</item>
     </string-array>
 
     <!-- project new -->
@@ -66,9 +63,49 @@
     <string name="actor_list_notes">Notes: </string>
     <string name="project_new_title">New project Title</string>
     <string name="text_button_add_new_project">Add new project</string>
+  
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="text_button_delete_project">Delete Project</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <!-- <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">Main2Activity</string>-->
+
+
+    <string name="hint_user_id">User ID</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="get_custom_token">Get Token</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_account">Create Account</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="verify_email">Verify Email</string>
+    <string name="desc_firebase_lockup">Firebase logo and name</string>
+    <string name="auth_failed">Authentication failed</string>
+    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="emailpassword_title_text">Email and Password</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+    <string name="firebase_user_management">Firebase User Management</string>
+    <string name="loading">Loading…</string>
+    <string name="title_activity_chooser">ChooserActivity</string>
+
+
+
+    <string name="label_emailpassword">Email/Password Authentication</string>
+    <string name="desc_emailpassword">Use an email and password to sign in</string>
+
+
+
+
 </resources>

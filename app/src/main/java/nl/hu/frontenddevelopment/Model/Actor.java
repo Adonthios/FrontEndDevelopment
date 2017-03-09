@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Actor extends BaseModel {
     public Role role;
+
     public List<Person> personList;
 
     public Actor(Role role, List<Person> personList) {

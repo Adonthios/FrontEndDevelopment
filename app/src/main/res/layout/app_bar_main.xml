@@ -28,15 +28,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_project_new"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@drawable/ic_create_new_folder_white_24dp" />
-
-    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_actor_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,5 +35,14 @@
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/colorPrimary"
         app:srcCompat="@drawable/ic_person_add_white_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_project_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_create_new_folder_white_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>

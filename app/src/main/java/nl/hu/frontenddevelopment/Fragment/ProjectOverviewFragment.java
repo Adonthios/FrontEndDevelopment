@@ -20,44 +20,40 @@ import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.View.ProjectNewActivity;
 
 public class ProjectOverviewFragment extends Fragment implements XmlClickable {
-        private FloatingActionButton fabNewProject;
+    private FloatingActionButton fabNewProject;
 
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-        }
+    public static ProjectOverviewFragment newInstance() {
+        ProjectOverviewFragment fragment = new ProjectOverviewFragment();
+        Bundle args = new Bundle();
+        return fragment;
+    }
 
-        public static ProjectOverviewFragment newInstance() {
-            ProjectOverviewFragment fragment = new ProjectOverviewFragment();
-            Bundle args = new Bundle();
-            return fragment;
-        }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_project_overview, container, false);
+        RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.recyclerview);
+        rv.setHasFixedSize(true);
+        ProjectAdapter adapter = new ProjectAdapter();
+        rv.setAdapter(adapter);
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_project_overview, container, false);
-            RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.recyclerview);
-            rv.setHasFixedSize(true);
-            ProjectAdapter adapter = new ProjectAdapter();
-            rv.setAdapter(adapter);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        rv.setLayoutManager(llm);
 
-            LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-            rv.setLayoutManager(llm);
+    /*    fabNewProject = (FloatingActionButton) rootView.findViewById(R.id.fab_project_new);
+        fabNewProject.setOnClickListener(e -> goToProjectNewActivity());*/
 
-            fabNewProject = (FloatingActionButton) rootView.findViewById(R.id.fab_project_new);
-            fabNewProject.setOnClickListener(e -> goToProjectNewActivity());
+        return rootView;
+    }
 
-            return rootView;
-        }
+    @Override
+    public void myClickMethod(View v) { }
 
-        @Override
-        public void myClickMethod(View v) {
-
-        }
-
-        private void goToProjectNewActivity(){
-            startActivity(new Intent(getActivity(), ProjectNewActivity.class));
-        }
+    private void goToProjectNewActivity(){
+        startActivity(new Intent(getActivity(), ProjectNewActivity.class));
+    }
 }
