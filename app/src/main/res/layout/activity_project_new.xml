@@ -28,13 +28,27 @@
         android:hint="@string/project_new_description"/>
 
     <Button
+        android:id="@+id/button_delete_project"
+        android:layout_margin="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_add_new_project"
+        android:text="@string/text_button_delete_project"
+        android:visibility="gone"
+        android:textColor="#ffffff"
+        android:background="#ff0000" />
+
+    <Button
         android:id="@+id/button_add_new_project"
+        android:layout_margin="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="@string/text_button_add_new_project"
         android:textColor="@color/colorTextPrimary"
         android:background="@color/colorPrimaryLight" />
+
+
 
 
 </RelativeLayout>

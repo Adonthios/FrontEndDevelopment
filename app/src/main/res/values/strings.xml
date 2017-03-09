@@ -63,8 +63,7 @@
     <string name="actor_list_notes">Notes: </string>
     <string name="project_new_title">New project Title</string>
     <string name="text_button_add_new_project">Add new project</string>
-    <string name="title_activity_email_password">Sign in</string>
-
+  
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -74,9 +73,9 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="text_button_delete_project">Delete Project</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <!-- <string name="hello_blank_fragment">Hello blank fragment</string>

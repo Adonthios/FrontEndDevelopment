@@ -18,7 +18,7 @@ public class ProjectOverviewActivity extends BaseActivity {
         setOverviewFragment();
     }
 
-    public void setDetailFragment(){
+    public void setDetailProject(){
         View v = findViewById(R.id.contentFragment);
         String tag = v.getTag().toString();
         if(tag.equals("tablet")){
@@ -29,5 +29,9 @@ public class ProjectOverviewActivity extends BaseActivity {
     }
     public void setOverviewFragment(){
         getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ProjectOverviewFragment.newInstance()).commitAllowingStateLoss();
+    }
+    public void editProject(String title, String description, String key){
+        startActivity(new Intent(this,ProjectNewActivity.class).putExtra("project_title", title)
+                .putExtra("project_description", description).putExtra("project_key", key));
     }
 }
