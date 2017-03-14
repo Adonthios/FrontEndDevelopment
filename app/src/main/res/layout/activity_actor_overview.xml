@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="nl.hu.frontenddevelopment.View.ActorOverviewActivity">
 
+    <FrameLayout
+        android:id="@+id/contentFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
+
 </android.support.constraint.ConstraintLayout>

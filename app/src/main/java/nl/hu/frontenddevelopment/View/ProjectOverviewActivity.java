@@ -3,9 +3,8 @@ package nl.hu.frontenddevelopment.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
-import nl.hu.frontenddevelopment.Fragment.ProjectDetailFragment;
+import nl.hu.frontenddevelopment.Fragment.ActorOverviewFragment;
 import nl.hu.frontenddevelopment.Fragment.ProjectOverviewFragment;
 import nl.hu.frontenddevelopment.R;
 
@@ -22,9 +21,9 @@ public class ProjectOverviewActivity extends BaseActivity {
         View v = findViewById(R.id.contentFragment);
         String tag = v.getTag().toString();
         if(tag.equals("tablet")){
-            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ProjectDetailFragment.newInstance()).commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ActorOverviewFragment.newInstance()).commitAllowingStateLoss();
         }else {
-            startActivity(new Intent(this, ProjectDetailActivity.class));
+            startActivity(new Intent(this, ActorOverviewActivity.class));
         }
     }
     public void setOverviewFragment(){
@@ -34,4 +33,6 @@ public class ProjectOverviewActivity extends BaseActivity {
         startActivity(new Intent(this,ProjectNewActivity.class).putExtra("project_title", title)
                 .putExtra("project_description", description).putExtra("project_key", key));
     }
+
+    
 }

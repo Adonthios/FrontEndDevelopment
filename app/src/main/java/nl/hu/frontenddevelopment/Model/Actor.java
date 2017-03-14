@@ -8,30 +8,26 @@ import java.util.List;
  */
 
 public class Actor extends BaseModel {
-    public Role role;
-
+    public String title,description;
     public List<Person> personList;
 
-    public Actor(Role role, List<Person> personList) {
+    public Actor(){
         super();
-        this.role = role;
+    }
+
+    public Actor(String title, String description, List<Person> personList) {
+        super();
+        this.title = title;
+        this.description = description;
         this.personList = personList;
     }
 
-    public Actor(Role role) {
-        super();
-        this.role = role;
-        this.personList = new ArrayList<Person>();
-    }
+    public void setTitle(String title) {this.title =title;}
+    public String getTitle(){ return title; }
 
-    public Role getRole() {
-        return role;
-    }
+    public String getDescription(){ return description; }
 
-    public void setRole(Role role) {
-        super.Update();
-        this.role = role;
-    }
+    public void setDescription(String description) {this.description = description;}
 
     public List<Person> getPersonList() {
         return personList;
@@ -57,14 +53,14 @@ public class Actor extends BaseModel {
 
         Actor actor = (Actor) o;
 
-        if (role != null ? !role.equals(actor.role) : actor.role != null) return false;
         return personList != null ? personList.equals(actor.personList) : actor.personList == null;
     }
 
     @Override
     public int hashCode() {
-        int result = role != null ? role.hashCode() : 0;
-        result = 31 * result + (personList != null ? personList.hashCode() : 0);
+        int result;
+        result = 31 *(personList != null ? personList.hashCode() : 0);
         return result;
     }
+
 }

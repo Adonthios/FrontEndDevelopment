@@ -21,7 +21,6 @@ import nl.hu.frontenddevelopment.View.ProjectNewActivity;
 
 public class ProjectOverviewFragment extends Fragment implements XmlClickable {
     private FloatingActionButton fabNewProject;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +43,8 @@ public class ProjectOverviewFragment extends Fragment implements XmlClickable {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
 
-    /*    fabNewProject = (FloatingActionButton) rootView.findViewById(R.id.fab_project_new);
-        fabNewProject.setOnClickListener(e -> goToProjectNewActivity());*/
+        fabNewProject = (FloatingActionButton) rootView.findViewById(R.id.fab_project_new);
+        fabNewProject.setOnClickListener(e -> goToProjectNewActivity());
 
         return rootView;
     }
