@@ -72,7 +72,17 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setContentView(R.layout.activity_main);
+
+
+        // Checks if user is signed in
+        if(isUserSignedIn()) {
+            startNextActivity();
+        } {
+            // Go to sign in page
+        }
+
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -310,17 +320,28 @@ public class MainActivity extends BaseActivity {
 
     // Show or hide the fab at the home page
     private void toggleFabs() {
-        if (navItemIndex == 0) {
+       /* if (navItemIndex == 0) {
             fab_button.show();
         } else {
             fab_button.hide();
         }
-
+*/
         /*if (navItemIndex == 1) {
             fab_actor_new.show();
         } else {
             fab_actor_new.hide();
         }*/
+    }
+
+
+    protected Boolean isUserSignedIn(){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        return auth.getCurrentUser() != null;
+        //    return firebaseAuth.getCurrentUser();
+    }
+
+    protected void startNextActivity() {
+        startActivity(new Intent(this, ProjectOverviewActivity.class));
     }
 
 
