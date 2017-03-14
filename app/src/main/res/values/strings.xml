@@ -63,7 +63,7 @@
     <string name="actor_list_notes">Notes: </string>
     <string name="project_new_title">New project Title</string>
     <string name="text_button_add_new_project">Add new project</string>
-  
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -101,11 +101,8 @@
     <string name="title_activity_chooser">ChooserActivity</string>
 
 
-
     <string name="label_emailpassword">Email/Password Authentication</string>
     <string name="desc_emailpassword">Use an email and password to sign in</string>
-
-
 
 
 </resources>

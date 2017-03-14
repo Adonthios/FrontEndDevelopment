@@ -1,50 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/text_padding">
 
     <ImageView
         android:id="@+id/user_profile_pic"
         android:src="@drawable/bg_circle"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="15dp"
-        android:padding="@dimen/text_padding"/>
-    <LinearLayout
-        android:orientation="vertical"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/actor_name"
+        android:text="ActorName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/text_padding">
-
-        <TextView
-            android:id="@+id/actor_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/actor_list_name"
-            android:textSize="@dimen/text_size"/>
-
-        <TextView
-            android:id="@+id/actor_functie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/actor_list_function"
-            android:textSize="@dimen/text_size"/>
-
-        <TextView
-            android:id="@+id/actor_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/actor_list_email"
-            android:textSize="@dimen/text_size"
-            />
-        <TextView
-            android:id="@+id/actor_aantekening"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/actor_list_notes"
-            android:textSize="@dimen/text_size"/>
-
-    </LinearLayout>
+        android:layout_height="wrap_content" />
 </LinearLayout>

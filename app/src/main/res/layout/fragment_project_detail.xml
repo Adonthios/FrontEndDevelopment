@@ -4,31 +4,10 @@
     android:layout_height="match_parent"
     tools:context="nl.hu.frontenddevelopment.Fragment.ProjectDetailFragment">
 
-        <TextView
-            android:id="@+id/project_detail_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="@dimen/text_padding"
-            android:textSize="@dimen/titel_size"
-            android:text="@string/project_detail_name"
-            android:textColor="@color/colorTextPrimary"/>
-
-        <TextView
-            android:id="@+id/project_detail_description"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_below="@id/project_detail_title"
-            android:padding="@dimen/text_padding"
-            android:textColor="@color/colorTextSecondary"
-            android:text="@string/default_description" />
-
-    <ListView
-        android:id="@+id/actor_list"
-        android:layout_below="@id/project_detail_description"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </ListView>
+        android:layout_height="wrap_content"
+        />
 
 </RelativeLayout>
