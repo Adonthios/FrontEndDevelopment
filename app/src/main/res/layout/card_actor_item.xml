@@ -16,7 +16,7 @@
         card_view:cardCornerRadius="4dp"
         card_view:cardUseCompatPadding="true"
         android:padding="5dp"
-        android:id="@+id/cardview"
+        android:id="@+id/cardview_actor"
         >
         <ImageView
             android:id="@+id/actor_icon"
@@ -32,7 +32,7 @@
             android:paddingLeft="50dp">
 
             <TextView
-                android:id="@+id/project_title"
+                android:id="@+id/actor_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
@@ -41,7 +41,7 @@
                 />
 
             <TextView
-                android:id="@+id/project_description"
+                android:id="@+id/actor_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorTextSecondary"
@@ -59,15 +59,5 @@
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_project_edit"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_width="@dimen/fab_size"
-        android:layout_height="@dimen/fab_size"
-        android:layout_gravity="bottom|end"
-        android:scaleType="center"
-        app:backgroundTint="@color/colorAccent"
-        app:srcCompat="@android:drawable/ic_input_add" />
 
 </LinearLayout>
