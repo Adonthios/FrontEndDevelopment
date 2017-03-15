@@ -1,5 +1,6 @@
 package nl.hu.frontenddevelopment.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -145,6 +146,8 @@ public class EmailPasswordActivity extends BaseActivity implements
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(EmailPasswordActivity.this, R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
+                        } else {
+                            goBackToMainActivity();
                         }
 
                         // [START_EXCLUDE]
@@ -156,6 +159,10 @@ public class EmailPasswordActivity extends BaseActivity implements
                     }
                 });
         // [END sign_in_with_email]
+    }
+
+    private void goBackToMainActivity() {
+        startActivity(new Intent(this, ProjectOverviewActivity.class));
     }
 
     private void signOut() {

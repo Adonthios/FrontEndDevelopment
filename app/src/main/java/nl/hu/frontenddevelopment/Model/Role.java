@@ -5,9 +5,6 @@ package nl.hu.frontenddevelopment.Model;
  */
 
 public class Role extends BaseModel {
-
-    //TODO: Deze shit uit de database trekken en in een RoleService zetten :D
-
     public String name;
     public String description;
 

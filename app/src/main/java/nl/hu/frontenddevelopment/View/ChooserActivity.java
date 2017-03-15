@@ -1,4 +1,5 @@
 package nl.hu.frontenddevelopment.View;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,20 +15,16 @@ import android.widget.TextView;
 
 import nl.hu.frontenddevelopment.R;
 
-/**
- * Simple list-based Activity to redirect to one of the other Activities. This Activity does not
- * contain any useful code related to Firebase Authentication. You may want to start with
- * one of the following Files:
- *     {@link EmailPasswordActivity}
- */
 public class ChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final Class[] CLASSES = new Class[]{
             EmailPasswordActivity.class,
+            GoogleSignInActivity.class,
     };
 
     private static final int[] DESCRIPTION_IDS = new int[] {
             R.string.desc_emailpassword,
+            R.string.desc_google_sign_in,
     };
 
     @Override
@@ -35,7 +32,6 @@ public class ChooserActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chooser);
 
-        // Set up ListView and Adapter
         ListView listView = (ListView) findViewById(R.id.list_view);
 
         MyArrayAdapter adapter = new MyArrayAdapter(this, android.R.layout.simple_list_item_2, CLASSES);
@@ -67,15 +63,12 @@ public class ChooserActivity extends AppCompatActivity implements AdapterView.On
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view = convertView;
-
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(android.R.layout.simple_list_item_2, null);
             }
-
             ((TextView) view.findViewById(android.R.id.text1)).setText(mClasses[position].getSimpleName());
             ((TextView) view.findViewById(android.R.id.text2)).setText(mDescriptionIds[position]);
-
             return view;
         }
 

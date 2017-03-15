@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,13 +30,10 @@ import com.google.firebase.auth.FirebaseUser;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
 
-// TODO: Rename the Fragments to our way
-// TODO: Make the HomeFragment the default one to show the projects
-public class MainActivity extends BaseActivity {
-    // TODO: Kunnen in en uit-loggen :P
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     // Firebase instance variables
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
@@ -46,7 +45,6 @@ public class MainActivity extends BaseActivity {
     // FloatingActionButtons
     private FloatingActionButton fab_button;
 
-    // TODO: Dit inladen van het Google+ account??
     // Set the URL's to load the navigation header background and profile image
     private static final String urlNavHeaderBg = "http://www.gettingsmart.com/wp-content/uploads/2016/02/meeting-project-management-feature-964x670.jpg";
     private static final String urlProfileImg = "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAADrAAAAJDcyNTEyOTkyLTkxZGYtNDMyNS1iZmYxLTM5ZWNiODcyNDI4Ng.jpg";
@@ -74,14 +72,20 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
 
-        // Checks if user is signed in
-        if(isUserSignedIn()) {
-            startNextActivity();
-        } {
-            // Go to sign in page
-        }
-
-
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    startNextActivity();
+                } else {
+                    // User is signed out
+                    startLoginChooserActivity();
+                }
+            }
+        };
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -116,52 +120,25 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    /***
-     * Load navigation menu header information
-     * like background image, profile image
-     * name, website, notifications action view (dot)
-     */
     private void loadNavHeader() {
-        // name, website
         txtName.setText("AT-App");
         txtWebsite.setText("Test@website.com");
 
-        // Load the header background
+        // Load the header background and the profile image
         Glide.with(this).load(urlNavHeaderBg).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imgNavHeaderBg);
-
-        // Load the profile image
         Glide.with(this).load(urlProfileImg).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
-
-        // Display the dot next to the Projects tab
-    //    navigationView.getMenu().getItem(0).setActionView(R.layout.menu_dot);
     }
 
-    /***
-     * Returns respected fragment that user
-     * selected from navigation menu
-     */
     private void loadHomeFragment() {
-        // Selecting appropriate nav menu item
         selectNavMenu();
-
-        // Set toolbar title
         setToolbarTitle();
 
-        // If user select the current navigation menu again, don't do anything
-        // Just close the navigation drawer
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
             drawer.closeDrawers();
-
-            // Show or hide the fab buttons
-            toggleFabs();
             return;
         }
-        Intent intent = getHomeActivity();
-        // Sometimes, when fragment has huge data, screen seems hanging
-        // when switching between navigation menus
-        // So using runnable, the fragment is loaded with cross fade effect
-        // This effect can be seen in GMail app
 
+        Intent intent = getHomeActivity();
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
@@ -174,9 +151,6 @@ public class MainActivity extends BaseActivity {
         if (mPendingRunnable != null) {
             mHandler.post(mPendingRunnable);
         }
-
-        // Show or hide the fab buttons
-        toggleFabs();
 
         // Closing drawer on item click
         drawer.closeDrawers();
@@ -283,7 +257,6 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        // TODO: Log the user out
         // Noinspection SimplifiableIfStatement
         if (id == R.id.nav_account_signout) {
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
@@ -295,10 +268,8 @@ public class MainActivity extends BaseActivity {
     // Define all the Buttons
     private void setAllTheButtons(){
         fab_button = (FloatingActionButton) findViewById(R.id.fab_project_new);
-    //    fab_actor_new = (FloatingActionButton) findViewById(R.id.fab_actor_new);
     }
 
-    // TODO: Actie toevoegen om een nieuw project te maken
     // Set all the actions to the buttons
     private void setAllTheButtonActions(){
         // New project action
@@ -308,41 +279,39 @@ public class MainActivity extends BaseActivity {
             Snackbar.make(view, "New project page", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
-
-        /*// New actor action
-        fab_actor_new.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            Snackbar.make(view, "New actor page", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });*/
     }
 
-    // Show or hide the fab at the home page
-    private void toggleFabs() {
-       /* if (navItemIndex == 0) {
-            fab_button.show();
-        } else {
-            fab_button.hide();
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.sign_out_button) {
+            signOut();
         }
-*/
-        /*if (navItemIndex == 1) {
-            fab_actor_new.show();
-        } else {
-            fab_actor_new.hide();
-        }*/
     }
 
-
-    protected Boolean isUserSignedIn(){
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        return auth.getCurrentUser() != null;
-        //    return firebaseAuth.getCurrentUser();
+    private void signOut() {
+        mAuth.signOut();
     }
 
     protected void startNextActivity() {
         startActivity(new Intent(this, ProjectOverviewActivity.class));
     }
 
+    protected void startLoginChooserActivity() {
+        startActivity(new Intent(this, ChooserActivity.class));
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
 }
