@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,9 +64,9 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
         mFirebaseDatabaseReference.child("projects").child(selectedProject).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Actor actor = dataSnapshot.getValue(Actor.class);
-                actor.setKey(dataSnapshot.getKey());
-                actors.add(actor);
+                //Log.d("ActorAdaptor = ", dataSnapshot.getValue().toString());
+                //actor.setKey(dataSnapshot.getKey());
+                //actors.add(actor);
                 notifyDataSetChanged();
             }
 

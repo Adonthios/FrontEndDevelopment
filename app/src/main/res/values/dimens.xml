@@ -24,5 +24,7 @@
     <dimen name="icon_bottom_margin">24dp</dimen>
     <dimen name="title_bottom_margin">10dp</dimen>
     <dimen name="field_width_standard">160dp</dimen>
+    <dimen name="min_et_width">100dp</dimen>
+    <dimen name="button_margin">20dp</dimen>
 
 </resources>

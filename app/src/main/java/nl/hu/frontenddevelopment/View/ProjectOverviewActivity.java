@@ -103,13 +103,13 @@ public class ProjectOverviewActivity extends BaseActivity implements View.OnClic
         }
     }
 
-    public void setDetailProject(){
+    public void setDetailProject(String projectId){
         View v = findViewById(R.id.contentFragment);
         String tag = v.getTag().toString();
         if(tag.equals("tablet")){
-            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ActorOverviewFragment.newInstance()).commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ActorOverviewFragment.newInstance(projectId)).commitAllowingStateLoss();
         }else {
-            startActivity(new Intent(this, ActorOverviewActivity.class));
+            startActivity(new Intent(this, ActorOverviewActivity.class).putExtra("project_id", projectId));
         }
     }
     public void setOverviewFragment(){

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
         public void onClick(View v) {
             int pos = getAdapterPosition();
             Project project = projects.get(pos);
-            ((ProjectOverviewActivity) context).setDetailProject();
+            ((ProjectOverviewActivity) context).setDetailProject(project.getKey());
         }
 
         private void editProject(){
@@ -67,6 +68,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Project project = dataSnapshot.getValue(Project.class);
                 project.setKey(dataSnapshot.getKey());
+                Log.d("KEY VALUE = ",dataSnapshot.getKey() );
                 projects.add(project);
                 notifyDataSetChanged();
             }

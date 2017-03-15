@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="30dp"
+    tools:context="nl.hu.frontenddevelopment.Fragment.ActorNewFragment">
+
+    <ImageView
+        android:id="@+id/actor_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:layout_toLeftOf="@+id/new_actor_title"
+        app:srcCompat="@drawable/ic_group_black_24dp"/>
+
+    <EditText
+        android:id="@+id/new_actor_title"
+        android:hint="Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/min_et_width"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:id="@+id/new_actor_description"
+        android:hint="Description"
+        android:layout_below="@+id/new_actor_title"
+        android:layout_width="wrap_content"
+        android:minWidth="@dimen/min_et_width"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/button_add_new_actor"
+        android:text="@string/button_add_new_actor"
+        android:background="@color/colorPrimaryLight"
+        android:textColor="@color/colorTextPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/button_margin"/>
+
+</RelativeLayout>
