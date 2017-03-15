@@ -1,3 +1,4 @@
+/*
 package nl.hu.frontenddevelopment.View;
 
 import android.content.Intent;
@@ -54,7 +55,11 @@ public class SignInActivity extends AppCompatActivity implements
                 .requestEmail()
                 .build();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .enableAutoManage(this */
+/* FragmentActivity *//*
+, this */
+/* OnConnectionFailedListener *//*
+)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -126,3 +131,4 @@ public class SignInActivity extends AppCompatActivity implements
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 }
+*/

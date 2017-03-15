@@ -1,3 +1,4 @@
+/*
 package nl.hu.frontenddevelopment.View;
 
 import android.content.Intent;
@@ -35,7 +36,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    private NavigationView navigationView;
+   */
+/* private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
     private ImageView imgNavHeaderBg, imgProfile;
@@ -47,23 +49,30 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     // Set the URL's to load the navigation header background and profile image
     private static final String urlNavHeaderBg = "http://www.gettingsmart.com/wp-content/uploads/2016/02/meeting-project-management-feature-964x670.jpg";
-    private static final String urlProfileImg = "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAADrAAAAJDcyNTEyOTkyLTkxZGYtNDMyNS1iZmYxLTM5ZWNiODcyNDI4Ng.jpg";
+    private static final String urlProfileImg = "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAADrAAAAJDcyNTEyOTkyLTkxZGYtNDMyNS1iZmYxLTM5ZWNiODcyNDI4Ng.jpg";*//*
+
 
     // Set the index to identify current nav menu item
-    public static int navItemIndex = 0;
+ */
+/*   public static int navItemIndex = 0;
 
     // Set the tags for the header bar title
     private static final String TAG_PROJECTS = "projects";
     private static final String TAG_PROJECT_ADD = "add project";
     private static final String TAG_SIGNOUT = "sign out";
-    public static String CURRENT_TAG = TAG_PROJECTS;
+    public static String CURRENT_TAG = TAG_PROJECTS;*//*
+
 
     // toolbar titles respected to selected nav menu item
-    private String[] activityTitles;
+    */
+/*private String[] activityTitles;*//*
+
 
     // Flag to load home fragment when user presses back key
     private boolean shouldLoadHomeFragOnBackPress = true;
-    private Handler mHandler;
+    */
+/*private Handler mHandler;*//*
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -71,7 +80,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
+  */
+/*      mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -84,33 +94,45 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     startLoginChooserActivity();
                 }
             }
-        };
+        };*//*
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        mHandler = new Handler();
+        */
+/*toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*//*
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+
+       */
+/* drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);*//*
+
 
         setAllTheButtons();
 
-        // Navigation view header
+*/
+/*        // Navigation view header
         navHeader = navigationView.getHeaderView(0);
         txtName = (TextView) navHeader.findViewById(R.id.name);
         txtWebsite = (TextView) navHeader.findViewById(R.id.website);
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
-        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
+        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);*//*
+
 
         // Load toolbar titles from string resources
-        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+        */
+/*activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);*//*
+
 
         setAllTheButtonActions();
 
         // Load the navigation menu header data
-        loadNavHeader();
-        setUpNavigationView();
+        */
+/*loadNavHeader();*//*
+
+        */
+/*setUpNavigationView();*//*
+
 
         if (savedInstanceState == null) {
             navItemIndex = 0;
@@ -119,16 +141,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void loadNavHeader() {
+*/
+/*    private void loadNavHeader() {
         txtName.setText("AT-App");
         txtWebsite.setText("Test@website.com");
 
         // Load the header background and the profile image
         Glide.with(this).load(urlNavHeaderBg).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imgNavHeaderBg);
         Glide.with(this).load(urlProfileImg).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
-    }
+    }*//*
 
-    private void loadHomeFragment() {
+
+   */
+/* private void loadHomeFragment() {
         selectNavMenu();
         setToolbarTitle();
 
@@ -156,10 +181,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         // Refresh toolbar menu
         invalidateOptionsMenu();
-    }
+    }*//*
+
 
     // TODO: rename the fragments the way we want them to be
-    private Intent getHomeActivity() {
+    */
+/*private Intent getHomeActivity() {
         switch (navItemIndex) {
             case 0:
                 return new Intent(this, ProjectOverviewActivity.class);
@@ -168,17 +195,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             default:
                 return new Intent(this, ProjectOverviewActivity.class);
         }
-    }
+    }*//*
 
-    private void setToolbarTitle() {
+
+  */
+/*  private void setToolbarTitle() {
         getSupportActionBar().setTitle(activityTitles[navItemIndex]);
     }
 
     private void selectNavMenu() {
         navigationView.getMenu().getItem(navItemIndex).setChecked(true);
-    }
+    }*//*
 
-    private void setUpNavigationView() {
+
+    */
+/*private void setUpNavigationView() {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -224,9 +255,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         drawer.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-    }
+    }*//*
 
-    @Override
+
+    */
+/*@Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawers();
@@ -241,7 +274,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         }
         super.onBackPressed();
-    }
+    }*//*
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -313,4 +347,4 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
-}
+}*/
