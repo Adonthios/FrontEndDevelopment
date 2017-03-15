@@ -1,9 +1,7 @@
 
 package nl.hu.frontenddevelopment.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -12,14 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import java.util.ArrayList;
+
 import nl.hu.frontenddevelopment.Controller.ProjectAdapter;
-import nl.hu.frontenddevelopment.Controller.XmlClickable;
-import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.View.ProjectNewActivity;
 
-public class ProjectOverviewFragment extends Fragment implements XmlClickable {
+public class ProjectOverviewFragment extends Fragment {
     private FloatingActionButton fabNewProject;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,9 +44,6 @@ public class ProjectOverviewFragment extends Fragment implements XmlClickable {
 
         return rootView;
     }
-
-    @Override
-    public void myClickMethod(View v) { }
 
     private void goToProjectNewActivity(){
         startActivity(new Intent(getActivity(), ProjectNewActivity.class));

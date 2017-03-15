@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".View.MainActivity"
+            android:name=".View.ProjectOverviewActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,8 +26,7 @@
         <activity android:name=".View.ChooserActivity" />
         <activity android:name=".View.EmailPasswordActivity" />
         <activity android:name=".View.SignInActivity" />
-        <activity android:name=".View.ProjectOverviewActivity" />
-        <activity android:name=".View.ProjectDetailActivity" />
+
         <activity android:name=".View.ProjectNewActivity" />
         <activity android:name=".View.ActorOverviewActivity" />
         <activity
