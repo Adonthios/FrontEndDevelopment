@@ -68,9 +68,7 @@ public class ProjectOverviewActivity extends BaseActivity implements View.OnClic
         };
 
         // Init layout
-        setContentView(R.layout.fragment_project_overview);
         initLayout();
-        setContentView(R.layout.activity_project_overview);
     }
 
     @Override
@@ -109,7 +107,7 @@ public class ProjectOverviewActivity extends BaseActivity implements View.OnClic
         if(tag.equals("tablet")){
             getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ActorOverviewFragment.newInstance(projectId)).commitAllowingStateLoss();
         }else {
-            startActivity(new Intent(this, ActorOverviewActivity.class).putExtra("project_id", projectId));
+            startActivity(new Intent(this, ActorActivity.class).putExtra("project_id", projectId));
         }
     }
     public void setOverviewFragment(){

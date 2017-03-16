@@ -1,9 +1,7 @@
 package nl.hu.frontenddevelopment.Fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +14,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import nl.hu.frontenddevelopment.Model.Actor;
 import nl.hu.frontenddevelopment.R;
-import nl.hu.frontenddevelopment.View.ActorOverviewActivity;
-import nl.hu.frontenddevelopment.View.ProjectOverviewActivity;
 
 
 public class ActorNewFragment extends Fragment {

@@ -27,7 +27,7 @@
         <activity android:name=".View.EmailPasswordActivity" />
 
         <activity android:name=".View.ProjectNewActivity" />
-        <activity android:name=".View.ActorOverviewActivity" />
+        <activity android:name=".View.ActorActivity" />
         <activity
             android:name=".View.GoogleSignInActivity"
             android:label="@string/title_activity_google_sign_in"
