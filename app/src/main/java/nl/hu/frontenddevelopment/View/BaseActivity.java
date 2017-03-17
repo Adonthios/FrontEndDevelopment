@@ -2,6 +2,7 @@
 package nl.hu.frontenddevelopment.View;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 
@@ -18,7 +19,6 @@ public class BaseActivity extends AppCompatActivity {
             mProgressDialog.setMessage(getString(R.string.loading));
             mProgressDialog.setIndeterminate(true);
         }
-
         mProgressDialog.show();
     }
 
@@ -34,6 +34,9 @@ public class BaseActivity extends AppCompatActivity {
         hideProgressDialog();
     }
 
+    protected void goToHomeActivity() {
+        startActivity(new Intent(this, ProjectActivity.class));
+    }
 }
 /*
 import android.content.Context;
@@ -325,11 +328,11 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.O
     private Intent getHomeActivity() {
         switch (navItemIndex) {
             case 0:
-                return new Intent(this, ProjectOverviewActivity.class);
+                return new Intent(this, ProjectActivity.class);
             case 1:
                 return new Intent(this, ProjectNewActivity.class);
             default:
-                return new Intent(this, ProjectOverviewActivity.class);
+                return new Intent(this, ProjectActivity.class);
         }
     }
 

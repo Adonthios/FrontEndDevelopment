@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
-import nl.hu.frontenddevelopment.View.ProjectOverviewActivity;
+import nl.hu.frontenddevelopment.View.ProjectActivity;
 
 /**
  * Created by Lars on 2/15/2017.
@@ -51,13 +51,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
         public void onClick(View v) {
             int pos = getAdapterPosition();
             Project project = projects.get(pos);
-            ((ProjectOverviewActivity) context).setDetailProject(project.getKey());
+            ((ProjectActivity) context).setDetailProject(project.getKey());
         }
 
         private void editProject(){
             int pos = getAdapterPosition();
             Project project = projects.get(pos);
-            ((ProjectOverviewActivity) context).editProject(project.getTitle(),project.getDescription(),project.getKey());
+            ((ProjectActivity) context).editProject(project.getTitle(),project.getDescription(),project.getKey());
         }
     }
 

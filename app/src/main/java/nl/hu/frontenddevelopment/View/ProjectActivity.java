@@ -12,6 +12,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,18 +21,20 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 import nl.hu.frontenddevelopment.Fragment.ActorOverviewFragment;
 import nl.hu.frontenddevelopment.Fragment.ProjectOverviewFragment;
+import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
 
-public class ProjectOverviewActivity extends BaseActivity implements View.OnClickListener {
+public class ProjectActivity extends BaseActivity implements View.OnClickListener {
     // Firebase instance variables
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    /* Start Cringe Drawer Menu */
+    /* DEFAULT LAYOUT */
     private Handler mHandler;
     private NavigationView navigationView;
     private DrawerLayout drawer;
@@ -47,7 +51,7 @@ public class ProjectOverviewActivity extends BaseActivity implements View.OnClic
     private static final String TAG_PROJECT_ADD = "add project";
     private static final String TAG_SIGNOUT = "sign out";
     public static String CURRENT_TAG = TAG_PROJECTS;
-    /* End Cringe Drawer Menu */
+    /* DEFAULT LAYOUT */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,39 +70,8 @@ public class ProjectOverviewActivity extends BaseActivity implements View.OnClic
                 }
             }
         };
-
         // Init layout
         initLayout();
-    }
-
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.sign_out_button) {
-            signOut();
-        }
-    }
-
-    private void signOut() {
-        mAuth.signOut();
-    }
-
-    protected void startLoginChooserActivity() {
-        startActivity(new Intent(this, ChooserActivity.class));
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
     }
 
     public void setDetailProject(String projectId){
@@ -110,13 +83,19 @@ public class ProjectOverviewActivity extends BaseActivity implements View.OnClic
             startActivity(new Intent(this, ActorActivity.class).putExtra("project_id", projectId));
         }
     }
+
     public void setOverviewFragment(){
         getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ProjectOverviewFragment.newInstance()).commitAllowingStateLoss();
     }
+
     public void editProject(String title, String description, String key){
         startActivity(new Intent(this,ProjectNewActivity.class).putExtra("project_title", title).putExtra("project_description", description).putExtra("project_key", key));
     }
 
+    /***
+     * START
+     * DEFAULT LAYOUT
+     */
     private void initLayout() {
         mHandler = new Handler();
         initToolbar();
@@ -124,7 +103,6 @@ public class ProjectOverviewActivity extends BaseActivity implements View.OnClic
 
         loadNavHeader();
         setUpNavigationView();
-
     }
 
     private void initToolbar() {
@@ -236,14 +214,14 @@ public class ProjectOverviewActivity extends BaseActivity implements View.OnClic
     private Intent getHomeActivity() {
         switch (navItemIndex) {
             case 0:
-                return new Intent(this, ProjectOverviewActivity.class);
+                return new Intent(this, ProjectActivity.class);
             case 1:
                 return new Intent(this, ProjectNewActivity.class);
             case 2:
                 signOut();
-                return new Intent(this, ProjectOverviewActivity.class);
+                return new Intent(this, ProjectActivity.class);
             default:
-                return new Intent(this, ProjectOverviewActivity.class);
+                return new Intent(this, ProjectActivity.class);
         }
     }
 
@@ -261,4 +239,38 @@ public class ProjectOverviewActivity extends BaseActivity implements View.OnClic
         }
         super.onBackPressed();
     }
+
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.sign_out_button) {
+            signOut();
+        }
+    }
+
+    private void signOut() {
+        mAuth.signOut();
+    }
+
+    protected void startLoginChooserActivity() {
+        startActivity(new Intent(this, ChooserActivity.class));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+    /***
+     * END
+     * DEFAULT LAYOUT
+     */
 }

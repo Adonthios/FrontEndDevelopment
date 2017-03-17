@@ -147,7 +147,7 @@ public class EmailPasswordActivity extends BaseActivity implements
                             Toast.makeText(EmailPasswordActivity.this, R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            goBackToMainActivity();
+                            goToHomeActivity();
                         }
 
                         // [START_EXCLUDE]
@@ -159,10 +159,6 @@ public class EmailPasswordActivity extends BaseActivity implements
                     }
                 });
         // [END sign_in_with_email]
-    }
-
-    private void goBackToMainActivity() {
-        startActivity(new Intent(this, ProjectOverviewActivity.class));
     }
 
     private void signOut() {

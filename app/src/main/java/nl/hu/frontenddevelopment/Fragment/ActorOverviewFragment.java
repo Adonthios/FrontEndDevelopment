@@ -1,6 +1,7 @@
 package nl.hu.frontenddevelopment.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import nl.hu.frontenddevelopment.Controller.ActorAdapter;
 import nl.hu.frontenddevelopment.Controller.ProjectAdapter;
 import nl.hu.frontenddevelopment.Model.Actor;
 import nl.hu.frontenddevelopment.R;
+import nl.hu.frontenddevelopment.View.ProjectNewActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,13 +35,13 @@ public class ActorOverviewFragment extends Fragment {
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         fabNewActor = (FloatingActionButton) getView().findViewById(R.id.fab_project_edit);
-        // TODO: 3/15/2017 start ActorNewFragment 
-        //fabNewActor.setOnClickListener();
+
+        // TODO: 3/15/2017 start ActorNewFragment
+        fabNewActor.setOnClickListener(e -> goToActorNewActivity());
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_actor_overview, container, false);
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.recyclerview_actor);
         rv.setHasFixedSize(true);
@@ -50,5 +52,10 @@ public class ActorOverviewFragment extends Fragment {
         rv.setLayoutManager(llm);
 
         return rootView;
+    }
+
+    private void goToActorNewActivity(){
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ProjectOverviewFragment.newInstance()).commitAllowingStateLoss();
+        //startActivity(new Intent(getActivity(), ProjectNewActivity.class));
     }
 }
