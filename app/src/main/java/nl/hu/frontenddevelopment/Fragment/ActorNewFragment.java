@@ -34,21 +34,24 @@ public class ActorNewFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        title = (EditText) getView().findViewById(R.id.new_actor_title);
-        description = (EditText) getView().findViewById(R.id.new_actor_title);
-
-
-        bAddActor = (Button) getActivity().findViewById(R.id.button_add_new_actor);
-        bAddActor.setOnClickListener(e -> addNewActor(getArguments().getString("project_id"), title.getText().toString(),
-                description.getText().toString()));
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_actor_new, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_actor_new, container, false);
+        title = (EditText) rootView.findViewById(R.id.new_actor_title);
+        description = (EditText) rootView.findViewById(R.id.new_actor_title);
+
+
+        bAddActor = (Button) rootView.findViewById(R.id.button_add_new_actor);
+        bAddActor.setOnClickListener(e -> addNewActor(getArguments().getString("project_id"), title.getText().toString(),
+                description.getText().toString()));
+
+        return rootView;
     }
 
     private void addNewActor(String projectId, String title, String description){

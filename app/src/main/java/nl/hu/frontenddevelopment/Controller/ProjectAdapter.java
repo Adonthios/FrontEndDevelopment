@@ -57,7 +57,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
         private void editProject(){
             int pos = getAdapterPosition();
             Project project = projects.get(pos);
-            ((ProjectActivity) context).setEditProject(project.getTitle(),project.getDescription(),project.getKey());
+            ((ProjectActivity) context).setEditProject(project.getKey(),project.getTitle(),project.getDescription());
         }
     }
 

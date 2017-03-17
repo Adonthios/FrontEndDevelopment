@@ -43,19 +43,26 @@ public class ProjectNewFragment extends Fragment {
     }
 
     public ProjectNewFragment() {
-     //   super.onCreate(savedInstanceState);
-     //   setContentView(R.layout.activity_project_new);
-        mDatabase =  FirebaseDatabase.getInstance().getReference();
 
-        // TODO: Vandaag, Omzeten naar Bundle
-        title = (EditText) getView().findViewById(R.id.project_new_title);
-        description = (EditText) getView().findViewById(R.id.project_new_description);
-        bAddProject = (Button) getView().findViewById(R.id.button_add_new_project);
+    }
 
-        if(!isNewProject()){
-            description.setText(getActivity().getIntent().getExtras().getString("project_description"));
-            title.setText(getActivity().getIntent().getExtras().getString("project_title"));
-            bRemoveProject = (Button) getView().findViewById(R.id.button_delete_project);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootview =  inflater.inflate(R.layout.fragment_project_new, container, false);
+        title = (EditText) rootview.findViewById(R.id.project_new_title);
+        description = (EditText) rootview.findViewById(R.id.project_new_description);
+        bAddProject = (Button) rootview.findViewById(R.id.button_add_new_project);
+
+        if(getArguments() != null){
+            description.setText(getArguments().getString("project_description"));
+            title.setText(getArguments().getString("project_title"));
+            bRemoveProject = (Button) rootview.findViewById(R.id.button_delete_project);
             bRemoveProject.setVisibility(View.VISIBLE);
             bAddProject.setText("Save Changes");
             bRemoveProject.setOnClickListener(b -> deleteProject(getArguments().getString("project_id")));
@@ -63,14 +70,8 @@ public class ProjectNewFragment extends Fragment {
         } else {
             bAddProject.setOnClickListener(b -> addNewProject());
         }
-    }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_project_new, container, false);
+        return rootview;
     }
 
     private void addNewProject(){
@@ -90,14 +91,7 @@ public class ProjectNewFragment extends Fragment {
         refreshFragment();
     }
 
-    private boolean isNewProject(){
-        if(getArguments() != null){
-            return false;
-        }
-        return true;
-    }
-
-    private void refreshFragment(){
+     private void refreshFragment(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.detach(this).attach(this).commit();
     }

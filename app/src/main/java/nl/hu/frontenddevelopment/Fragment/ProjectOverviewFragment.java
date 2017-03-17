@@ -23,7 +23,6 @@ public class ProjectOverviewFragment extends Fragment {
 
     public static ProjectOverviewFragment newInstance() {
         ProjectOverviewFragment fragment = new ProjectOverviewFragment();
-        Bundle args = new Bundle();
         return fragment;
     }
 
