@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 import nl.hu.frontenddevelopment.Fragment.ActorOverviewFragment;
+import nl.hu.frontenddevelopment.Fragment.ProjectNewFragment;
 import nl.hu.frontenddevelopment.Fragment.ProjectOverviewFragment;
 import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
@@ -88,8 +89,24 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
         getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ProjectOverviewFragment.newInstance()).commitAllowingStateLoss();
     }
 
-    public void editProject(String title, String description, String key){
-        startActivity(new Intent(this,ProjectNewActivity.class).putExtra("project_title", title).putExtra("project_description", description).putExtra("project_key", key));
+    public void setEditProject(String id, String title, String description){
+        View v = findViewById(R.id.contentFragment);
+        String tag = v.getTag().toString();
+        if(tag.equals("tablet")){
+            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ProjectNewFragment.newInstance(id,title,description)).commitAllowingStateLoss();
+        } else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ProjectNewFragment.newInstance(id,title,description)).commitAllowingStateLoss();
+        }
+    }
+
+    public void setNewProject(){
+        View v = findViewById(R.id.contentFragment);
+        String tag = v.getTag().toString();
+        if(tag.equals("tablet")){
+            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ProjectNewFragment.newInstance()).commitAllowingStateLoss();
+        } else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ProjectNewFragment.newInstance()).commitAllowingStateLoss();
+        }
     }
 
     /***
@@ -214,9 +231,9 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
     private Intent getHomeActivity() {
         switch (navItemIndex) {
             case 0:
-                return new Intent(this, ProjectActivity.class);
+                setNewProject();
             case 1:
-                return new Intent(this, ProjectNewActivity.class);
+                setNewProject();
             case 2:
                 signOut();
                 return new Intent(this, ProjectActivity.class);

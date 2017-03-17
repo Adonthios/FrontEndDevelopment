@@ -1,7 +1,6 @@
 
 package nl.hu.frontenddevelopment.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,7 @@ import android.view.ViewGroup;
 
 import nl.hu.frontenddevelopment.Controller.ProjectAdapter;
 import nl.hu.frontenddevelopment.R;
-import nl.hu.frontenddevelopment.View.ProjectNewActivity;
+import nl.hu.frontenddevelopment.View.ProjectActivity;
 
 public class ProjectOverviewFragment extends Fragment {
     private FloatingActionButton fabNewProject;
@@ -40,12 +39,8 @@ public class ProjectOverviewFragment extends Fragment {
         rv.setLayoutManager(llm);
 
         fabNewProject = (FloatingActionButton) rootView.findViewById(R.id.fab_project_new);
-        fabNewProject.setOnClickListener(e -> goToProjectNewActivity());
+        fabNewProject.setOnClickListener(e -> ((ProjectActivity) getContext()).setNewProject());
 
         return rootView;
-    }
-
-    private void goToProjectNewActivity(){
-        startActivity(new Intent(getActivity(), ProjectNewActivity.class));
     }
 }

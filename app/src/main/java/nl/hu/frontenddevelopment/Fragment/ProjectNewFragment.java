@@ -4,6 +4,7 @@ package nl.hu.frontenddevelopment.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,23 @@ public class ProjectNewFragment extends Fragment {
     private Button bAddProject, bRemoveProject;
     private DatabaseReference mDatabase;
 
+
+    public static ProjectNewFragment newInstance(String projectId, String projectTitle, String projectDescription){
+        ProjectNewFragment fragment = new ProjectNewFragment();
+        Bundle args = new Bundle();
+        args.putString("project_id", projectId);
+        args.putString("project_title", projectTitle);
+        args.putString("project_description", projectDescription);
+        return fragment;
+    }
+
+    public static ProjectNewFragment newInstance(){
+        ProjectNewFragment fragment = new ProjectNewFragment();
+        Bundle args = new Bundle();
+        // TODO: Check of we dit willen hebben.
+        return fragment;
+    }
+
     public ProjectNewFragment() {
      //   super.onCreate(savedInstanceState);
      //   setContentView(R.layout.activity_project_new);
@@ -41,19 +59,13 @@ public class ProjectNewFragment extends Fragment {
             bRemoveProject = (Button) getView().findViewById(R.id.button_delete_project);
             bRemoveProject.setVisibility(View.VISIBLE);
             bAddProject.setText("Save Changes");
-            bRemoveProject.setOnClickListener(b -> deleteProject(getIntent().getExtras().getString("project_key")));
-            bAddProject.setOnClickListener(b -> editProject(getIntent().getExtras().getString("project_key")));
+            bRemoveProject.setOnClickListener(b -> deleteProject(getArguments().getString("project_id")));
+            bAddProject.setOnClickListener(b -> editProject(getArguments().getString("project_id")));
         } else {
             bAddProject.setOnClickListener(b -> addNewProject());
         }
     }
 
-    public static ProjectNewFragment newInstance(){
-        ProjectNewFragment fragment = new ProjectNewFragment();
-        Bundle args = new Bundle();
-        // TODO: Check of we dit willen hebben.
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,24 +77,29 @@ public class ProjectNewFragment extends Fragment {
     private void addNewProject(){
         Project project = new Project(title.getText().toString() ,description.getText().toString());
         mDatabase.child("projects").push().setValue(project);
-        startActivity(new Intent(this,ProjectActivity.class));
+        refreshFragment();
     }
 
     private void deleteProject(String key){
         mDatabase.child("projects").child(key).removeValue();
-        startActivity(new Intent(this,ProjectActivity.class));
+        refreshFragment();
     }
 
     private void editProject(String key){
-        mDatabase.child("projects").child(key).child("title").setValue(((EditText) findViewById(R.id.project_new_title)).getText().toString());
-        mDatabase.child("projects").child(key).child("description").setValue(((EditText) findViewById(R.id.project_new_description)).getText().toString());
-        startActivity(new Intent(this,ProjectActivity.class));
+        mDatabase.child("projects").child(key).child("title").setValue(((EditText) getView().findViewById(R.id.project_new_title)).getText().toString());
+        mDatabase.child("projects").child(key).child("description").setValue(((EditText) getView().findViewById(R.id.project_new_description)).getText().toString());
+        refreshFragment();
     }
 
     private boolean isNewProject(){
-        if(getIntent().getExtras() != null){
+        if(getArguments() != null){
             return false;
         }
         return true;
+    }
+
+    private void refreshFragment(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
     }
 }

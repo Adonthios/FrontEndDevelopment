@@ -12,10 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import nl.hu.frontenddevelopment.Controller.ActorAdapter;
-import nl.hu.frontenddevelopment.Controller.ProjectAdapter;
-import nl.hu.frontenddevelopment.Model.Actor;
 import nl.hu.frontenddevelopment.R;
-import nl.hu.frontenddevelopment.View.ProjectNewActivity;
 
 /**
  * A simple {@link Fragment} subclass.
