@@ -49,6 +49,7 @@ public class ProjectNewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -93,6 +94,11 @@ public class ProjectNewFragment extends Fragment {
 
      private void refreshFragment(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(this).attach(this).commit();
+        ft.detach(this).attach(ProjectOverviewFragment.newInstance()).commit();
+
+         this.getFragmentManager().beginTransaction()
+                 .replace(R.id.contentFragment, ProjectOverviewFragment.newInstance())
+                 .addToBackStack(null)
+                 .commit();
     }
 }
