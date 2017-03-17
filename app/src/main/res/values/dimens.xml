@@ -25,7 +25,7 @@
     <dimen name="title_bottom_margin">10dp</dimen>
     <dimen name="field_width_standard">160dp</dimen>
     <dimen name="min_et_width">100dp</dimen>
-    <dimen name="button_margin">20dp</dimen>
+    <dimen name="button_margin">5dp</dimen>
     <dimen name="toolbar_height">50dp</dimen>
     <dimen name="padding_top_fragment">20dp</dimen>
 

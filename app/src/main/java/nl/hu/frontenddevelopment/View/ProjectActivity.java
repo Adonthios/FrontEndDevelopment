@@ -43,9 +43,6 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
     private ImageView imgNavHeaderBg, imgProfile;
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
-    private FloatingActionButton fab_button;
-    private static final String urlNavHeaderBg = "http://www.gettingsmart.com/wp-content/uploads/2016/02/meeting-project-management-feature-964x670.jpg";
-    private static final String urlProfileImg = "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAADrAAAAJDcyNTEyOTkyLTkxZGYtNDMyNS1iZmYxLTM5ZWNiODcyNDI4Ng.jpg";
     private String[] activityTitles;
     public static int navItemIndex = 0;
     private static final String TAG_PROJECTS = "projects";
@@ -142,12 +139,12 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void loadNavHeader() {
-        txtName.setText("AT-App");
-        txtWebsite.setText("Test@website.com");
+        txtName.setText(R.string.app_name);
+        txtWebsite.setText(R.string.app_name_sub);
 
         // Load the header background and the profile image
-        Glide.with(this).load(urlNavHeaderBg).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imgNavHeaderBg);
-        Glide.with(this).load(urlProfileImg).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
+        Glide.with(this).load(getString(R.string.drawer_header_nav_bg)).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imgNavHeaderBg);
+        Glide.with(this).load(getString(R.string.drawer_header_profile_bg)).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
     }
 
     private void setUpNavigationView() {
@@ -260,7 +257,7 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.sign_out_button) {
+        if (i == R.id.nav_account_signout) {
             signOut();
         }
     }

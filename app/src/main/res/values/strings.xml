@@ -1,7 +1,12 @@
 <resources>
-    <string name="app_name">Front End Development</string>
+    <string name="app_name">AT-App</string>
+    <string name="app_name_sub">Front End Development</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Drawer header -->
+    <string name="drawer_header_nav_bg">http://www.little-bamboo.com/images/blog/research-data.jpg</string>
+    <string name="drawer_header_profile_bg">https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAADrAAAAJDcyNTEyOTkyLTkxZGYtNDMyNS1iZmYxLTM5ZWNiODcyNDI4Ng.jpg</string>
 
     <!-- Drawer section titles -->
     <string name="drawer_section_title_account">Account</string>
@@ -46,10 +51,6 @@
     <string name="button_save">Save</string>
     <string name="button_save_project">Save project</string>
     <string name="button_new_actor">New actor</string>
-
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <!--Actor item list-->
     <string name="actor_list_name">Name: </string>
@@ -103,6 +104,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button_add_new_actor">Add actor to project</string>
-
+    <string name="signed_in">Successfully signed in</string>
 
 </resources>
