@@ -33,13 +33,12 @@ public class ProjectNewFragment extends Fragment {
         args.putString("project_id", projectId);
         args.putString("project_title", projectTitle);
         args.putString("project_description", projectDescription);
+        fragment.setArguments(args);
         return fragment;
     }
 
     public static ProjectNewFragment newInstance(){
         ProjectNewFragment fragment = new ProjectNewFragment();
-        Bundle args = new Bundle();
-        // TODO: Check of we dit willen hebben.
         return fragment;
     }
 
