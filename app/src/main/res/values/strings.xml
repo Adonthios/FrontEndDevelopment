@@ -22,11 +22,11 @@
 
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
-        <item>Home</item>
         <item>Projects</item>
         <item>New Project</item>
-        <item>Item 4</item>
-        <item>Item 5</item>
+        <item>AT-App</item>
+        <item>AT-App</item>
+        <item>AT-App</item>
     </string-array>
 
     <!-- project new -->
