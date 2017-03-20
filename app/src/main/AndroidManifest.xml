@@ -25,7 +25,6 @@
         </activity>
         <activity android:name=".View.ChooserActivity" />
         <activity android:name=".View.EmailPasswordActivity" />
-
         <activity android:name=".View.ActorActivity" />
         <activity
             android:name=".View.GoogleSignInActivity"
