@@ -16,6 +16,6 @@ public class ActorActivity extends AppCompatActivity {
     }
 
     public void setOverviewFragment(String projectId){
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ActorOverviewFragment.newInstance(projectId)).commitAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ActorOverviewFragment.newInstance(projectId)).commit();
     }
 }

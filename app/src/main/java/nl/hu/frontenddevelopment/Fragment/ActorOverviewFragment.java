@@ -18,7 +18,7 @@ import nl.hu.frontenddevelopment.R;
  * A simple {@link Fragment} subclass.
  */
 public class ActorOverviewFragment extends Fragment {
-    FloatingActionButton fabNewActor;
+    private FloatingActionButton fabNewActor;
 
     public static ActorOverviewFragment newInstance(String projectId) {
         ActorOverviewFragment fragment = new ActorOverviewFragment();
@@ -31,10 +31,7 @@ public class ActorOverviewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
-        fabNewActor = (FloatingActionButton) getView().findViewById(R.id.fab_project_edit);
 
-        // TODO: 3/15/2017 start ActorNewFragment
-        fabNewActor.setOnClickListener(e -> goToActorNewActivity());
     }
 
     @Override
@@ -44,15 +41,15 @@ public class ActorOverviewFragment extends Fragment {
         rv.setHasFixedSize(true);
         ActorAdapter adapter = new ActorAdapter(getArguments().getString("project_id"));
         rv.setAdapter(adapter);
-
+        fabNewActor = (FloatingActionButton) rootView.findViewById(R.id.fab_add_actor);
+        fabNewActor.setOnClickListener(e -> setActorActivity());
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
 
         return rootView;
     }
 
-    private void goToActorNewActivity(){
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ProjectOverviewFragment.newInstance()).commitAllowingStateLoss();
-        //startActivity(new Intent(getActivity(), ProjectNewActivity.class));
+    private void setActorActivity(){
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ActorNewFragment.newInstance(getArguments().getString("project_id"))).commit();
     }
 }

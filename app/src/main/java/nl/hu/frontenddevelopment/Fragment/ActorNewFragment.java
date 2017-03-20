@@ -18,6 +18,7 @@ import nl.hu.frontenddevelopment.R;
 
 public class ActorNewFragment extends Fragment {
     private EditText title, description;
+    private String id;
     public Button bAddActor;
     private DatabaseReference mDatabase;
 
@@ -29,6 +30,7 @@ public class ActorNewFragment extends Fragment {
         ActorNewFragment fragment = new ActorNewFragment();
         Bundle args = new Bundle();
         args.putString("project_id",projectID);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -46,7 +48,6 @@ public class ActorNewFragment extends Fragment {
         title = (EditText) rootView.findViewById(R.id.new_actor_title);
         description = (EditText) rootView.findViewById(R.id.new_actor_title);
 
-
         bAddActor = (Button) rootView.findViewById(R.id.button_add_new_actor);
         bAddActor.setOnClickListener(e -> addNewActor(getArguments().getString("project_id"), title.getText().toString(),
                 description.getText().toString()));
@@ -61,6 +62,6 @@ public class ActorNewFragment extends Fragment {
         actor.setTitle(title);
         actor.setDescription(description);
 
-        mDatabase.child("projects").child(projectId).push().setValue(actor);
+        mDatabase.child("projects").child(projectId).child("actors").push().setValue(actor);
     }
 }

@@ -68,7 +68,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Project project = dataSnapshot.getValue(Project.class);
                 project.setKey(dataSnapshot.getKey());
-                Log.d("KEY VALUE = ",dataSnapshot.getKey() );
                 projects.add(project);
                 notifyDataSetChanged();
             }

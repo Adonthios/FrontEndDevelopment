@@ -76,7 +76,7 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
         View v = findViewById(R.id.contentFragment);
         String tag = v.getTag().toString();
         if(tag.equals("tablet")){
-            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ActorOverviewFragment.newInstance(projectId)).commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ActorOverviewFragment.newInstance(projectId)).commit();
         }else {
             startActivity(new Intent(this, ActorActivity.class).putExtra("project_id", projectId));
         }
