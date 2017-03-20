@@ -1,7 +1,5 @@
 package nl.hu.frontenddevelopment.Fragment;
 
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -16,16 +14,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
-import nl.hu.frontenddevelopment.View.ProjectActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ProjectNewFragment extends Fragment {
     private EditText title, description;
     private Button bAddProject, bRemoveProject;
     private DatabaseReference mDatabase;
 
+    public ProjectNewFragment() {
+        // Required empty public constructor
+    }
 
     public static ProjectNewFragment newInstance(String projectId, String projectTitle, String projectDescription){
         ProjectNewFragment fragment = new ProjectNewFragment();
@@ -38,12 +35,7 @@ public class ProjectNewFragment extends Fragment {
     }
 
     public static ProjectNewFragment newInstance(){
-        ProjectNewFragment fragment = new ProjectNewFragment();
-        return fragment;
-    }
-
-    public ProjectNewFragment() {
-
+        return new ProjectNewFragment();
     }
 
     @Override
@@ -53,8 +45,7 @@ public class ProjectNewFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview =  inflater.inflate(R.layout.fragment_project_new, container, false);
         title = (EditText) rootview.findViewById(R.id.project_new_title);
         description = (EditText) rootview.findViewById(R.id.project_new_description);
@@ -76,7 +67,7 @@ public class ProjectNewFragment extends Fragment {
     }
 
     private void addNewProject(){
-        Project project = new Project(title.getText().toString() ,description.getText().toString());
+        Project project = new Project(title.getText().toString(), description.getText().toString());
         mDatabase.child("projects").push().setValue(project);
         refreshFragment();
     }
@@ -97,8 +88,8 @@ public class ProjectNewFragment extends Fragment {
         ft.detach(this).attach(ProjectOverviewFragment.newInstance()).commit();
 
          this.getFragmentManager().beginTransaction()
-                 .replace(R.id.contentFragment, ProjectOverviewFragment.newInstance())
-                 .addToBackStack(null)
-                 .commit();
+             .replace(R.id.contentFragment, ProjectOverviewFragment.newInstance())
+             .addToBackStack(null)
+             .commit();
     }
 }

@@ -1,11 +1,6 @@
 package nl.hu.frontenddevelopment.Model;
 
-import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by Schultzie on 15-2-2017.
- */
 
 public class Actor extends BaseModel {
     public String title,description;

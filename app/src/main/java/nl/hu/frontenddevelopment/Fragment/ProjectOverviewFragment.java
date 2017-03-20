@@ -1,4 +1,3 @@
-
 package nl.hu.frontenddevelopment.Fragment;
 
 import android.os.Bundle;
@@ -16,15 +15,11 @@ import nl.hu.frontenddevelopment.View.ProjectActivity;
 
 public class ProjectOverviewFragment extends Fragment {
     private FloatingActionButton fabNewProject;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
-    public static ProjectOverviewFragment newInstance() {
-        ProjectOverviewFragment fragment = new ProjectOverviewFragment();
-        return fragment;
-    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
+
+    public static ProjectOverviewFragment newInstance() { return new ProjectOverviewFragment(); }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

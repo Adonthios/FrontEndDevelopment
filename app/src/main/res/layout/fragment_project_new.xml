@@ -1,15 +1,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/padding_top_fragment"
     tools:context="nl.hu.frontenddevelopment.Fragment.ProjectNewFragment">
 
+    <ImageView
+        android:id="@+id/actor_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:layout_toLeftOf="@+id/project_new_title"
+        app:srcCompat="@drawable/ic_assignment_black_24dp"/>
+
     <EditText
         android:id="@+id/project_new_title"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="@dimen/min_et_width"
         android:textColor="@color/colorTextPrimary"
         android:hint="@string/project_new_title"/>
 
@@ -19,30 +29,30 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="@dimen/min_et_width"
         android:textColor="@color/colorTextPrimary"
         android:hint="@string/project_new_description"/>
 
     <Button
         android:id="@+id/button_delete_project"
-        android:layout_margin="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_add_new_project"
         android:text="@string/text_button_delete_project"
         android:visibility="gone"
-        android:textColor="#ffffff"
-        android:background="#ff0000" />
+        android:textColor="@color/colorTextWhite"
+        android:background="#ff0000"
+        android:layout_margin="@dimen/button_margin" />
 
     <Button
         android:id="@+id/button_add_new_project"
-        android:layout_margin="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:text="@string/text_button_add_new_project"
-        android:textColor="@color/colorTextPrimary"
-        android:background="@color/colorPrimaryLight" />
+        android:textColor="@color/colorTextWhite"
+        android:background="@color/colorAccent"
+        android:layout_margin="@dimen/button_margin" />
 
 </RelativeLayout>
-
-

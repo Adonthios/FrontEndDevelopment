@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import nl.hu.frontenddevelopment.Model.Actor;
-import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
-
-/**
- * Created by Lars on 2/15/2017.
- */
-
-//TODO: Herschrijven naar Actor
 
 public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder>{
 

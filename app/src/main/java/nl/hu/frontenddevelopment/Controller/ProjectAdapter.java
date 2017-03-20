@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +20,11 @@ import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.View.ProjectActivity;
 
-/**
- * Created by Lars on 2/15/2017.
- */
-
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHolder>{
 
     private ArrayList<Project> projects = new ArrayList<>();
     private Context context;
     private DatabaseReference mFirebaseDatabaseReference;
-    private static String TAG = "ProjectAdapter";
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public CardView mCardView;
