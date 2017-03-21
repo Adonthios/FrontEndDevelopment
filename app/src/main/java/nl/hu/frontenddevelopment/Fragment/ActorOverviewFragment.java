@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ public class ActorOverviewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
+/*
     public static ActorOverviewFragment newInstance() { return new ActorOverviewFragment(); }
+*/
 
     public static ActorOverviewFragment newInstance(String projectId) {
         ActorOverviewFragment fragment = new ActorOverviewFragment();
@@ -36,12 +39,11 @@ public class ActorOverviewFragment extends Fragment {
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.recyclerview_actor);
         rv.setHasFixedSize(true);
 
-        // TODO: Geeft een NULLREF op getArguments().getString() omdat er ook een getInstance is als ie leeg is. #get-rekt
         ActorAdapter adapter = new ActorAdapter(getArguments().getString("project_id"));
         rv.setAdapter(adapter);
 
         fabNewActor = (FloatingActionButton) rootView.findViewById(R.id.fab_add_actor);
-        fabNewActor.setOnClickListener(e -> ((ActorActivity) getContext()).setNewActor());
+        fabNewActor.setOnClickListener(e -> ((ActorActivity) getContext()).setNewActor(getArguments().getString("project_id")));
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);

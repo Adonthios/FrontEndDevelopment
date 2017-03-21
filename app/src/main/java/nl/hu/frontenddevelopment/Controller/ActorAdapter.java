@@ -17,7 +17,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import nl.hu.frontenddevelopment.Model.Actor;
+import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
+import nl.hu.frontenddevelopment.View.ActorActivity;
+import nl.hu.frontenddevelopment.View.ProjectActivity;
 
 public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder>{
 
@@ -37,7 +40,8 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
             mCardView = (CardView) v.findViewById(R.id.cardview_actor);
             title = (TextView) v.findViewById(R.id.actor_title);
             description = (TextView) v.findViewById(R.id.actor_description);
-            fab = (FloatingActionButton) v.findViewById(R.id.fab_project_edit);
+            fab = (FloatingActionButton) v.findViewById(R.id.fab_actor_edit);
+            fab.setOnClickListener(e -> editActor());
 
             v.setOnClickListener(this);
         }
@@ -47,6 +51,8 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
         }
         private void editActor(){
             int pos = getAdapterPosition();
+            Actor actor = actors.get(pos);
+            ((ActorActivity) context).setEditActor(actor.getKey(), actor.getTitle(), actor.getDescription());
         }
     }
 
@@ -87,11 +93,9 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ActorAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                          int viewType) {
+    public ActorAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_actor_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_actor_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
