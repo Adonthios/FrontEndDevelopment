@@ -32,7 +32,6 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public CardView mCardView;
         public TextView title,description;
-        public FloatingActionButton fab;
 
         public MyViewHolder(View v) {
             super(v);
@@ -40,22 +39,13 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
             mCardView = (CardView) v.findViewById(R.id.cardview_actor);
             title = (TextView) v.findViewById(R.id.actor_title);
             description = (TextView) v.findViewById(R.id.actor_description);
-            fab = (FloatingActionButton) v.findViewById(R.id.fab_actor_edit);
-            fab.setOnClickListener(e -> editActor());
-
             v.setOnClickListener(this);
         }
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
             Actor actor = actors.get(pos);
-            Toast.makeText(context,"Touched me", Toast.LENGTH_LONG).show();
             ((ActorActivity) context).setDetailActorFragment(actor.getKey(), actor.getTitle(), actor.getDescription());
-        }
-        private void editActor(){
-            int pos = getAdapterPosition();
-            Actor actor = actors.get(pos);
-            ((ActorActivity) context).setEditActorFragment(actor.getKey(), actor.getTitle(), actor.getDescription());
         }
     }
 
