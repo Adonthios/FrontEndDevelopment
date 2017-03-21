@@ -51,6 +51,8 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
+
+
         }
         private void editActor(){
             int pos = getAdapterPosition();

@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import com.google.firebase.database.ChildEventListener;
@@ -17,10 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import nl.hu.frontenddevelopment.Model.Actor;
-import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.View.ActorActivity;
-import nl.hu.frontenddevelopment.View.ProjectActivity;
 
 public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder>{
 
@@ -48,11 +48,14 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
+            Actor actor = actors.get(pos);
+            Toast.makeText(context,"Touched me", Toast.LENGTH_LONG).show();
+            ((ActorActivity) context).setDetailActorFragment(actor.getKey(), actor.getTitle(), actor.getDescription());
         }
         private void editActor(){
             int pos = getAdapterPosition();
             Actor actor = actors.get(pos);
-            ((ActorActivity) context).setEditActor(actor.getKey(), actor.getTitle(), actor.getDescription());
+            ((ActorActivity) context).setEditActorFragment(actor.getKey(), actor.getTitle(), actor.getDescription());
         }
     }
 

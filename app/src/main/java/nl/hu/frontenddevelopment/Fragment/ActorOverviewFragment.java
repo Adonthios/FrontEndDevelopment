@@ -5,15 +5,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import nl.hu.frontenddevelopment.Controller.ActorAdapter;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.View.ActorActivity;
-import nl.hu.frontenddevelopment.View.ProjectActivity;
 
 public class ActorOverviewFragment extends Fragment {
     private FloatingActionButton fabNewActor;
@@ -38,12 +37,14 @@ public class ActorOverviewFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_actor_overview, container, false);
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.recyclerview_actor);
         rv.setHasFixedSize(true);
-
         ActorAdapter adapter = new ActorAdapter(getArguments().getString("project_id"));
         rv.setAdapter(adapter);
 
+        // TODO: 3/21/2017 Create adapter for this listview to show actors of this Actor  (actor_list_item)
+        ListView actorList = (ListView) rootView.findViewById(R.id.actor_list);
+
         fabNewActor = (FloatingActionButton) rootView.findViewById(R.id.fab_add_actor);
-        fabNewActor.setOnClickListener(e -> ((ActorActivity) getContext()).setNewActor(getArguments().getString("project_id")));
+        fabNewActor.setOnClickListener(e -> ((ActorActivity) getContext()).setNewActorFragment(getArguments().getString("project_id")));
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
