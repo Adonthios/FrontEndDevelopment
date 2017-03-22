@@ -14,6 +14,10 @@ public class Person extends BaseModel {
     public String sidenote;
     public Image profilePhoto;
 
+    public Person() {
+        super();
+    }
+
     public Person(String name, String email) {
         super();
         this.name = name;
