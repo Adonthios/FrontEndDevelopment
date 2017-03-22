@@ -106,5 +106,6 @@
     <string name="button_add_new_actor">Add actor to project</string>
     <string name="signed_in">Successfully signed in</string>
     <string name="chooser_title">Choose your way to sign in</string>
+    <string name="button_add_person_to_actor">Add person to actor</string>
 
 </resources>

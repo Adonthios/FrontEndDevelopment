@@ -17,7 +17,7 @@ import nl.hu.frontenddevelopment.View.ActorActivity;
  */
 public class ActorDetailFragment extends Fragment {
     TextView title, description;
-    FloatingActionButton fab;
+    FloatingActionButton fab, fabAddPerson;
 
     public ActorDetailFragment() {
         // Required empty public constructor
@@ -54,6 +54,10 @@ public class ActorDetailFragment extends Fragment {
         // TODO: 3/21/2017 Create adapter and load the persons for this Actor (card_actor_detail_item)
        /* ActorAdapter adapter = new ActorAdapter(getArguments().getString("project_id"));
         rv.setAdapter(adapter);*/
+
+        fabAddPerson = (FloatingActionButton) rootView.findViewById(R.id.fab_person_add);
+        fabAddPerson.setOnClickListener(e -> ((ActorActivity) getContext()).addPersonToActor(getArguments().getString("actor_id")));
+
 
         return rootView;
     }

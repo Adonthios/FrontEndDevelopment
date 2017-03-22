@@ -13,11 +13,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import nl.hu.frontenddevelopment.Model.Actor;
+import nl.hu.frontenddevelopment.Model.Person;
 import nl.hu.frontenddevelopment.R;
 
 public class PersonAddFragment extends Fragment {
-    private EditText title, description;
-    public Button bAddActor, bRemoveActor;
+    private EditText name, function;
+    public Button bAddPerson;
     private DatabaseReference mDatabase;
 
     public PersonAddFragment() {
@@ -49,38 +50,43 @@ public class PersonAddFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.fragment_actor_new, container, false);
-        title = (EditText) rootView.findViewById(R.id.actor_new_title);
-        description = (EditText) rootView.findViewById(R.id.actor_new_description);
-        bAddActor = (Button) rootView.findViewById(R.id.button_add_new_actor);
+        View rootView =  inflater.inflate(R.layout.fragment_person_add, container, false);
+        name = (EditText) rootView.findViewById(R.id.person_name);
+        function = (EditText) rootView.findViewById(R.id.person_function);
+        bAddPerson = (Button) rootView.findViewById(R.id.button_add_person_to_actor);
 
-        if(getArguments().getString("actor_id") != null) {
-            description.setText(getArguments().getString("actor_description"));
+        bAddPerson.setOnClickListener(e -> addPersonToActor(getArguments().getString("project_id"), getArguments().getString("actor_id"), name.getText().toString(), function.getText().toString()));
+
+        /*if(getArguments().getString("actor_id") != null) {
+            // Cannot go here lol
+
+
+          *//*  description.setText(getArguments().getString("actor_description"));
             title.setText(getArguments().getString("actor_title"));
             bRemoveActor = (Button) rootView.findViewById(R.id.button_delete_actor);
             bRemoveActor.setVisibility(View.VISIBLE);
             bAddActor.setText("Save Changes");
             bRemoveActor.setOnClickListener(b -> deleteActor(getArguments().getString("actor_id")));
-            bAddActor.setOnClickListener(b -> editActor(getArguments().getString("actor_id")));
+            bAddActor.setOnClickListener(b -> editActor(getArguments().getString("actor_id")));*//*
         } else {
-            bAddActor.setOnClickListener(e -> addNewActor(getArguments().getString("project_id"), title.getText().toString(), description.getText().toString()));
-        }
+            bAddPerson.setOnClickListener(e -> addPersonToActor(getArguments().getString("project_id"), getArguments().getString("actor_id"), name.getText().toString()));
+        }*/
         return rootView;
     }
 
-    private void addNewActor(String projectID, String title, String description){
+    private void addPersonToActor(String projectID, String actorID, String name, String function){
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        Actor actor = new Actor();
-        actor.setTitle(title);
-        actor.setDescription(description);
+        Person person = new Person();
+        person.setName(name);
+        person.setFunction(function);
 
-        mDatabase.child("projects").child(projectID).child("actors").push().setValue(actor);
+        mDatabase.child("projects").child(projectID).child("actors").child(actorID).child("persons").push().setValue(person);
 
         refreshFragment(getArguments().getString("project_id"));
     }
 
-    private void deleteActor(String key){
+   /* private void deleteActor(String key){
         mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(key).removeValue();
         refreshFragment(getArguments().getString("project_id"));
     }
@@ -89,7 +95,7 @@ public class PersonAddFragment extends Fragment {
         mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(key).child("title").setValue(((EditText) getView().findViewById(R.id.actor_new_title)).getText().toString());
         mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(key).child("description").setValue(((EditText) getView().findViewById(R.id.actor_new_description)).getText().toString());
         refreshFragment(getArguments().getString("project_id"));
-    }
+    }*/
 
     private void refreshFragment(String projectID){
         FragmentTransaction ft = getFragmentManager().beginTransaction();

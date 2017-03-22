@@ -7,15 +7,14 @@
     tools:context="nl.hu.frontenddevelopment.Fragment.ActorNewFragment">
 
     <ImageView
-        android:id="@+id/actor_icon"
+        android:id="@+id/person_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:layout_toLeftOf="@+id/actor_new_title"
+        android:layout_toLeftOf="@+id/person_name"
         app:srcCompat="@drawable/ic_person_black_24dp"/>
 
     <EditText
-        android:id="@+id/actor_new_title"
+        android:id="@+id/person_name"
         android:hint="Person name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,14 +22,14 @@
         android:layout_centerHorizontal="true"/>
 
     <EditText
-        android:id="@+id/actor_new_description"
-        android:hint="Description"
-        android:layout_below="@+id/actor_new_title"
+        android:id="@+id/person_function"
+        android:hint="Function"
+        android:layout_below="@+id/person_name"
         android:layout_width="wrap_content"
         android:minWidth="@dimen/min_et_width"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"/>
-
+<!--
     <Button
         android:id="@+id/button_delete_actor"
         android:layout_width="match_parent"
@@ -40,15 +39,15 @@
         android:visibility="gone"
         android:textColor="@color/colorTextWhite"
         android:background="#ff0000"
-        android:layout_margin="@dimen/button_margin" />
+        android:layout_margin="@dimen/button_margin" />-->
 
     <Button
-        android:id="@+id/button_add_new_actor"
+        android:id="@+id/button_add_person_to_actor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:text="@string/button_add_new_actor"
+        android:text="@string/button_add_person_to_actor"
         android:textColor="@color/colorTextWhite"
         android:background="@color/colorAccent"
         android:layout_margin="@dimen/button_margin" />
