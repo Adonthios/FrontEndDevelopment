@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import nl.hu.frontenddevelopment.Model.Person;
 import nl.hu.frontenddevelopment.R;
 
 public class GoogleSignInActivity extends BaseActivity implements
@@ -34,7 +35,7 @@ public class GoogleSignInActivity extends BaseActivity implements
     private GoogleApiClient mGoogleApiClient;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google);
 
@@ -107,6 +108,14 @@ public class GoogleSignInActivity extends BaseActivity implements
                     if (!task.isSuccessful()) {
                         Toast.makeText(GoogleSignInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                     }
+                    Person person = new Person();
+                    person.setName(acct.getDisplayName());
+                    person.setEmail(acct.getEmail());
+                    person.setPhonenumber("");
+                    person.setSidenote("");
+                    person.setProfilePhoto(acct.getPhotoUrl().toString());
+                    checkUserExisted(person, mAuth.getCurrentUser().getUid());
+
                     hideProgressDialog();
                 }
             });
