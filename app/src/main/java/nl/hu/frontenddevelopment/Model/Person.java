@@ -1,36 +1,15 @@
 package nl.hu.frontenddevelopment.Model;
 
-import android.media.Image;
-
-/**
- * Created by Schultzie on 15-2-2017.
- */
-
 public class Person extends BaseModel {
     public String name;
     public String email;
     public String function;
     public String phonenumber;
     public String sidenote;
-    public Image profilePhoto;
+    public String profilePhoto;
 
     public Person() {
         super();
-    }
-
-    public Person(String name, String email) {
-        super();
-        this.name = name;
-        this.email = email;
-    }
-
-    public Person(String name, String email, String function, String phonenumber, String sidenote, Image profilePhoto) {
-        this.name = name;
-        this.email = email;
-        this.function = function;
-        this.phonenumber = phonenumber;
-        this.sidenote = sidenote;
-        this.profilePhoto = profilePhoto;
     }
 
     public String getName() {
@@ -73,12 +52,24 @@ public class Person extends BaseModel {
         this.sidenote = sidenote;
     }
 
-    public Image getProfilePhoto() {
+    public String getProfilePhoto() {
         return profilePhoto;
     }
 
-    public void setProfilePhoto(Image profilePhoto) {
+    public void setProfilePhoto(String profilePhoto) {
         this.profilePhoto = profilePhoto;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", function='" + function + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", sidenote='" + sidenote + '\'' +
+                ", profilePhoto='" + profilePhoto + '\'' +
+                '}';
     }
 
     @Override
@@ -97,6 +88,7 @@ public class Person extends BaseModel {
         if (sidenote != null ? !sidenote.equals(person.sidenote) : person.sidenote != null)
             return false;
         return profilePhoto != null ? profilePhoto.equals(person.profilePhoto) : person.profilePhoto == null;
+
     }
 
     @Override

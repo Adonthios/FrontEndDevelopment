@@ -107,5 +107,10 @@
     <string name="signed_in">Successfully signed in</string>
     <string name="chooser_title">Choose your way to sign in</string>
     <string name="button_add_person_to_actor">Add person to actor</string>
+    <string name="hint_function">Function</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_phone">Phonenumber</string>
+    <string name="hint_sidenote">Sitenote</string>
+    <string name="defaultProfilePhoto">https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64</string>
 
 </resources>
