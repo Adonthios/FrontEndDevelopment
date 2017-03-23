@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import nl.hu.frontenddevelopment.Fragment.ActorOverviewFragment;
+import nl.hu.frontenddevelopment.Fragment.EditPersonFragment;
 import nl.hu.frontenddevelopment.Fragment.ProjectNewFragment;
 import nl.hu.frontenddevelopment.Fragment.ProjectOverviewFragment;
 import nl.hu.frontenddevelopment.R;
@@ -42,7 +43,9 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
     public static int navItemIndex = 0;
     private static final String TAG_PROJECTS = "projects";
     private static final String TAG_PROJECT_ADD = "add project";
+    private static final String TAG_EDITACCOUNT = "edit account";
     private static final String TAG_SIGNOUT = "sign out";
+
     public static String CURRENT_TAG = TAG_PROJECTS;
     /* DEFAULT LAYOUT */
 
@@ -101,6 +104,18 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+    public void editProfile(){
+        View v = findViewById(R.id.contentFragment);
+        String tag = v.getTag().toString();
+        if(tag.equals("tablet")){
+            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, EditPersonFragment.newInstance()).addToBackStack(null).commit();
+        } else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, EditPersonFragment.newInstance()).addToBackStack(null).commit();
+        }
+    }
+
+
+
     /***
      * START
      * DEFAULT LAYOUT
@@ -125,8 +140,6 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
 
         // Navigation view header
         navHeader = navigationView.getHeaderView(0);
-        txtName = (TextView) navHeader.findViewById(R.id.name);
-        txtWebsite = (TextView) navHeader.findViewById(R.id.website);
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
 
@@ -134,9 +147,6 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void loadNavHeader() {
-        txtName.setText(R.string.app_name);
-        txtWebsite.setText(R.string.app_name_sub);
-
         // Load the header background and the profile image
         Glide.with(this).load(getString(R.string.drawer_header_nav_bg)).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imgNavHeaderBg);
         Glide.with(this).load(getString(R.string.drawer_header_profile_bg)).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
@@ -159,6 +169,10 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
                     case R.id.nav_account_signout:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_SIGNOUT;
+                        break;
+                    case R.id.nav_account_edit:
+                        navItemIndex = 3;
+                        CURRENT_TAG = TAG_EDITACCOUNT;
                         break;
                     default:
                         navItemIndex = 0;
@@ -229,6 +243,8 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
             case 2:
                 signOut();
                 return new Intent(this, ProjectActivity.class);
+            case 3:
+                editProfile();
             default:
                 return new Intent(this, ProjectActivity.class);
         }

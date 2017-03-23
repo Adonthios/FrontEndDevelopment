@@ -14,6 +14,10 @@
     <item android:title="@string/drawer_section_title_account">
         <menu>
             <item
+                android:id="@+id/nav_account_edit"
+                android:icon="@drawable/ic_mode_edit_black_24dp"
+                android:title="@string/drawer_title_edit_profile" />
+            <item
                 android:id="@+id/nav_account_signout"
                 android:icon="@drawable/ic_exit_to_app_black_24dp"
                 android:title="@string/drawer_title_signout" />
