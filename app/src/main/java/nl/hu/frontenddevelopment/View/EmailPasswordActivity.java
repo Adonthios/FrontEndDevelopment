@@ -3,11 +3,11 @@ package nl.hu.frontenddevelopment.View;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -103,9 +103,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                         hideProgressDialog();
                     } else {
                         hideProgressDialog();
-
-                        addToPersonDatabase(person);
-
+                        checkUserExisted(person, mAuth.getCurrentUser().getUid());
                         Toast.makeText(EmailPasswordActivity.this, R.string.signed_in, Toast.LENGTH_SHORT).show();
                         goToHomeActivity();
                     }
@@ -158,11 +156,5 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
             String password = mPasswordField.getText().toString();
             signIn(person, password);
         }
-    }
-
-    private void addToPersonDatabase(Person person) {
-        // TODO: replace to BaseActivity
-        // TODO: Check for double data!?
-        mDatabase.child("persons").push().setValue(person);
     }
 }
