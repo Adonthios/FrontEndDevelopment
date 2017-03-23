@@ -57,10 +57,7 @@ public class BaseActivity extends AppCompatActivity {
                         break;
                     }
                 }
-
-                if (hasToAdd){
-                    addToPersonDatabase(person,userID);
-                }
+                if (hasToAdd) addToPersonDatabase(person,userID);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

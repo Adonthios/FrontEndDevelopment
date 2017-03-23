@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/menu_part_one"
+        android:checkableBehavior="none">
         <item
             android:id="@+id/nav_projects"
             android:icon="@drawable/ic_folder_black_24dp"
@@ -11,16 +13,17 @@
             android:title="@string/drawer_title_project_new" />
     </group>
 
-    <item android:title="@string/drawer_section_title_account">
-        <menu>
-            <item
-                android:id="@+id/nav_account_edit"
-                android:icon="@drawable/ic_mode_edit_black_24dp"
-                android:title="@string/drawer_title_edit_profile" />
-            <item
-                android:id="@+id/nav_account_signout"
-                android:icon="@drawable/ic_exit_to_app_black_24dp"
-                android:title="@string/drawer_title_signout" />
-        </menu>
-    </item>
+    <group
+        android:id="@+id/menu_part_two"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_account_edit"
+            android:icon="@drawable/ic_mode_edit_black_24dp"
+            android:title="@string/drawer_title_edit_profile" />
+
+        <item
+            android:id="@+id/nav_account_signout"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="@string/drawer_title_signout" />
+    </group>
 </menu>

@@ -2,7 +2,6 @@ package nl.hu.frontenddevelopment.View;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -32,12 +30,10 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     /* DEFAULT LAYOUT */
-    private Handler mHandler;
     private NavigationView navigationView;
     private DrawerLayout drawer;
     private View navHeader;
     private ImageView imgNavHeaderBg, imgProfile;
-    private TextView txtName, txtWebsite;
     private Toolbar toolbar;
     private String[] activityTitles;
     public static int navItemIndex = 0;
@@ -66,7 +62,6 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
                 }
             }
         };
-        // Init layout
         initLayout();
     }
 
@@ -121,7 +116,6 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
      * DEFAULT LAYOUT
      */
     private void initLayout() {
-        mHandler = new Handler();
         initToolbar();
         initDrawer();
 
@@ -144,10 +138,10 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
         imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
 
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+        setMenuCheckedItem(navItemIndex);
     }
 
     private void loadNavHeader() {
-        // Load the header background and the profile image
         Glide.with(this).load(getString(R.string.drawer_header_nav_bg)).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imgNavHeaderBg);
         Glide.with(this).load(getString(R.string.drawer_header_profile_bg)).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
     }
@@ -156,7 +150,6 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-
                 switch (menuItem.getItemId()) {
                     case R.id.nav_projects:
                         navItemIndex = 0;
@@ -166,23 +159,19 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_PROJECT_ADD;
                         break;
-                    case R.id.nav_account_signout:
-                        navItemIndex = 2;
-                        CURRENT_TAG = TAG_SIGNOUT;
-                        break;
                     case R.id.nav_account_edit:
-                        navItemIndex = 3;
+                        navItemIndex = 2;
                         CURRENT_TAG = TAG_EDITACCOUNT;
+                        break;
+                    case R.id.nav_account_signout:
+                        navItemIndex = 3;
+                        CURRENT_TAG = TAG_SIGNOUT;
                         break;
                     default:
                         navItemIndex = 0;
                 }
-                if (menuItem.isChecked()) {
-                    menuItem.setChecked(false);
-                } else {
-                    menuItem.setChecked(true);
-                }
-                menuItem.setChecked(true);
+                setMenuCheckedItem(menuItem.getItemId());
+
                 loadHomeFragment();
                 return true;
             }
@@ -204,8 +193,15 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
         actionBarDrawerToggle.syncState();
     }
 
+    private void setMenuCheckedItem(int itemId) {
+        for (int i = 0; i < 3; i++) {
+            navigationView.getMenu().getItem(i).setChecked(false);
+        }
+        navigationView.setCheckedItem(itemId);
+        navigationView.getMenu().getItem(navItemIndex).setChecked(true);
+    }
+
     private void loadHomeFragment() {
-        selectNavMenu();
         setToolbarTitle();
 
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
@@ -213,40 +209,32 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
             return;
         }
 
-        Intent intent = getHomeActivity();
-        Runnable mPendingRunnable = new Runnable() {
-            @Override
-            public void run() {
-                startActivity(getHomeActivity());
-            }
-        };
-        if (mPendingRunnable != null) mHandler.post(mPendingRunnable);
+        homeActivity();
 
         drawer.closeDrawers();
         invalidateOptionsMenu();
-    }
-
-    private void selectNavMenu() {
-        navigationView.getMenu().getItem(navItemIndex).setChecked(true);
     }
 
     private void setToolbarTitle() {
         getSupportActionBar().setTitle(activityTitles[navItemIndex]);
     }
 
-    private Intent getHomeActivity() {
+    private void homeActivity() {
         switch (navItemIndex) {
             case 0:
-                setNewProject();
+                startActivity(new Intent(this, ProjectActivity.class));
+                break;
             case 1:
                 setNewProject();
+                break;
             case 2:
-                signOut();
-                return new Intent(this, ProjectActivity.class);
-            case 3:
                 editProfile();
+                break;
+            case 3:
+                signOut();
+                break;
             default:
-                return new Intent(this, ProjectActivity.class);
+                startActivity(new Intent(this, ProjectActivity.class));
         }
     }
 
@@ -275,6 +263,7 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
 
     private void signOut() {
         mAuth.signOut();
+        startActivity(new Intent(this, ProjectActivity.class));
     }
 
     protected void startLoginChooserActivity() {
