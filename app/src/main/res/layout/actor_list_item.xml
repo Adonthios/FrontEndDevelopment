@@ -11,11 +11,14 @@
         android:src="@drawable/bg_circle"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_margin="15dp"/>
 
     <TextView
         android:id="@+id/actor_name"
+        android:layout_below="@+id/user_profile_pic"
         android:text="ActorName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp" />
 </LinearLayout>

@@ -6,7 +6,7 @@
 
     <!-- Drawer header -->
     <string name="drawer_header_nav_bg">http://www.little-bamboo.com/images/blog/research-data.jpg</string>
-    <string name="drawer_header_profile_bg">https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAADrAAAAJDcyNTEyOTkyLTkxZGYtNDMyNS1iZmYxLTM5ZWNiODcyNDI4Ng.jpg</string>
+    <string name="drawer_header_profile_bg">http://www.grafile.com/wp-content/plugins/all-in-one-seo-pack-pro/images/default-user-image.png</string>
 
     <!-- Drawer section titles -->
     <string name="drawer_section_title_account">Account</string>
@@ -25,7 +25,7 @@
     <string-array name="nav_item_activity_titles">
         <item>Projects</item>
         <item>New Project</item>
-        <item>Edit-Profile</item>
+        <item>Edit Profile</item>
         <item>AT-App</item>
         <item>AT-App</item>
     </string-array>
@@ -58,7 +58,7 @@
     <string name="actor_list_function">Function: </string>
     <string name="actor_list_email">Email: </string>
     <string name="actor_list_notes">Notes: </string>
-    <string name="project_new_title">New project Title</string>
+    <string name="project_new_title">Project title</string>
     <string name="text_button_add_new_project">Add new project</string>
 
     <!-- Strings related to login -->
@@ -109,10 +109,13 @@
     <string name="chooser_title">Choose your way to sign in</string>
     <string name="button_add_person_to_actor">Add person to actor</string>
     <string name="button_edit_person">Save changes</string>
+
+    <!-- Person -->
     <string name="hint_function">Function</string>
     <string name="hint_name">Name</string>
     <string name="hint_phone">Phonenumber</string>
     <string name="hint_sidenote">Sitenote</string>
+
     <string name="defaultProfilePhoto">https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64</string>
 
 </resources>

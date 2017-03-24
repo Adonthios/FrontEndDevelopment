@@ -1,6 +1,7 @@
 package nl.hu.frontenddevelopment.View;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.net.URI;
 
 import nl.hu.frontenddevelopment.Fragment.ActorOverviewFragment;
 import nl.hu.frontenddevelopment.Fragment.EditPersonFragment;
@@ -143,7 +146,11 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
 
     private void loadNavHeader() {
         Glide.with(this).load(getString(R.string.drawer_header_nav_bg)).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(imgNavHeaderBg);
-        Glide.with(this).load(getString(R.string.drawer_header_profile_bg)).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
+        String imgProfileUrl = getString(R.string.drawer_header_profile_bg);
+        if(mAuth.getCurrentUser() != null && mAuth.getCurrentUser().getPhotoUrl() != null && mAuth.getCurrentUser().getPhotoUrl().toString() != null && !mAuth.getCurrentUser().getPhotoUrl().toString().equals("")) {
+            imgProfileUrl = mAuth.getCurrentUser().getPhotoUrl().toString();
+        }
+        Glide.with(this).load(imgProfileUrl).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
     }
 
     private void setUpNavigationView() {

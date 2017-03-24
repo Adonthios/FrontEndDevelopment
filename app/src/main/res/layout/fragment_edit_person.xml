@@ -15,7 +15,7 @@
 
     <EditText
         android:id="@+id/person_name"
-        android:hint="Person name"
+        android:hint="@string/hint_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="@dimen/min_et_width"
@@ -23,6 +23,7 @@
 
     <EditText
         android:id="@+id/person_function"
+        android:hint="@string/hint_function"
         android:layout_below="@+id/person_name"
         android:layout_width="wrap_content"
         android:minWidth="@dimen/min_et_width"
@@ -31,6 +32,7 @@
 
     <EditText
         android:id="@+id/person_email"
+        android:hint="@string/hint_email"
         android:layout_below="@+id/person_function"
         android:layout_width="wrap_content"
         android:minWidth="@dimen/min_et_width"
@@ -38,7 +40,8 @@
         android:layout_centerHorizontal="true"/>
 
     <EditText
-        android:id="@+id/person_number"
+        android:id="@+id/person_phone"
+        android:hint="@string/hint_phone"
         android:layout_below="@+id/person_email"
         android:layout_width="wrap_content"
         android:minWidth="@dimen/min_et_width"
@@ -47,8 +50,9 @@
         android:inputType="phone" />
 
     <EditText
-        android:id="@+id/person"
-        android:layout_below="@+id/person_number"
+        android:id="@+id/person_notes"
+        android:hint="@string/hint_sidenote"
+        android:layout_below="@+id/person_phone"
         android:layout_width="wrap_content"
         android:minWidth="@dimen/min_et_width"
         android:layout_height="wrap_content"
