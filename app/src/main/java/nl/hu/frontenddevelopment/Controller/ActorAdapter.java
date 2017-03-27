@@ -1,17 +1,27 @@
 package nl.hu.frontenddevelopment.Controller;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URI;
 import java.util.ArrayList;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,12 +29,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import nl.hu.frontenddevelopment.Model.Actor;
+import nl.hu.frontenddevelopment.Model.Person;
 import nl.hu.frontenddevelopment.R;
+import nl.hu.frontenddevelopment.Utils.CircleTransform;
 import nl.hu.frontenddevelopment.View.ActorActivity;
 
 public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder>{
 
     private ArrayList<Actor> actors = new ArrayList<>();
+    private String projectId;
     private Context context;
     private DatabaseReference mFirebaseDatabaseReference;
     private static String TAG = "ProjectAdapter";
@@ -32,11 +45,13 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public CardView mCardView;
         public TextView title,description;
+        public ListView personList;
 
         public MyViewHolder(View v) {
             super(v);
             context = v.getContext();
             mCardView = (CardView) v.findViewById(R.id.cardview_actor);
+            personList = (ListView) v.findViewById(R.id.person_list);
             title = (TextView) v.findViewById(R.id.actor_title);
             description = (TextView) v.findViewById(R.id.actor_description);
             v.setOnClickListener(this);
@@ -50,6 +65,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
     }
 
     public ActorAdapter(String selectedProject) {
+        projectId = selectedProject;
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseDatabaseReference.child("projects").child(selectedProject).child("actors").addChildEventListener(new ChildEventListener() {
             @Override
@@ -98,6 +114,17 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.title.setText(actors.get(position).title);
         holder.description.setText(actors.get(position).getDescription());
+        ListAdapter personListAdapter = new FirebaseListAdapter<Person>((ActorActivity)context, Person.class, R.layout.actor_list_item,
+                mFirebaseDatabaseReference.child("persons")) {
+            @Override
+            protected void populateView(View v, Person person, int position) {
+                ((TextView)v.findViewById(R.id.actor_name)).setText(person.getName());
+                ImageView userProfilePic = ((ImageView)v.findViewById(R.id.user_profile_pic));
+                Glide.with(context).load("https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64").crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(context)).diskCacheStrategy(DiskCacheStrategy.ALL).into(userProfilePic);
+            }
+        };
+
+        holder.personList.setAdapter(personListAdapter);
     }
 
     @Override

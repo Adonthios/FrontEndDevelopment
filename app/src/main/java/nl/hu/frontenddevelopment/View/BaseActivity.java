@@ -7,6 +7,7 @@ import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -67,9 +68,9 @@ public class BaseActivity extends AppCompatActivity {
 
     private void addToPersonDatabase(Person person, String userID) {
         person.setKey(userID);
+        //person.setProfilePhoto(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
         mDatabase.child("persons").push().setValue(person);
     }
-
 
     @Override
     public void onStop() {

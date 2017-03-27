@@ -8,12 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import nl.hu.frontenddevelopment.Controller.ActorAdapter;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.View.ActorActivity;
-import nl.hu.frontenddevelopment.View.ProjectActivity;
 
 public class ActorOverviewFragment extends Fragment {
     private FloatingActionButton fabNewActor;
@@ -42,7 +40,6 @@ public class ActorOverviewFragment extends Fragment {
         rv.setAdapter(adapter);
 
         // TODO: 3/21/2017 Create adapter for this listview to show actors of this Actor  (actor_list_item)
-        ListView actorList = (ListView) rootView.findViewById(R.id.actor_list);
 
         fabNewActor = (FloatingActionButton) rootView.findViewById(R.id.fab_add_actor);
         fabNewActor.setOnClickListener(e -> ((ActorActivity) getContext()).setNewActorFragment(getArguments().getString("project_id")));
@@ -55,5 +52,5 @@ public class ActorOverviewFragment extends Fragment {
 
     /*private void setActorActivity(){
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ActorNewFragment.newInstance(getArguments().getString("project_id"))).commit();
-    }*/
+    } */
 }
