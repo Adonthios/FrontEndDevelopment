@@ -39,8 +39,6 @@ public class ActorOverviewFragment extends Fragment {
         ActorAdapter adapter = new ActorAdapter(getArguments().getString("project_id"));
         rv.setAdapter(adapter);
 
-        // TODO: 3/21/2017 Create adapter for this listview to show actors of this Actor  (actor_list_item)
-
         fabNewActor = (FloatingActionButton) rootView.findViewById(R.id.fab_add_actor);
         fabNewActor.setOnClickListener(e -> ((ActorActivity) getContext()).setNewActorFragment(getArguments().getString("project_id")));
 

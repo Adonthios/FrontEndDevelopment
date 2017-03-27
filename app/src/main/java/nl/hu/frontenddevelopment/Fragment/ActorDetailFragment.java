@@ -51,13 +51,9 @@ public class ActorDetailFragment extends Fragment {
 
         ActorActivity activity = (ActorActivity) getActivity();
         fab.setOnClickListener(e -> activity.setEditActorFragment(getArguments().getString("actor_id"),getArguments().getString("actor_title"),getArguments().getString("actor_description")));
-        // TODO: 3/21/2017 Create adapter and load the persons for this Actor (card_actor_detail_item)
-       /* ActorAdapter adapter = new ActorAdapter(getArguments().getString("project_id"));
-        rv.setAdapter(adapter);*/
 
         fabAddPerson = (FloatingActionButton) rootView.findViewById(R.id.fab_person_add);
         fabAddPerson.setOnClickListener(e -> ((ActorActivity) getContext()).addPersonToActor(getArguments().getString("actor_id")));
-
 
         return rootView;
     }

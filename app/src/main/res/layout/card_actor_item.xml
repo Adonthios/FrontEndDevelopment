@@ -49,15 +49,20 @@
                 android:ellipsize="end"
                 android:textSize="@dimen/text_size"
                 />
-        </LinearLayout>
 
             <ListView
-                android:paddingTop="40dp"
                 android:id="@+id/person_list"
+                android:paddingEnd="5dp"
+                android:paddingRight="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:scrollbarSize="15dp"
+                android:smoothScrollbar="true"
+                android:overScrollMode="always"
+                android:fadeScrollbars="false">
             </ListView>
+        </LinearLayout>
+
 
     </android.support.v7.widget.CardView>
-
 </LinearLayout>

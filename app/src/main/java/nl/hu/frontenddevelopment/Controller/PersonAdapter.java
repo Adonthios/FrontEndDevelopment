@@ -28,7 +28,6 @@ import nl.hu.frontenddevelopment.R;
  * Created by Lars on 2/15/2017.
  */
 
-//TODO: Check of goed herschreven is naar Person
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHolder>{
 

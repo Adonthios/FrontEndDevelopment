@@ -78,7 +78,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                notifyDataSetChanged();
             }
 
             @Override
@@ -114,6 +114,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.title.setText(actors.get(position).title);
         holder.description.setText(actors.get(position).getDescription());
+        // TODO: 3/27/2017 Get only person for correct actor 
         ListAdapter personListAdapter = new FirebaseListAdapter<Person>((ActorActivity)context, Person.class, R.layout.actor_list_item,
                 mFirebaseDatabaseReference.child("persons")) {
             @Override
@@ -123,7 +124,6 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
                 Glide.with(context).load("https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64").crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(context)).diskCacheStrategy(DiskCacheStrategy.ALL).into(userProfilePic);
             }
         };
-
         holder.personList.setAdapter(personListAdapter);
     }
 
