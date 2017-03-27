@@ -18,8 +18,15 @@
     <string name="drawer_title_signout">Sign Out</string>
     <string name="drawer_title_edit_profile">Edit profile</string>
 
-    <!-- Search -->
-    <string name="search_hint">Search by project name</string>
+    <!-- Toast messages -->
+    <string name="toast_signed_in">Successfully signed in</string>
+    <string name="toast_add_succesful">Succesfully added</string>
+    <string name="toast_add_failed">Add failed</string>
+    <string name="toast_change_succesful">Succesfully changed</string>
+    <string name="toast_change_failed">Change failed</string>
+    <string name="toast_delete_succesful">Succesfully Deleted</string>
+    <string name="toast_delete_failed">Delete failed</string>
+
 
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
@@ -117,6 +124,5 @@
     <string name="hint_sidenote">Sitenote</string>
 
     <string name="defaultProfilePhoto">https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64</string>
-    <string name="remove_person_text">Remove</string>
 
 </resources>

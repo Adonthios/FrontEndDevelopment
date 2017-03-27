@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -62,7 +63,7 @@ public class ActorNewFragment extends Fragment {
             title.setText(getArguments().getString("actor_title"));
             bRemoveActor = (Button) rootView.findViewById(R.id.button_delete_actor);
             bRemoveActor.setVisibility(View.VISIBLE);
-            bAddActor.setText("Save Changes");
+            bAddActor.setText(R.string.button_save);
             bRemoveActor.setOnClickListener(b -> deleteActor(getArguments().getString("actor_id")));
             bAddActor.setOnClickListener(b -> editActor(getArguments().getString("actor_id")));
         } else {
@@ -79,18 +80,29 @@ public class ActorNewFragment extends Fragment {
         actor.setDescription(description);
 
         mDatabase.child("projects").child(projectID).child("actors").push().setValue(actor);
+        Toast.makeText(getActivity(), R.string.toast_add_succesful, Toast.LENGTH_SHORT).show();
 
         refreshFragment(getArguments().getString("project_id"));
     }
 
     private void deleteActor(String key){
-        mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(key).removeValue();
+        if(key != null && !key.equals("")) {
+            mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(key).removeValue();
+            Toast.makeText(getActivity(), R.string.toast_delete_succesful, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), R.string.toast_delete_failed, Toast.LENGTH_SHORT).show();
+        }
         refreshFragment(getArguments().getString("project_id"));
     }
 
     private void editActor(String key){
-        mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(key).child("title").setValue(((EditText) getView().findViewById(R.id.actor_new_title)).getText().toString());
-        mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(key).child("description").setValue(((EditText) getView().findViewById(R.id.actor_new_description)).getText().toString());
+        if(key != null && !key.equals("")) {
+            mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(key).child("title").setValue(((EditText) getView().findViewById(R.id.actor_new_title)).getText().toString());
+            mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(key).child("description").setValue(((EditText) getView().findViewById(R.id.actor_new_description)).getText().toString());
+            Toast.makeText(getActivity(), R.string.toast_change_succesful, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), R.string.toast_change_failed, Toast.LENGTH_SHORT).show();
+        }
         refreshFragment(getArguments().getString("project_id"));
     }
 
