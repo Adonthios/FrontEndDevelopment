@@ -117,5 +117,6 @@
     <string name="hint_sidenote">Sitenote</string>
 
     <string name="defaultProfilePhoto">https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64</string>
+    <string name="remove_person_text">Remove</string>
 
 </resources>

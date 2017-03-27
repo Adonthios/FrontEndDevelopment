@@ -114,7 +114,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.title.setText(actors.get(position).title);
         holder.description.setText(actors.get(position).getDescription());
-        // TODO: 3/27/2017 Get only person for correct actor 
+        // TODO: 3/27/2017 Get only person for correct actor
         ListAdapter personListAdapter = new FirebaseListAdapter<Person>((ActorActivity)context, Person.class, R.layout.actor_list_item,
                 mFirebaseDatabaseReference.child("persons")) {
             @Override
