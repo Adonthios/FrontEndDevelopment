@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:minWidth="@dimen/min_et_width"
         android:layout_centerHorizontal="true"/>
-
+<!--
     <EditText
         android:id="@+id/person_function"
         android:hint="@string/hint_function"
@@ -28,19 +28,23 @@
         android:layout_width="wrap_content"
         android:minWidth="@dimen/min_et_width"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"/>-->
 
     <EditText
         android:id="@+id/person_email"
         android:hint="@string/hint_email"
-        android:layout_below="@+id/person_function"
+        android:layout_below="@+id/person_name"
         android:layout_width="wrap_content"
         android:minWidth="@dimen/min_et_width"
         android:layout_height="wrap_content"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:layout_centerHorizontal="true"/>
 
     <EditText
-        android:id="@+id/person_phone"
+        android:id="@+id/person_phonenumber"
         android:hint="@string/hint_phone"
         android:layout_below="@+id/person_email"
         android:layout_width="wrap_content"
@@ -50,16 +54,16 @@
         android:inputType="phone" />
 
     <EditText
-        android:id="@+id/person_notes"
+        android:id="@+id/person_sidenotes"
         android:hint="@string/hint_sidenote"
-        android:layout_below="@+id/person_phone"
+        android:layout_below="@+id/person_phonenumber"
         android:layout_width="wrap_content"
         android:minWidth="@dimen/min_et_width"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"/>
 
     <Button
-        android:id="@+id/button_add_person_to_actor"
+        android:id="@+id/button_save_person"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

@@ -18,8 +18,15 @@
     <string name="drawer_title_signout">Sign Out</string>
     <string name="drawer_title_edit_profile">Edit profile</string>
 
-    <!-- Search -->
-    <string name="search_hint">Search by project name</string>
+    <!-- Toast messages -->
+    <string name="toast_signed_in">Successfully signed in</string>
+    <string name="toast_add_succesful">Succesfully added</string>
+    <string name="toast_add_failed">Add failed</string>
+    <string name="toast_change_succesful">Succesfully changed</string>
+    <string name="toast_change_failed">Change failed</string>
+    <string name="toast_delete_succesful">Succesfully Deleted</string>
+    <string name="toast_delete_failed">Delete failed</string>
+
 
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
@@ -49,7 +56,7 @@
     <string name="project_detail_actor_description_text">Actor description</string>
 
     <!-- buttons -->
-    <string name="button_save">Save</string>
+    <string name="button_save">Save changes</string>
     <string name="button_save_project">Save project</string>
     <string name="button_new_actor">New actor</string>
 
@@ -105,7 +112,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button_add_new_actor">Add actor to project</string>
-    <string name="signed_in">Successfully signed in</string>
     <string name="chooser_title">Choose your way to sign in</string>
     <string name="button_add_person_to_actor">Add person to actor</string>
     <string name="button_edit_person">Save changes</string>
@@ -117,5 +123,4 @@
     <string name="hint_sidenote">Sitenote</string>
 
     <string name="defaultProfilePhoto">https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64</string>
-
 </resources>

@@ -104,7 +104,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                     } else {
                         hideProgressDialog();
                         checkUserExisted(person, mAuth.getCurrentUser().getUid());
-                        Toast.makeText(EmailPasswordActivity.this, R.string.signed_in, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EmailPasswordActivity.this, R.string.toast_signed_in, Toast.LENGTH_SHORT).show();
                         goToHomeActivity();
                     }
                 }

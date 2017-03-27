@@ -11,12 +11,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.net.URI;
 
@@ -24,6 +27,7 @@ import nl.hu.frontenddevelopment.Fragment.ActorOverviewFragment;
 import nl.hu.frontenddevelopment.Fragment.EditPersonFragment;
 import nl.hu.frontenddevelopment.Fragment.ProjectNewFragment;
 import nl.hu.frontenddevelopment.Fragment.ProjectOverviewFragment;
+import nl.hu.frontenddevelopment.Model.Person;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
 
@@ -105,14 +109,28 @@ public class ProjectActivity extends BaseActivity implements View.OnClickListene
     public void editProfile(){
         View v = findViewById(R.id.contentFragment);
         String tag = v.getTag().toString();
+
+        Person person = getCurrectPerson();
+
         if(tag.equals("tablet")){
-            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, EditPersonFragment.newInstance()).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, EditPersonFragment.newInstance(person.getKey(), person.getName(), person.getPhonenumber(), person.getSidenote())).addToBackStack(null).commit();
         } else{
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, EditPersonFragment.newInstance()).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, EditPersonFragment.newInstance(person.getKey(), person.getName(), person.getPhonenumber(), person.getSidenote())).addToBackStack(null).commit();
         }
     }
 
+    private Person getCurrectPerson() {
+        Person person = new Person();
+        String currectUserKey = mAuth.getCurrentUser().getUid();
+        person.setKey(currectUserKey);
 
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        person.setName(mDatabase.child("persons").child(currectUserKey).child("name").getKey());
+        person.setPhonenumber(mDatabase.child("persons").child(currectUserKey).child("phonenumber").getKey());
+        person.setSidenote(mDatabase.child("persons").child(currectUserKey).child("sidenote").getKey());
+
+        return person;
+    }
 
     /***
      * START
