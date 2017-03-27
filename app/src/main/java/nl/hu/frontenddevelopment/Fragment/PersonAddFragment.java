@@ -61,13 +61,13 @@ public class PersonAddFragment extends ListFragment {
                     Glide.with(getActivity()).load("https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64").crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(getActivity())).diskCacheStrategy(DiskCacheStrategy.ALL).into(userProfilePic);
 
                     Button button = (Button) v.findViewById(R.id.button_add_person);
-                    button.setText(getResources().getString(R.string.remove_person_text));
+                    button.setText("add");
                     button.setBackgroundColor(Color.GREEN);
                     button.setOnClickListener(e -> addPersonToActor("",""));
                 } else {
                     Button button = (Button) v.findViewById(R.id.button_add_person);
                     button.setBackgroundColor(Color.RED);
-                    button.setText(getResources().getString(R.string.remove_person_text));
+                    button.setText("remove");
                     button.setOnClickListener(e -> removePersonFromActor(person.getKey()));
                 }
             }
