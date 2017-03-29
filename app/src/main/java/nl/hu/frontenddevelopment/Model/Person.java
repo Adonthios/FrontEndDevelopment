@@ -7,6 +7,14 @@ public class Person extends BaseModel {
     public String phonenumber;
     public String sidenote;
     public String profilePhoto;
+    public String key;
+
+
+    @Override
+    public String getKey() { return key;}
+
+    @Override
+    public void setKey(String key) {this.key = key;}
 
     public Person() {
         super();

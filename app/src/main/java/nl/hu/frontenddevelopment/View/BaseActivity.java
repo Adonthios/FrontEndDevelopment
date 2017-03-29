@@ -53,6 +53,8 @@ public class BaseActivity extends AppCompatActivity {
                 hasToAdd = true;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Person person = snapshot.getValue(Person.class);
+
+                    Log.d("PERSON","ID = " + person.getKey());
                     if(person.getKey().equals(userID)){
                         hasToAdd = false;
                         break;

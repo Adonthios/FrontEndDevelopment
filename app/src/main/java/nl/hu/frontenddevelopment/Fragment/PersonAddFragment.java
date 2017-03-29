@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -18,10 +20,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import nl.hu.frontenddevelopment.Model.Actor;
+import nl.hu.frontenddevelopment.Model.ActorPerson;
 import nl.hu.frontenddevelopment.Model.Person;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
@@ -54,22 +61,52 @@ public class PersonAddFragment extends ListFragment {
                 mDatabase.child("persons")) {
             @Override
             protected void populateView(View v, Person person, int position) {
-                if(!mDatabase.child("projects").child(getArguments().getString("project_id"))
-                        .child("actors").child(getArguments().getString("actor_id")).child("persons").child("key").equals(person.getKey())){
-                    ((TextView)v.findViewById(R.id.actor_name)).setText(person.getName());
-                    ImageView userProfilePic = ((ImageView)v.findViewById(R.id.user_profile_pic));
-                    Glide.with(getActivity()).load("https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64").crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(getActivity())).diskCacheStrategy(DiskCacheStrategy.ALL).into(userProfilePic);
+                ImageView userProfilePic = ((ImageView)v.findViewById(R.id.user_profile_pic));
+                Glide.with(getActivity()).load(person.getProfilePhoto()).crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(getActivity())).diskCacheStrategy(DiskCacheStrategy.ALL).into(userProfilePic);
+                ((TextView)v.findViewById(R.id.actor_name)).setText(person.getName());
+                CheckBox checkBox = (CheckBox) v.findViewById(R.id.can_edit);
 
-                    Button button = (Button) v.findViewById(R.id.button_add_person);
-                    button.setText("add");
-                    button.setBackgroundColor(Color.GREEN);
-                    button.setOnClickListener(e -> addPersonToActor("",""));
-                } else {
-                    Button button = (Button) v.findViewById(R.id.button_add_person);
-                    button.setBackgroundColor(Color.RED);
-                    button.setText("remove");
-                    button.setOnClickListener(e -> removePersonFromActor(person.getKey()));
-                }
+                Button button = (Button) v.findViewById(R.id.button_add_person);
+                button.setText("add");
+                button.setBackgroundColor(Color.GREEN);
+                button.setOnClickListener(e -> addPersonToActor(person.getKey(), checkBox.isChecked()));
+
+                mDatabase.child("projects").child(getArguments().getString("project_id"))
+                        .child("actors").child(getArguments().getString("actor_id")).child("persons").addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        ActorPerson actorPerson =  dataSnapshot.getValue(ActorPerson.class);
+                        Log.d("ACTORPERSON", actorPerson.toString());
+                        Log.d("PERSON ID", person.getKey());
+                        if(actorPerson.getActorID().equals(person.getKey())){
+                            Button button = (Button) v.findViewById(R.id.button_add_person);
+                            checkBox.setChecked(actorPerson.getCanEdit());
+                            button.setBackgroundColor(Color.RED);
+                            button.setText("remove");
+                            button.setOnClickListener(e -> removePersonFromActor(dataSnapshot.getKey()));
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         };
         this.setListAdapter(personListAdapter);
@@ -80,23 +117,28 @@ public class PersonAddFragment extends ListFragment {
         return inflater.inflate(R.layout.fragment_person_add, container, false);
     }
 
-    // TODO: 3/27/2017  correcly add person to actor and remove him correctly
-    private void addPersonToActor(String name, String function){
+    private void addPersonToActor(String id, boolean canEdit){
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        //mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(getArguments().getString("actor_id")).child("persons").push().setValue("");
+        ActorPerson actorPerson = new ActorPerson(id, canEdit);
+        Toast.makeText(getActivity(),"Clicked add", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),"Clicked add", Toast.LENGTH_SHORT).show();
+        mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(getArguments().getString("actor_id")).child("persons").push().setValue(actorPerson);
+        refreshFragment();
      }
 
     private void removePersonFromActor(String personId){
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        //mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(getArguments().getString("actor_id")).child("persons").child(personId).removeValue();
+        mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(getArguments().getString("actor_id")).child("persons").child(personId).removeValue();
+        Toast.makeText(getActivity(),"Clicked delete", Toast.LENGTH_SHORT).show();
+        refreshFragment();
     }
 
-    private void refreshFragment(String projectID){
+    private void refreshFragment(){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(this).attach(ActorOverviewFragment.newInstance(projectID)).commit();
+        ft.detach(this).attach(ActorOverviewFragment.newInstance(getArguments().getString("project_id"))).commit();
 
         this.getFragmentManager().beginTransaction()
-            .replace(R.id.contentFragment, ActorOverviewFragment.newInstance(projectID))
+            .replace(R.id.contentFragment, PersonAddFragment.newInstance(getArguments().getString("project_id"),getArguments().getString("actor_id")))
             .addToBackStack(null)
             .commit();
     }

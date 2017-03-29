@@ -21,7 +21,7 @@ public class ActorPerson {
         this.actorID = actorID;
     }
 
-    public boolean isCanEdit() {
+    public boolean getCanEdit() {
         return canEdit;
     }
 
