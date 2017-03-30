@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import nl.hu.frontenddevelopment.Model.Actor;
+import nl.hu.frontenddevelopment.Model.ActorPerson;
 import nl.hu.frontenddevelopment.Model.Person;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
@@ -37,7 +38,7 @@ import nl.hu.frontenddevelopment.View.ActorActivity;
 public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder>{
 
     private ArrayList<Actor> actors = new ArrayList<>();
-    private String projectId;
+    private String projectId, actorId;
     private Context context;
     private DatabaseReference mFirebaseDatabaseReference;
     private static String TAG = "ProjectAdapter";
@@ -115,15 +116,18 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
         holder.title.setText(actors.get(position).title);
         holder.description.setText(actors.get(position).getDescription());
         // TODO: 3/27/2017 Get only person for correct actor
-        ListAdapter personListAdapter = new FirebaseListAdapter<Person>((ActorActivity)context, Person.class, R.layout.actor_list_item,
-                mFirebaseDatabaseReference.child("persons")) {
+        ListAdapter personListAdapter = new FirebaseListAdapter<ActorPerson>((ActorActivity)context, ActorPerson.class, R.layout.actor_list_item,
+                mFirebaseDatabaseReference.child("projects").child(projectId)
+                        .child("actors").child(actors.get(position).getKey()).child("persons")) {
             @Override
-            protected void populateView(View v, Person person, int position) {
+            protected void populateView(View v, ActorPerson person, int position) {
                 ((TextView)v.findViewById(R.id.actor_name)).setText(person.getName());
                 ImageView userProfilePic = ((ImageView)v.findViewById(R.id.user_profile_pic));
                 Glide.with(context).load("https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64").crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(context)).diskCacheStrategy(DiskCacheStrategy.ALL).into(userProfilePic);
+
             }
         };
+
         holder.personList.setAdapter(personListAdapter);
     }
 

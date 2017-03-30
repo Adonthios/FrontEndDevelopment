@@ -2,16 +2,29 @@ package nl.hu.frontenddevelopment.Model;
 
 public class ActorPerson {
     public String actorID;
+    public String name;
+    public String url;
     public boolean canEdit;
 
     public ActorPerson(){
     }
 
-    public ActorPerson(String actorID, boolean canEdit) {
-
+    public ActorPerson(String actorID, boolean canEdit, String name, String url) {
         this.actorID = actorID;
         this.canEdit = canEdit;
+        this.name = name;
+        this.url = url;
     }
+
+    public String getName() { return name; }
+
+    public void setName(String name) {this.name = name;}
+
+    public String getUrl() {return url;}
+
+    public void setUrl(String url) {this.url = url; }
+
+    public boolean isCanEdit() { return canEdit;}
 
     public String getActorID() {
         return actorID;
@@ -19,10 +32,6 @@ public class ActorPerson {
 
     public void setActorID(String actorID) {
         this.actorID = actorID;
-    }
-
-    public boolean getCanEdit() {
-        return canEdit;
     }
 
     public void setCanEdit(boolean canEdit) {

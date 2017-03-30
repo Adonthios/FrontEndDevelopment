@@ -20,7 +20,7 @@ public class ActorActivity extends AppCompatActivity {
     }
 
     public void setOverviewFragment(String projectID){
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ActorOverviewFragment.newInstance(projectID)).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ActorOverviewFragment.newInstance(projectID)).commit();
     }
 
     public void setEditActorFragment(String actorID, String actorTitle, String actorDescription){

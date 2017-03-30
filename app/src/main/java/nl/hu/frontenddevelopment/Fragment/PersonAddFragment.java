@@ -69,7 +69,7 @@ public class PersonAddFragment extends ListFragment {
                 Button button = (Button) v.findViewById(R.id.button_add_person);
                 button.setText("add");
                 button.setBackgroundColor(Color.GREEN);
-                button.setOnClickListener(e -> addPersonToActor(person.getKey(), checkBox.isChecked()));
+                button.setOnClickListener(e -> addPersonToActor(person.getKey(), checkBox.isChecked(), person.getName(), person.getProfilePhoto()));
 
                 mDatabase.child("projects").child(getArguments().getString("project_id"))
                         .child("actors").child(getArguments().getString("actor_id")).child("persons").addChildEventListener(new ChildEventListener() {
@@ -80,7 +80,7 @@ public class PersonAddFragment extends ListFragment {
                         Log.d("PERSON ID", person.getKey());
                         if(actorPerson.getActorID().equals(person.getKey())){
                             Button button = (Button) v.findViewById(R.id.button_add_person);
-                            checkBox.setChecked(actorPerson.getCanEdit());
+                            checkBox.setChecked(actorPerson.isCanEdit());
                             button.setBackgroundColor(Color.RED);
                             button.setText("remove");
                             button.setOnClickListener(e -> removePersonFromActor(dataSnapshot.getKey()));
@@ -117,9 +117,9 @@ public class PersonAddFragment extends ListFragment {
         return inflater.inflate(R.layout.fragment_person_add, container, false);
     }
 
-    private void addPersonToActor(String id, boolean canEdit){
+    private void addPersonToActor(String id, boolean canEdit, String namePerson, String url){
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        ActorPerson actorPerson = new ActorPerson(id, canEdit);
+        ActorPerson actorPerson = new ActorPerson(id, canEdit, namePerson, url);
         Toast.makeText(getActivity(),"Clicked add", Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(),"Clicked add", Toast.LENGTH_SHORT).show();
         mDatabase.child("projects").child(getArguments().getString("project_id")).child("actors").child(getArguments().getString("actor_id")).child("persons").push().setValue(actorPerson);
@@ -138,8 +138,6 @@ public class PersonAddFragment extends ListFragment {
         ft.detach(this).attach(ActorOverviewFragment.newInstance(getArguments().getString("project_id"))).commit();
 
         this.getFragmentManager().beginTransaction()
-            .replace(R.id.contentFragment, PersonAddFragment.newInstance(getArguments().getString("project_id"),getArguments().getString("actor_id")))
-            .addToBackStack(null)
-            .commit();
+            .replace(R.id.contentFragment, PersonAddFragment.newInstance(getArguments().getString("project_id"),getArguments().getString("actor_id"))).addToBackStack(null).commit();
     }
 }
