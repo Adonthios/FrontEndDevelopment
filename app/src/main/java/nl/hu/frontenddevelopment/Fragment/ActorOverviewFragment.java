@@ -19,10 +19,6 @@ public class ActorOverviewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
-/*
-    public static ActorOverviewFragment newInstance() { return new ActorOverviewFragment(); }
-*/
-
     public static ActorOverviewFragment newInstance(String projectId) {
         ActorOverviewFragment fragment = new ActorOverviewFragment();
         Bundle args = new Bundle();
@@ -36,6 +32,7 @@ public class ActorOverviewFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_actor_overview, container, false);
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.recyclerview_actor);
         rv.setHasFixedSize(true);
+
         ActorAdapter adapter = new ActorAdapter(getArguments().getString("project_id"));
         rv.setAdapter(adapter);
 
@@ -45,10 +42,8 @@ public class ActorOverviewFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
 
+        rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
         return rootView;
     }
-
-    /*private void setActorActivity(){
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ActorNewFragment.newInstance(getArguments().getString("project_id"))).commit();
-    } */
 }

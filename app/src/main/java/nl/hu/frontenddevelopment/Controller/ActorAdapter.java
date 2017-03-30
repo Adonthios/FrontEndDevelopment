@@ -124,7 +124,6 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
                 ((TextView)v.findViewById(R.id.actor_name)).setText(person.getName());
                 ImageView userProfilePic = ((ImageView)v.findViewById(R.id.user_profile_pic));
                 Glide.with(context).load("https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64").crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(context)).diskCacheStrategy(DiskCacheStrategy.ALL).into(userProfilePic);
-
             }
         };
 

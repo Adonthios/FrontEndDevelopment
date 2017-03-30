@@ -1,10 +1,11 @@
 package nl.hu.frontenddevelopment.Fragment;
 
-
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,6 @@ import android.widget.TextView;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.View.ActorActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ActorDetailFragment extends Fragment {
     TextView title, description;
     FloatingActionButton fab, fabAddPerson;
@@ -35,8 +33,7 @@ public class ActorDetailFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_actor_detail, container, false);
 

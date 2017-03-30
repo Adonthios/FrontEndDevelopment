@@ -10,12 +10,11 @@ import nl.hu.frontenddevelopment.Fragment.ActorOverviewFragment;
 import nl.hu.frontenddevelopment.Fragment.PersonAddFragment;
 import nl.hu.frontenddevelopment.R;
 
-public class ActorActivity extends AppCompatActivity {
+public class ActorActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_actor);
         setOverviewFragment(getIntent().getExtras().getString("project_id"));
     }
 

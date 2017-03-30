@@ -54,5 +54,4 @@
         android:textColor="@color/colorTextWhite"
         android:background="@color/colorAccent"
         android:layout_margin="@dimen/button_margin" />
-
 </RelativeLayout>
