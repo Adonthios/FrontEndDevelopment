@@ -60,7 +60,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
 
     public PersonAdapter(String selectedProject, String selectedActor) {
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mFirebaseDatabaseReference.child("projects").child(selectedProject).child("actors").child(selectedActor).child("users").addChildEventListener(new ChildEventListener() {
+        mFirebaseDatabaseReference.child("projects").child(selectedProject).child("actors").child(selectedActor).child("persons").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Person person = dataSnapshot.getValue(Person.class);

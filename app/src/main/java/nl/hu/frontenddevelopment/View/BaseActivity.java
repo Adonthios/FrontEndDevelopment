@@ -307,9 +307,9 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         Person person = getCurrectPerson();
 
         if(tag.equals("tablet")){
-            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, EditPersonFragment.newInstance(person.getKey(), person.getName(), person.getPhonenumber(), person.getSidenote())).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, EditPersonFragment.newInstance(person.getKey(), person.getName(), person.getPhonenumber(), person.getSidenote(), person.getProfilePhoto())).addToBackStack(null).commit();
         } else{
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, EditPersonFragment.newInstance(person.getKey(), person.getName(), person.getPhonenumber(), person.getSidenote())).addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, EditPersonFragment.newInstance(person.getKey(), person.getName(), person.getPhonenumber(), person.getSidenote(), person.getProfilePhoto())).addToBackStack(null).commit();
         }
     }
 

@@ -4,13 +4,13 @@ import java.util.List;
 
 public class Actor extends BaseModel {
     public String title,description;
-    public List<Person> personList;
+    public List<ActorPerson> personList;
 
     public Actor(){
         super();
     }
 
-    public Actor(String title, String description, List<Person> personList) {
+    public Actor(String title, String description, List<ActorPerson> personList) {
         super();
         this.title = title;
         this.description = description;
@@ -24,11 +24,11 @@ public class Actor extends BaseModel {
 
     public void setDescription(String description) {this.description = description;}
 
-    public List<Person> getPersonList() {
+    public List<ActorPerson> getPersonList() {
         return personList;
     }
 
-    public boolean addPerson(Person person) {
+    public boolean addPerson(ActorPerson person) {
         if(!personList.contains(person)) {
             super.Update();
             return personList.add(person);
@@ -36,7 +36,7 @@ public class Actor extends BaseModel {
         return false;
     }
 
-    public boolean removePerson(Person person) {
+    public boolean removePerson(ActorPerson person) {
         super.Update();
         return personList.remove(person);
     }

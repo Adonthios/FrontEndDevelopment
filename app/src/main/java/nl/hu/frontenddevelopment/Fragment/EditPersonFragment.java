@@ -1,25 +1,62 @@
 package nl.hu.frontenddevelopment.Fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import nl.hu.frontenddevelopment.Model.Actor;
+import nl.hu.frontenddevelopment.Model.ActorPerson;
+import nl.hu.frontenddevelopment.Model.Person;
+import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
+import nl.hu.frontenddevelopment.Utils.CircleTransform;
 import nl.hu.frontenddevelopment.View.GoogleSignInActivity;
 import nl.hu.frontenddevelopment.View.ProjectActivity;
 
 public class EditPersonFragment extends Fragment {
+    private static final int REQUEST_IMAGE_CAPTURE = 111;
     private EditText name, function, phonenumber, sidenotes;
     public Button bSavePerson;
+    private ImageView profilePicture;
     private DatabaseReference mDatabase;
 
     public EditPersonFragment() {
@@ -27,7 +64,7 @@ public class EditPersonFragment extends Fragment {
     }
 
  //   public static EditPersonFragment newInstance(String personID, String name, String function, String phonenumber, String sidenotes) {
-    public static EditPersonFragment newInstance(String personID, String name, String phonenumber, String sidenotes) {
+    public static EditPersonFragment newInstance(String personID, String name, String phonenumber, String sidenotes, String profilePhote) {
         EditPersonFragment fragment = new EditPersonFragment();
         Bundle args = new Bundle();
         args.putString("person_id", personID);
@@ -35,6 +72,7 @@ public class EditPersonFragment extends Fragment {
      //   args.putString("person_function", function);
         args.putString("person_phonenumber", phonenumber);
         args.putString("person_sidenotes", sidenotes);
+        args.putString("profile_picture", profilePhote);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,7 +91,10 @@ public class EditPersonFragment extends Fragment {
         phonenumber = (EditText) rootView.findViewById(R.id.person_phonenumber);
         sidenotes = (EditText) rootView.findViewById(R.id.person_sidenotes);
         bSavePerson = (Button) rootView.findViewById(R.id.button_save_person);
-
+        profilePicture = (ImageView) rootView.findViewById(R.id.person_icon);
+        Glide.with(getActivity()).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(getActivity())).diskCacheStrategy(DiskCacheStrategy.ALL).into(profilePicture);
+        Log.d("URL", FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
+        profilePicture.setOnClickListener(e -> onLaunchCamera());
         name.setText(getArguments().getString("person_name"));
     //    function.setText(getArguments().getString("person_function"));
         phonenumber.setText(getArguments().getString("person_phonenumber"));
@@ -84,5 +125,68 @@ public class EditPersonFragment extends Fragment {
             .replace(R.id.contentFragment, ProjectOverviewFragment.newInstance())
             .addToBackStack(null)
             .commit();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+    }
+
+    public void onLaunchCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            profilePicture.setImageBitmap(imageBitmap);
+            saveProfilePicture(imageBitmap);
+        }
+    }
+
+    public void saveProfilePicture(Bitmap bitmap) {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference profilePictures = storageRef.child("profilePictures");
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = profilePictures.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                Glide.with(getActivity()).load(downloadUrl).crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(getActivity())).diskCacheStrategy(DiskCacheStrategy.ALL).into(profilePicture);
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                        .setPhotoUri(downloadUrl)
+                        .build();
+
+                user.updateProfile(profileUpdates)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+
+                                }
+                            }
+                        });
+            }
+
+    });
+
     }
 }
