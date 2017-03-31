@@ -23,7 +23,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import nl.hu.frontenddevelopment.Model.Person;
 import nl.hu.frontenddevelopment.R;
 
-public class GoogleSignInActivity extends BaseActivity implements
+public class GoogleSignInActivity extends BaseAuthActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 

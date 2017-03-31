@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import nl.hu.frontenddevelopment.Model.Person;
 import nl.hu.frontenddevelopment.R;
 
-public class EmailPasswordActivity extends BaseActivity implements View.OnClickListener {
+public class EmailPasswordActivity extends BaseAuthActivity implements View.OnClickListener {
     private EditText mEmailField;
     private EditText mPasswordField;
     private EditText mNameField;

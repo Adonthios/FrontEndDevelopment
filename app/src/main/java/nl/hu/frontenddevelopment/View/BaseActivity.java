@@ -40,9 +40,6 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     // Firebase instance variables
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private DatabaseReference mDatabase;
-
-    private static Boolean hasToAdd;
 
     /* DEFAULT LAYOUT */
     private NavigationView navigationView;
@@ -66,7 +63,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -98,34 +95,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    protected void checkUserExisted(Person person, String userID) {
-        hasToAdd = true;
-        mDatabase.child("persons").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                hasToAdd = true;
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Person person = snapshot.getValue(Person.class);
 
-                    Log.d("PERSON","ID = " + person.getKey());
-                    if(person.getKey().equals(userID)){
-                        hasToAdd = false;
-                        break;
-                    }
-                }
-                if (hasToAdd) addToPersonDatabase(person,userID);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
-
-    private void addToPersonDatabase(Person person, String userID) {
-        person.setKey(userID);
-        //person.setProfilePhoto(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
-        mDatabase.child("persons").push().setValue(person);
-    }
 
     protected void goToHomeActivity() {
         startActivity(new Intent(this, ProjectActivity.class));
