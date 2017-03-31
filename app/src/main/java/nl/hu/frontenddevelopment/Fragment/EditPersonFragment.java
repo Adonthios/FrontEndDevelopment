@@ -151,7 +151,7 @@ public class EditPersonFragment extends Fragment {
 
     public void saveProfilePicture(Bitmap bitmap) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference profilePictures = storageRef.child("profilePictures");
+        StorageReference profilePictures = storageRef.child("profilePictures/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -168,7 +168,7 @@ public class EditPersonFragment extends Fragment {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                Uri downloadUrl = taskSnapshot.getMetadata().getDownloadUrl();
                 Glide.with(getActivity()).load(downloadUrl).crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(getActivity())).diskCacheStrategy(DiskCacheStrategy.ALL).into(profilePicture);
                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                         .setPhotoUri(downloadUrl)
@@ -179,7 +179,38 @@ public class EditPersonFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+                                    mDatabase.child("persons").addChildEventListener(new ChildEventListener() {
+                                        @Override
+                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                            Person person = dataSnapshot.getValue(Person.class);
+                                            Log.d("Person key: ", person.key);
+                                            Log.d("Current user key", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                            if(person.key != null && person.key.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                                                Log.d("Snapshot key", dataSnapshot.getKey());
+                                                mDatabase.child("persons").child(dataSnapshot.getKey()).child("profilePhoto").setValue(downloadUrl.toString());
+                                            }
+                                        }
 
+                                        @Override
+                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                        }
+
+                                        @Override
+                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                        }
+
+                                        @Override
+                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
                                 }
                             }
                         });

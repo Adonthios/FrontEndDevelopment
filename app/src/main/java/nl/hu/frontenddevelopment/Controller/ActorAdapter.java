@@ -35,17 +35,20 @@ import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
 import nl.hu.frontenddevelopment.View.ActorActivity;
 
-public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder>{
+public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder> {
 
     private ArrayList<Actor> actors = new ArrayList<>();
+    private ArrayList<Person> persons = new ArrayList<>();
+    private ArrayList<Person> allCorrectPersons = new ArrayList<>();
+    private ArrayList<ActorPerson> actorPersons = new ArrayList<>();
     private String projectId, actorId;
     private Context context;
     private DatabaseReference mFirebaseDatabaseReference;
     private static String TAG = "ProjectAdapter";
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public CardView mCardView;
-        public TextView title,description;
+        public TextView title, description;
         public ListView personList;
 
         public MyViewHolder(View v) {
@@ -57,6 +60,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
             description = (TextView) v.findViewById(R.id.actor_description);
             v.setOnClickListener(this);
         }
+
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
@@ -99,9 +103,72 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
 
             }
         });
+
+        mFirebaseDatabaseReference.child("persons").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Person person = dataSnapshot.getValue(Person.class);
+                persons.add(person);
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Person person = dataSnapshot.getValue(Person.class);
+                persons.remove(person);
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mFirebaseDatabaseReference.child("persons").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Person person = dataSnapshot.getValue(Person.class);
+                if(!persons.contains(person)){
+                    persons.add(person);
+                }
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Person person = dataSnapshot.getValue(Person.class);
+                persons.remove(person);
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public ActorAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
@@ -113,6 +180,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        ArrayList<Person> addedPersons = new ArrayList<>();
         holder.title.setText(actors.get(position).title);
         holder.description.setText(actors.get(position).getDescription());
         // TODO: 3/27/2017 Get only person for correct actor
@@ -120,15 +188,29 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
                 mFirebaseDatabaseReference.child("projects").child(projectId)
                         .child("actors").child(actors.get(position).getKey()).child("persons")) {
             @Override
-            protected void populateView(View v, ActorPerson person, int position) {
-                ((TextView)v.findViewById(R.id.actor_name)).setText(person.getName());
-                ImageView userProfilePic = ((ImageView)v.findViewById(R.id.user_profile_pic));
-                Glide.with(context).load("https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64").crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(context)).diskCacheStrategy(DiskCacheStrategy.ALL).into(userProfilePic);
+            protected void populateView(View v, ActorPerson actorPerson, int position) {
+                addedPersons.clear();
+                Log.d("List ","Size  =" + persons.size());
+                for (int i=0; i < persons.size(); i++ ){
+                    Person person = persons.get(i);
+
+                    if(actorPerson.getActorID().equals(person.getKey()) && !addedPersons.contains(person)){
+                        Log.d("Person", person.getName());
+                        addedPersons.add(person);
+                        ((TextView)v.findViewById(R.id.actor_name)).setText(person.getName());
+                        ImageView userProfilePic = ((ImageView)v.findViewById(R.id.user_profile_pic));
+                        Glide.with(context).load(person.getProfilePhoto()).crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(context)).diskCacheStrategy(DiskCacheStrategy.ALL).into(userProfilePic);
+                        break;
+                    }
+                }
             }
         };
 
         holder.personList.setAdapter(personListAdapter);
-    }
+
+    // Create new views (invoked by the layout manager)
+
+}
 
     @Override
     public int getItemCount() {
