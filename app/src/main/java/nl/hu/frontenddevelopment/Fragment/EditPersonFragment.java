@@ -145,7 +145,6 @@ public class EditPersonFragment extends Fragment {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            profilePicture.setImageBitmap(imageBitmap);
             saveProfilePicture(imageBitmap);
         }
     }
