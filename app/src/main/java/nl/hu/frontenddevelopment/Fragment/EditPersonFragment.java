@@ -69,7 +69,6 @@ public class EditPersonFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString("person_id", personID);
         args.putString("person_name", name);
-     //   args.putString("person_function", function);
         args.putString("person_phonenumber", phonenumber);
         fragment.setArguments(args);
         return fragment;
@@ -93,9 +92,7 @@ public class EditPersonFragment extends Fragment {
         Log.d("URL", FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
         profilePicture.setOnClickListener(e -> onLaunchCamera());
         name.setText(getArguments().getString("person_name"));
-    //    function.setText(getArguments().getString("person_function"));
         phonenumber.setText(getArguments().getString("person_phonenumber"));
-        sidenotes.setText(getArguments().getString("person_sidenotes"));
         bSavePerson.setText(R.string.button_save);
         bSavePerson.setOnClickListener(b -> savePerson(getArguments().getString("person_id")));
 
@@ -103,14 +100,38 @@ public class EditPersonFragment extends Fragment {
     }
 
     private void savePerson(String key){
-        if(key != null && !key.equals("")) {
-            mDatabase.child("persons").child(key).child("name").setValue(((EditText) getView().findViewById(R.id.person_name)).getText().toString());
-            mDatabase.child("persons").child(key).child("phonenumber").setValue(((EditText) getView().findViewById(R.id.person_phonenumber)).getText().toString());
-            Toast.makeText(getActivity(), R.string.toast_change_succesful, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getActivity(), R.string.toast_change_failed, Toast.LENGTH_SHORT).show();
-        }
-        refreshFragment();
+        mDatabase.child("persons").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Person person = dataSnapshot.getValue(Person.class);
+                if(person.getKey().equals(key)){
+                    Log.d("Change", dataSnapshot.getKey());
+                    mDatabase.child("persons").child(dataSnapshot.getKey()).child("name").setValue(name.getText().toString());
+                    mDatabase.child("persons").child(dataSnapshot.getKey()).child("phonenumber").setValue(phonenumber.getText().toString());
+                    refreshFragment();
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void refreshFragment(){

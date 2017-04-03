@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -254,7 +255,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 setNewProject();
                 break;
             case 2:
-                editProfile();
+                getCurrentPerson();
                 break;
             case 3:
                 signOut();
@@ -330,11 +331,9 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void editProfile(){
+    public void editProfile(Person person){
         View v = findViewById(R.id.contentFragment);
         String tag = v.getTag().toString();
-
-        Person person = getCurrectPerson();
 
         if(tag.equals("tablet")){
             getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, EditPersonFragment.newInstance(person.getKey(), person.getName(), person.getPhonenumber())).addToBackStack(null).commit();
@@ -343,16 +342,39 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private Person getCurrectPerson() {
-        Person person = new Person();
-        String currectUserKey = mAuth.getCurrentUser().getUid();
-        person.setKey(currectUserKey);
+    private void getCurrentPerson() {
+        String currentUserKey = mAuth.getCurrentUser().getUid();
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        person.setName(mDatabase.child("persons").child(currectUserKey).child("name").getKey());
-        person.setPhonenumber(mDatabase.child("persons").child(currectUserKey).child("phonenumber").getKey());
-        person.setSidenote(mDatabase.child("persons").child(currectUserKey).child("sidenote").getKey());
+        mDatabase.child("persons").addChildEventListener(new ChildEventListener() {
 
-        return person;
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Person person = dataSnapshot.getValue(Person.class);
+                if(person.getKey().equals(currentUserKey)){
+                    editProfile(person);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
