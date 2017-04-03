@@ -64,15 +64,13 @@ public class EditPersonFragment extends Fragment {
     }
 
  //   public static EditPersonFragment newInstance(String personID, String name, String function, String phonenumber, String sidenotes) {
-    public static EditPersonFragment newInstance(String personID, String name, String phonenumber, String sidenotes, String profilePhote) {
+    public static EditPersonFragment newInstance(String personID, String name, String phonenumber) {
         EditPersonFragment fragment = new EditPersonFragment();
         Bundle args = new Bundle();
         args.putString("person_id", personID);
         args.putString("person_name", name);
      //   args.putString("person_function", function);
         args.putString("person_phonenumber", phonenumber);
-        args.putString("person_sidenotes", sidenotes);
-        args.putString("profile_picture", profilePhote);
         fragment.setArguments(args);
         return fragment;
     }
@@ -89,7 +87,6 @@ public class EditPersonFragment extends Fragment {
         name = (EditText) rootView.findViewById(R.id.person_name);
     //    function = (EditText) rootView.findViewById(R.id.person_function);
         phonenumber = (EditText) rootView.findViewById(R.id.person_phonenumber);
-        sidenotes = (EditText) rootView.findViewById(R.id.person_sidenotes);
         bSavePerson = (Button) rootView.findViewById(R.id.button_save_person);
         profilePicture = (ImageView) rootView.findViewById(R.id.person_icon);
         Glide.with(getActivity()).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(getActivity())).diskCacheStrategy(DiskCacheStrategy.ALL).into(profilePicture);
@@ -109,7 +106,6 @@ public class EditPersonFragment extends Fragment {
         if(key != null && !key.equals("")) {
             mDatabase.child("persons").child(key).child("name").setValue(((EditText) getView().findViewById(R.id.person_name)).getText().toString());
             mDatabase.child("persons").child(key).child("phonenumber").setValue(((EditText) getView().findViewById(R.id.person_phonenumber)).getText().toString());
-            mDatabase.child("persons").child(key).child("sidenote").setValue(((EditText) getView().findViewById(R.id.person_sidenotes)).getText().toString());
             Toast.makeText(getActivity(), R.string.toast_change_succesful, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), R.string.toast_change_failed, Toast.LENGTH_SHORT).show();
