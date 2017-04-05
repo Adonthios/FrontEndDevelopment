@@ -170,7 +170,11 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         if(mAuth.getCurrentUser() != null && mAuth.getCurrentUser().getPhotoUrl() != null && mAuth.getCurrentUser().getPhotoUrl().toString() != null && !mAuth.getCurrentUser().getPhotoUrl().toString().equals("")) {
             imgProfileUrl = mAuth.getCurrentUser().getPhotoUrl().toString();
         }
-        Glide.with(this).load(imgProfileUrl).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
+        glideProfilePhoto(imgProfileUrl);
+    }
+
+    protected void glideProfilePhoto(String url) {
+        Glide.with(this).load(url).crossFade().thumbnail(0.5f).bitmapTransform(new CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgProfile);
     }
 
     private void setUpNavigationView() {

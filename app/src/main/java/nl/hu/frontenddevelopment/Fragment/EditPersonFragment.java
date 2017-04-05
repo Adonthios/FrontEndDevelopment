@@ -74,7 +74,7 @@ public class EditPersonFragment extends Fragment {
         bSavePerson = (Button) rootView.findViewById(R.id.button_save_person);
         profilePicture = (ImageView) rootView.findViewById(R.id.person_icon);
         Glide.with(getActivity()).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(getActivity())).diskCacheStrategy(DiskCacheStrategy.ALL).into(profilePicture);
-        Log.d("URL", FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
+     //   Log.d("URL", FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
         profilePicture.setOnClickListener(e -> onLaunchCamera());
         name.setText(getArguments().getString("person_name"));
         phonenumber.setText(getArguments().getString("person_phonenumber"));
@@ -190,6 +190,7 @@ public class EditPersonFragment extends Fragment {
                                             if(person.key != null && person.key.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
                                                 Log.d("Snapshot key", dataSnapshot.getKey());
                                                 mDatabase.child("persons").child(dataSnapshot.getKey()).child("profilePhoto").setValue(downloadUrl.toString());
+                                                glideProfilePhoto(downloadUrl.toString());
                                             }
                                         }
 
@@ -220,5 +221,10 @@ public class EditPersonFragment extends Fragment {
 
     });
 
+    }
+
+    private void glideProfilePhoto(String url) {
+        // TODO: Call the Base Activity to slide this shit
+     //   getActivity().glideProfilePhoto(url);
     }
 }
