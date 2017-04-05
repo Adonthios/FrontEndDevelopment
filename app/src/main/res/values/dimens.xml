@@ -10,6 +10,7 @@
     <!--Default textSizes -->
     <dimen name="titel_size">30sp</dimen>
     <dimen name="text_size">20sp</dimen>
+    <dimen name="text_size_small">10sp</dimen>
 
     <!--Default padding -->
     <dimen name="text_padding">10dp</dimen>

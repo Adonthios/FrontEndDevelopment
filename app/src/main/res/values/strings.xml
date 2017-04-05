@@ -128,5 +128,6 @@
     <string name="hint_notes">Notes</string>
     <string name="teamlid">Teamlid</string>
     <string name="analist">Analist</string>
+    <string name="edit_actor">Edit actor</string>
 
 </resources>

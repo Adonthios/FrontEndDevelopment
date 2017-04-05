@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,13 +38,14 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
     private ArrayList<Actor> actors = new ArrayList<>();
     private ArrayList<Person> persons = new ArrayList<>();
     private String projectId, actorId;
+    private Person currentUser;
     private Context context;
     private DatabaseReference mFirebaseDatabaseReference;
     private static String TAG = "ProjectAdapter";
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public CardView mCardView;
-        public TextView title, description;
+        public TextView title, description, editActor;
         public ListView personList;
 
         public MyViewHolder(View v) {
@@ -51,14 +53,19 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
             context = v.getContext();
             mCardView = (CardView) v.findViewById(R.id.cardview_actor);
             personList = (ListView) v.findViewById(R.id.person_list);
+            editActor = (TextView) v.findViewById(R.id.actor_edit);
+            editActor.setOnClickListener(e -> editActor(actorId));
             title = (TextView) v.findViewById(R.id.actor_title);
-            title.setOnClickListener(e -> addPerson(actorId));
             description = (TextView) v.findViewById(R.id.actor_description);
-            description.setOnClickListener(e -> addPerson(actorId));
+
         }
 
         private void addPerson(String actorId){
             ((ActorActivity) context).addPersonToActor(actorId);
+        }
+
+        private void editActor(String actorId){
+            ((ActorActivity) context).setEditActorFragment(actorId, title.getText().toString(), description.getText().toString());
         }
     }
 
@@ -101,6 +108,10 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Person person = dataSnapshot.getValue(Person.class);
+                if(person.getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                    currentUser = person;
+                    person.setKey(dataSnapshot.getKey());
+                }
                 person.setKey(dataSnapshot.getKey());
                 persons.add(person);
                 notifyDataSetChanged();
@@ -179,7 +190,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
         ArrayList<Person> addedPersons = new ArrayList<>();
         holder.title.setText(actors.get(position).title);
         holder.description.setText(actors.get(position).getDescription());
-        // TODO: 3/27/2017 Get only person for correct actor
+
         ListAdapter personListAdapter = new FirebaseListAdapter<ActorPerson>((ActorActivity)context, ActorPerson.class, R.layout.card_actor_persons,
                 mFirebaseDatabaseReference.child("projects").child(projectId)
                         .child("actors").child(actors.get(position).getKey()).child("persons")) {
@@ -201,13 +212,18 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
                         ((TextView)v.findViewById(R.id.actor_name)).setText(baseName + person.getName());
                         ((TextView)v.findViewById(R.id.actor_email)).setText(baseEmail + person.getEmail());
                         ((TextView)v.findViewById(R.id.actor_number)).setText(baseNumber + person.getPhonenumber());
-                        ((TextView)v.findViewById(R.id.actor_notes)).setText(baseNotes + actorPerson.getNotes());
 
-                        if(actorPerson.canEdit){
-                            ((TextView)v.findViewById(R.id.actor_function)).setText(functionAnalist);
-                        }else{
-                            ((TextView)v.findViewById(R.id.actor_function)).setText(functionTeamlid);
+                        if(actorPerson.getNotes() != null){
+                            ((TextView)v.findViewById(R.id.actor_notes)).setText(baseNotes + actorPerson.getNotes());
                         }
+
+                        if(actorPerson.getActorID().equals(currentUser.getKey()) && actorPerson.canEdit){
+                                ((TextView)v.findViewById(R.id.actor_function)).setText(functionAnalist);
+                                holder.editActor.setVisibility(View.VISIBLE);
+                                holder.description.setOnClickListener(e -> holder.addPerson(actorId));
+                                holder.title.setOnClickListener(e -> holder.addPerson(actorId));
+                        }
+                        ((TextView)v.findViewById(R.id.actor_function)).setText(functionTeamlid);
 
                         ImageView userProfilePic = ((ImageView)v.findViewById(R.id.user_profile_pic));
                         Glide.with(context).load(person.getProfilePhoto()).crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(context)).diskCacheStrategy(DiskCacheStrategy.ALL).into(userProfilePic);

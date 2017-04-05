@@ -1,5 +1,6 @@
 package nl.hu.frontenddevelopment.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -26,7 +27,7 @@ public class ProjectOverviewFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_project_overview, container, false);
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.recyclerview);
         rv.setHasFixedSize(true);
-        ProjectAdapter adapter = new ProjectAdapter();
+        ProjectAdapter adapter = new ProjectAdapter(getContext());
         rv.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());

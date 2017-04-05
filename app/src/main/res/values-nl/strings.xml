@@ -111,5 +111,6 @@
     <string name="hint_notes">Aantekeningen</string>
     <string name="teamlid">Teamlid</string>
     <string name="analist">Analist</string>
+    <string name="edit_actor">Actor aanpassen</string>
 
 </resources>

@@ -55,7 +55,8 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
         }
     }
 
-    public ProjectAdapter() {
+    public ProjectAdapter(Context context) {
+        this.context = context;
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseDatabaseReference.child("projects").addChildEventListener(new ChildEventListener() {
             @Override
