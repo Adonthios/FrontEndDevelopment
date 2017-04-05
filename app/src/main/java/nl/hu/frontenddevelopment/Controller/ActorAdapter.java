@@ -1,12 +1,9 @@
 package nl.hu.frontenddevelopment.Controller;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +11,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.net.URI;
 import java.util.ArrayList;
 
 import com.bumptech.glide.Glide;
@@ -27,6 +22,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
 
 import nl.hu.frontenddevelopment.Model.Actor;
 import nl.hu.frontenddevelopment.Model.ActorPerson;
@@ -39,14 +36,12 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
 
     private ArrayList<Actor> actors = new ArrayList<>();
     private ArrayList<Person> persons = new ArrayList<>();
-    private ArrayList<Person> allCorrectPersons = new ArrayList<>();
-    private ArrayList<ActorPerson> actorPersons = new ArrayList<>();
     private String projectId, actorId;
     private Context context;
     private DatabaseReference mFirebaseDatabaseReference;
     private static String TAG = "ProjectAdapter";
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         public CardView mCardView;
         public TextView title, description;
         public ListView personList;
@@ -57,15 +52,13 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
             mCardView = (CardView) v.findViewById(R.id.cardview_actor);
             personList = (ListView) v.findViewById(R.id.person_list);
             title = (TextView) v.findViewById(R.id.actor_title);
+            title.setOnClickListener(e -> addPerson(actorId));
             description = (TextView) v.findViewById(R.id.actor_description);
-            v.setOnClickListener(this);
+            description.setOnClickListener(e -> addPerson(actorId));
         }
 
-        @Override
-        public void onClick(View v) {
-            int pos = getAdapterPosition();
-            Actor actor = actors.get(pos);
-            ((ActorActivity) context).setDetailActorFragment(actor.getKey(), actor.getTitle(), actor.getDescription());
+        private void addPerson(String actorId){
+            ((ActorActivity) context).addPersonToActor(actorId);
         }
     }
 
@@ -108,6 +101,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Person person = dataSnapshot.getValue(Person.class);
+                person.setKey(dataSnapshot.getKey());
                 persons.add(person);
                 notifyDataSetChanged();
             }
@@ -139,6 +133,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Person person = dataSnapshot.getValue(Person.class);
+                person.setKey(dataSnapshot.getKey());
                 if(!persons.contains(person)){
                     persons.add(person);
                 }
@@ -180,24 +175,40 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        actorId = actors.get(position).getKey();
         ArrayList<Person> addedPersons = new ArrayList<>();
         holder.title.setText(actors.get(position).title);
         holder.description.setText(actors.get(position).getDescription());
         // TODO: 3/27/2017 Get only person for correct actor
-        ListAdapter personListAdapter = new FirebaseListAdapter<ActorPerson>((ActorActivity)context, ActorPerson.class, R.layout.actor_list_item,
+        ListAdapter personListAdapter = new FirebaseListAdapter<ActorPerson>((ActorActivity)context, ActorPerson.class, R.layout.card_actor_persons,
                 mFirebaseDatabaseReference.child("projects").child(projectId)
                         .child("actors").child(actors.get(position).getKey()).child("persons")) {
             @Override
             protected void populateView(View v, ActorPerson actorPerson, int position) {
                 addedPersons.clear();
-                Log.d("List ","Size  =" + persons.size());
                 for (int i=0; i < persons.size(); i++ ){
                     Person person = persons.get(i);
 
                     if(actorPerson.getActorID().equals(person.getKey()) && !addedPersons.contains(person)){
-                        Log.d("Person", person.getName());
                         addedPersons.add(person);
-                        ((TextView)v.findViewById(R.id.actor_name)).setText(person.getName());
+                        String baseName = context.getResources().getString(R.string.hint_name) + ": ";
+                        String baseEmail = context.getResources().getString(R.string.hint_email) + ": ";
+                        String baseNumber = context.getResources().getString(R.string.hint_number) + ": ";
+                        String baseNotes = context.getResources().getString(R.string.hint_notes) + ": \n";
+                        String functionTeamlid = context.getResources().getString(R.string.hint_function)+ ": " + context.getResources().getString(R.string.teamlid);
+                        String functionAnalist = context.getResources().getString(R.string.hint_function)+ ": " + context.getResources().getString(R.string.analist);
+
+                        ((TextView)v.findViewById(R.id.actor_name)).setText(baseName + person.getName());
+                        ((TextView)v.findViewById(R.id.actor_email)).setText(baseEmail + person.getEmail());
+                        ((TextView)v.findViewById(R.id.actor_number)).setText(baseNumber + person.getPhonenumber());
+                        ((TextView)v.findViewById(R.id.actor_notes)).setText(baseNotes + actorPerson.getNotes());
+
+                        if(actorPerson.canEdit){
+                            ((TextView)v.findViewById(R.id.actor_function)).setText(functionAnalist);
+                        }else{
+                            ((TextView)v.findViewById(R.id.actor_function)).setText(functionTeamlid);
+                        }
+
                         ImageView userProfilePic = ((ImageView)v.findViewById(R.id.user_profile_pic));
                         Glide.with(context).load(person.getProfilePhoto()).crossFade().thumbnail(0.3f).bitmapTransform(new CircleTransform(context)).diskCacheStrategy(DiskCacheStrategy.ALL).into(userProfilePic);
                         break;

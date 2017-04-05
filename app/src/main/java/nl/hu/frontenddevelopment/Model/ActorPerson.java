@@ -4,6 +4,7 @@ public class ActorPerson {
     public String actorID;
     public String name;
     public String url;
+    public String notes;
     public boolean canEdit;
 
     public ActorPerson(){
@@ -16,9 +17,18 @@ public class ActorPerson {
         this.url = url;
     }
 
+    public ActorPerson(String actorID, boolean canEdit ) {
+        this.actorID = actorID;
+        this.canEdit = canEdit;
+    }
+
     public String getName() { return name; }
 
     public void setName(String name) {this.name = name;}
+
+    public String getNotes() { return notes; }
+
+    public void setNotes(String notes) {this.notes = notes;}
 
     public String getUrl() {return url;}
 

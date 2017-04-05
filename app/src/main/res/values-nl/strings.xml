@@ -1,0 +1,115 @@
+<resources>
+    <string name="app_name">AT-App</string>
+    <string name="app_name_sub">Front End Development</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Sluit navigation drawer</string>
+
+    <!-- Drawer header -->
+    <string name="drawer_header_nav_bg">http://www.little-bamboo.com/images/blog/research-data.jpg</string>
+    <string name="drawer_header_profile_bg">http://www.grafile.com/wp-content/plugins/all-in-one-seo-pack-pro/images/default-user-image.png</string>
+
+    <!-- Drawer section titles -->
+    <string name="drawer_section_title_account">Account</string>
+
+    <!-- Drawer titles -->
+    <string name="drawer_title_projects">Projecten</string>
+    <string name="drawer_title_project_new">Nieuw project</string>
+    <string name="drawer_title_settings">Settings</string>
+    <string name="drawer_title_signout">Uitloggen</string>
+    <string name="drawer_title_edit_profile">Profiel aanpasaen</string>
+
+    <!-- Toast messages -->
+    <string name="toast_signed_in">Succesvol ingelogd</string>
+    <string name="toast_add_succesful">Succesvol toegevoegd</string>
+    <string name="toast_add_failed">Toevoegen mislukt</string>
+    <string name="toast_change_succesful">Succesvol aangepast</string>
+    <string name="toast_change_failed">Aanpassing mislukt</string>
+    <string name="toast_delete_succesful">Succesvol verwijderd</string>
+    <string name="toast_delete_failed">Verwijderen mislukt</string>
+
+
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="nav_item_activity_titles">
+        <item>Projecten</item>
+        <item>Niew Project</item>
+        <item>Profiel aanpassen</item>
+        <item>AT-App</item>
+        <item>AT-App</item>
+    </string-array>
+
+    <!-- project new -->
+    <string name="project_new_name">Project naam</string>
+    <string name="project_new_name_text">Project naam</string>
+    <string name="project_new_description">Project omschrijving</string>
+    <string name="project_new_description_text">Project omschrijving</string>
+
+    <!-- project detail -->
+    <string name="project_detail_name">Project naam</string>
+    <string name="project_detail_name_text">Project naam</string>
+    <string name="project_detail_description">Project omschrijving</string>
+    <string name="project_detail_description_text">Project omschrijving</string>
+    <!-- project detail actors -->
+    <string name="project_detail_actors">Actors</string>
+    <string name="project_detail_actor_name">Actor naam</string>
+    <string name="project_detail_actor_name_text">Actor naam</string>
+    <string name="project_detail_actor_description">Actor omschrijving</string>
+    <string name="project_detail_actor_description_text">Actor omschrijving</string>
+
+    <!-- buttons -->
+    <string name="button_save">Opslaan</string>
+    <string name="button_save_project">Project opslaan</string>
+    <string name="button_new_actor">Niewe actor</string>
+
+    <!--Actor item list-->
+    <string name="actor_list_name">naam: </string>
+    <string name="actor_list_function">Functie: </string>
+    <string name="actor_list_email">Email: </string>
+    <string name="actor_list_notes">Aantekeningen: </string>
+    <string name="project_new_title">Project titel</string>
+    <string name="text_button_add_new_project">Nieuw project toevoegen</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Wachtwoord (Optioneel)</string>
+    <string name="action_sign_in">Inloggen of registreren</string>
+    <string name="action_sign_in_short">Inloggen</string>
+    <string name="error_invalid_email">Dit email address is niet geldig</string>
+    <string name="error_invalid_password">Wachtwoord te kort</string>
+    <string name="error_incorrect_password">Wachtwoord is ongeldig</string>
+    <string name="error_field_required">Dit veld is verplicht</string>
+    <string name="permission_rationale">"Contact permissie nodig voor email."</string>
+    <string name="text_button_delete_project">Verwijder Project</string>
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Wachtwoord</string>
+    <string name="sign_in">Inloggen</string>
+    <string name="create_account">Account aanmaken</string>
+    <string name="auth_failed">Authentication failed</string>
+    <string name="emailpassword_title_text">Email en wactwoord</string>
+    <string name="loading">Laden…</string>
+
+    <string name="desc_emailpassword">Gebruik email and wachtwoord voor inloggen</string>
+
+    <!-- google auth -->
+    <string name="title_activity_google_sign_in">GoogleSignInActivity</string>
+    <string name="desc_google_sign_in">Gebruik Google Sign in</string>
+    <string name="google_title_text">Google Sign In</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="button_add_new_actor">Actor toegevoegd aan project</string>
+    <string name="chooser_title">Kies manier van inloggen</string>
+    <string name="button_edit_person">Aanpassingen opgeslagen</string>
+
+    <!-- Person -->
+    <string name="hint_function">Functie</string>
+    <string name="hint_name">Naam</string>
+    <string name="hint_phone">Telefoon</string>
+    <string name="hint_sidenote">Aantekeningen</string>
+
+    <string name="defaultProfilePhoto">https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64</string>
+    <string name="hint_number">Nummer</string>
+    <string name="hint_notes">Aantekeningen</string>
+    <string name="teamlid">Teamlid</string>
+    <string name="analist">Analist</string>
+
+</resources>

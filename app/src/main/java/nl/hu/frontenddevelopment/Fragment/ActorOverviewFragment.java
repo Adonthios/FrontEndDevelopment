@@ -15,6 +15,7 @@ import nl.hu.frontenddevelopment.View.ActorActivity;
 
 public class ActorOverviewFragment extends Fragment {
     private FloatingActionButton fabNewActor;
+    private FloatingActionButton fabAddPerson;
 
     @Override
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
@@ -35,13 +36,12 @@ public class ActorOverviewFragment extends Fragment {
 
         ActorAdapter adapter = new ActorAdapter(getArguments().getString("project_id"));
         rv.setAdapter(adapter);
-
         fabNewActor = (FloatingActionButton) rootView.findViewById(R.id.fab_add_actor);
         fabNewActor.setOnClickListener(e -> ((ActorActivity) getContext()).setNewActorFragment(getArguments().getString("project_id")));
 
+
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
-
         rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         return rootView;

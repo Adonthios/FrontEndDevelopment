@@ -124,5 +124,9 @@
     <string name="hint_sidenote">Sitenote</string>
 
     <string name="defaultProfilePhoto">https://lh4.googleusercontent.com/-6Cewl5Wyx7I/AAAAAAAAAAI/AAAAAAAAAAA/tWZWErkqLCE/W40-H40/photo.jpg?sz=64</string>
+    <string name="hint_number">Number</string>
+    <string name="hint_notes">Notes</string>
+    <string name="teamlid">Teamlid</string>
+    <string name="analist">Analist</string>
 
 </resources>
