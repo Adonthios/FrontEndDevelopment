@@ -36,12 +36,21 @@ public class ActorOverviewFragment extends Fragment {
         ActorAdapter adapter = new ActorAdapter(getArguments().getString("project_id"));
         rv.setAdapter(adapter);
         fabNewActor = (FloatingActionButton) rootView.findViewById(R.id.fab_add_actor);
-        fabNewActor.setOnClickListener(e -> ((ActorActivity) getContext()).setNewActorFragment(getArguments().getString("project_id")));
-
+        fabNewActor.setOnClickListener(e -> setNewActorFragment(getArguments().getString("project_id")));
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
         rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         return rootView;
+    }
+
+    public void setNewActorFragment(String projectID){
+        View v = getActivity().findViewById(R.id.contentFragment);
+        String tag = v.getTag().toString();
+        if(tag.equals("tablet")){
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ActorNewFragment.newInstance(projectID)).addToBackStack(null).commit();
+        } else{
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ActorNewFragment.newInstance(projectID)).addToBackStack(null).commit();
+        }
     }
 }

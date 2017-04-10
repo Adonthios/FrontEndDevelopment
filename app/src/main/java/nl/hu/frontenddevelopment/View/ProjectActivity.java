@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -23,8 +24,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.net.URI;
 
+import nl.hu.frontenddevelopment.Fragment.ActorNewFragment;
 import nl.hu.frontenddevelopment.Fragment.ActorOverviewFragment;
 import nl.hu.frontenddevelopment.Fragment.EditPersonFragment;
+import nl.hu.frontenddevelopment.Fragment.PersonAddFragment;
 import nl.hu.frontenddevelopment.Fragment.ProjectNewFragment;
 import nl.hu.frontenddevelopment.Fragment.ProjectOverviewFragment;
 import nl.hu.frontenddevelopment.Model.Person;
@@ -32,6 +35,7 @@ import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
 
 public class ProjectActivity extends BaseActivity {
+    private String projectId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,7 @@ public class ProjectActivity extends BaseActivity {
     }
 
     public void setEditProject(String id, String title, String description){
+        projectId = id;
         View v = findViewById(R.id.contentFragment);
         String tag = v.getTag().toString();
         if(tag.equals("tablet")){
@@ -80,6 +85,28 @@ public class ProjectActivity extends BaseActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, ProjectNewFragment.newInstance()).addToBackStack(null).commit();
         } else{
             getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ProjectNewFragment.newInstance()).addToBackStack(null).commit();
+        }
+    }
+
+    public void setEditActorFragment(String actorID, String actorTitle, String actorDescription){
+        View v = findViewById(R.id.contentFragment);
+        String tag = v.getTag().toString();
+        Log.d("TAG =", tag);
+        if(tag.equals("tablet")){
+            startActivity(new Intent(this, ActorActivity.class).putExtra("project_id", projectId));
+        } else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ActorNewFragment.newInstance(projectId, actorID, actorTitle, actorDescription)).addToBackStack(null).commit();
+        }
+    }
+
+    public void addPersonToActor(String actorID, String projectId) {
+        View v = findViewById(R.id.contentFragment);
+        String tag = v.getTag().toString();
+        if(tag.equals("tablet")){
+            Log.d("Project: ", projectId + " Actor = " +actorID );
+            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, PersonAddFragment.newInstance(projectId,actorID)).addToBackStack(null).commit();
+        } else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, PersonAddFragment.newInstance(projectId, actorID)).addToBackStack(null).commit();
         }
     }
 }

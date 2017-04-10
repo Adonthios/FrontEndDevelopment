@@ -1,7 +1,9 @@
 package nl.hu.frontenddevelopment.Controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,12 +29,16 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
+import nl.hu.frontenddevelopment.Fragment.ActorNewFragment;
 import nl.hu.frontenddevelopment.Model.Actor;
 import nl.hu.frontenddevelopment.Model.ActorPerson;
 import nl.hu.frontenddevelopment.Model.Person;
+import nl.hu.frontenddevelopment.Model.Project;
 import nl.hu.frontenddevelopment.R;
 import nl.hu.frontenddevelopment.Utils.CircleTransform;
 import nl.hu.frontenddevelopment.View.ActorActivity;
+import nl.hu.frontenddevelopment.View.BaseActivity;
+import nl.hu.frontenddevelopment.View.ProjectActivity;
 
 public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder> {
 
@@ -65,7 +71,11 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
         }
 
         private void addPerson(String actorId){
-            ((ActorActivity) context).addPersonToActor(actorId);
+            if(((BaseActivity)context).findViewById(R.id.contentFragment).getTag().toString().equals("tablet")){
+                ((ProjectActivity) context).addPersonToActor(actorId, projectId);
+            }else {
+                ((ActorActivity) context).addPersonToActor(actorId);
+            }
         }
 
         private void toArchive(String actorId){
@@ -73,7 +83,12 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
         }
 
         private void editActor(String actorId){
-            ((ActorActivity) context).setEditActorFragment(actorId, title.getText().toString(), description.getText().toString());
+            if(((BaseActivity) context).findViewById(R.id.contentFragment).getTag().toString().equals("tablet")){
+                ((ProjectActivity) context).setEditActorFragment(actorId, title.getText().toString(), description.getText().toString());
+            } else{
+                ((ActorActivity) context).setEditActorFragment(actorId, title.getText().toString(), description.getText().toString());
+            }
+
         }
     }
 
@@ -200,7 +215,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
         holder.title.setText(actors.get(position).title);
         holder.description.setText(actors.get(position).getDescription());
 
-        ListAdapter personListAdapter = new FirebaseListAdapter<ActorPerson>((ActorActivity)context, ActorPerson.class, R.layout.card_actor_persons,
+        ListAdapter personListAdapter = new FirebaseListAdapter<ActorPerson>((Activity)context, ActorPerson.class, R.layout.card_actor_persons,
                 mFirebaseDatabaseReference.child("projects").child(projectId)
                         .child("actors").child(actors.get(position).getKey()).child("persons")) {
             @Override

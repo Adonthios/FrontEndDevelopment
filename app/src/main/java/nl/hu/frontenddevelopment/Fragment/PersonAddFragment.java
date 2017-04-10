@@ -136,7 +136,14 @@ public class PersonAddFragment extends ListFragment {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.detach(this).attach(ActorOverviewFragment.newInstance(getArguments().getString("project_id"))).commit();
 
-        this.getFragmentManager().beginTransaction()
+
+        if(this.getView().findViewById(R.id.contentFragment).getTag().toString().equals("tablet")){
+            this.getFragmentManager().beginTransaction()
+                    .replace(R.id.detailFragment, PersonAddFragment.newInstance(getArguments().getString("project_id"),getArguments().getString("actor_id"))).addToBackStack(null).commit();
+        }else{
+            this.getFragmentManager().beginTransaction()
             .replace(R.id.contentFragment, PersonAddFragment.newInstance(getArguments().getString("project_id"),getArguments().getString("actor_id"))).addToBackStack(null).commit();
+
+        }
     }
 }

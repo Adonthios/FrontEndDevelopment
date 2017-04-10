@@ -336,14 +336,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void editProfile(Person person){
-        View v = findViewById(R.id.contentFragment);
-        String tag = v.getTag().toString();
-
-        if(tag.equals("tablet")){
-            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragment, EditPersonFragment.newInstance(person.getKey(), person.getName(), person.getPhonenumber())).addToBackStack(null).commit();
-        } else{
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, EditPersonFragment.newInstance(person.getKey(), person.getName(), person.getPhonenumber())).addToBackStack(null).commit();
-        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, EditPersonFragment.newInstance(person.getKey(), person.getName(), person.getPhonenumber())).addToBackStack(null).commit();
     }
 
     private void getCurrentPerson() {
