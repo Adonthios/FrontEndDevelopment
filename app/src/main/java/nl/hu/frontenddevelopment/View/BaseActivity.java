@@ -253,7 +253,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     private void homeActivity() {
         switch (navItemIndex) {
             case 0:
-                setProjectOverviewFragment();
+                setProjectOverviewActivity();
                 break;
             case 1:
                 setNewProject();
@@ -265,7 +265,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 signOut();
                 break;
             default:
-                setProjectOverviewFragment();
+                setProjectOverviewActivity();
         }
     }
 
@@ -321,8 +321,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
      */
 
 
-    protected void setProjectOverviewFragment(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ProjectOverviewFragment.newInstance()).addToBackStack(null).commit();
+    protected void setProjectOverviewActivity(){
+        startActivity(new Intent(this, ProjectActivity.class));
     }
 
     public void setNewProject(){

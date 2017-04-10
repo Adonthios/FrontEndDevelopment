@@ -49,6 +49,20 @@ public class ProjectActivity extends BaseActivity {
         }
     }
 
+    public void setProjectOverviewFragment(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentFragment, ProjectOverviewFragment.newInstance()).addToBackStack(null).commit();
+    }
+
+    public boolean isTablet(){
+        View v = findViewById(R.id.contentFragment);
+        String tag = v.getTag().toString();
+
+        if(tag.equals("tablet")){
+                return true;
+        }
+        return false;
+    }
+
     public void setEditProject(String id, String title, String description){
         View v = findViewById(R.id.contentFragment);
         String tag = v.getTag().toString();

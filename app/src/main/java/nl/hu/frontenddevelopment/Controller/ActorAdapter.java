@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,8 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
         public CardView mCardView;
         public TextView title, description, editActor;
         public ListView personList;
+        private FloatingActionButton fabArchive;
+
 
         public MyViewHolder(View v) {
             super(v);
@@ -56,12 +59,17 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
             editActor = (TextView) v.findViewById(R.id.actor_edit);
             editActor.setOnClickListener(e -> editActor(actorId));
             title = (TextView) v.findViewById(R.id.actor_title);
+            fabArchive = (FloatingActionButton) v.findViewById(R.id.fab_archive_actor);
             description = (TextView) v.findViewById(R.id.actor_description);
 
         }
 
         private void addPerson(String actorId){
             ((ActorActivity) context).addPersonToActor(actorId);
+        }
+
+        private void toArchive(String actorId){
+            ((ActorActivity) context).toArchive(actorId);
         }
 
         private void editActor(String actorId){
@@ -75,6 +83,7 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
         mFirebaseDatabaseReference.child("projects").child(selectedProject).child("actors").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d(TAG, dataSnapshot.toString());
                 Actor actor = dataSnapshot.getValue(Actor.class);
                 actor.setKey(dataSnapshot.getKey());
                 actors.add(actor);
@@ -219,9 +228,11 @@ public class ActorAdapter extends RecyclerView.Adapter<ActorAdapter.MyViewHolder
 
                         if(actorPerson.getActorID().equals(currentUser.getKey()) && actorPerson.canEdit){
                                 ((TextView)v.findViewById(R.id.actor_function)).setText(functionAnalist);
-                                holder.editActor.setVisibility(View.VISIBLE);
-                                holder.description.setOnClickListener(e -> holder.addPerson(actorId));
-                                holder.title.setOnClickListener(e -> holder.addPerson(actorId));
+                            holder.editActor.setVisibility(View.VISIBLE);
+                            holder.description.setOnClickListener(e -> holder.addPerson(actorId));
+                            holder.title.setOnClickListener(e -> holder.addPerson(actorId));
+                            holder.fabArchive.setVisibility(View.VISIBLE);
+                            holder.fabArchive.setOnClickListener(fab -> holder.toArchive(actorId));
                         }
                         ((TextView)v.findViewById(R.id.actor_function)).setText(functionTeamlid);
 

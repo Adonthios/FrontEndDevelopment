@@ -62,6 +62,12 @@
                 android:visibility="invisible"
                 android:textSize="@dimen/text_size_small"
                 />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_archive_actor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_cloud_white_24dp"/>
 
             <ListView
                 android:id="@+id/person_list"

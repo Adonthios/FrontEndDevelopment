@@ -11,16 +11,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import nl.hu.frontenddevelopment.Model.Actor;
+import nl.hu.frontenddevelopment.Model.ActorPerson;
+import nl.hu.frontenddevelopment.Model.Person;
 import nl.hu.frontenddevelopment.R;
 
 public class ActorNewFragment extends Fragment {
     private EditText title, description;
     public Button bAddActor, bRemoveActor;
     private DatabaseReference mDatabase;
+    private Person currentPerson;
 
     public ActorNewFragment() {
         // Required empty public constructor
@@ -49,6 +57,38 @@ public class ActorNewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("persons").addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Person person = dataSnapshot.getValue(Person.class);
+                if(person.getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                    currentPerson = person;
+                    currentPerson.setKey(dataSnapshot.getKey());
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -78,10 +118,15 @@ public class ActorNewFragment extends Fragment {
         Actor actor = new Actor();
         actor.setTitle(title);
         actor.setDescription(description);
+        ActorPerson actorPerson = new ActorPerson();
+        actorPerson.setCanEdit(true);
+        actorPerson.setActorID(currentPerson.getKey());
 
-        mDatabase.child("projects").child(projectID).child("actors").push().setValue(actor);
+        String key = mDatabase.child("projects").child(projectID).child("actors").push().getKey();
+        mDatabase.child("projects").child(projectID).child("actors").child(key).setValue(actor);
+        String personActorKey = mDatabase.child("projects").child(projectID).child("actors").child(key).child("persons").push().getKey();
+        mDatabase.child("projects").child(projectID).child("actors").child(key).child("persons").child(personActorKey).setValue(actorPerson);
         Toast.makeText(getActivity(), R.string.toast_add_succesful, Toast.LENGTH_SHORT).show();
-
         refreshFragment(getArguments().getString("project_id"));
     }
 

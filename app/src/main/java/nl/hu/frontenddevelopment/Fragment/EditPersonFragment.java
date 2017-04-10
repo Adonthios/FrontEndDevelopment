@@ -89,7 +89,7 @@ public class EditPersonFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Person person = dataSnapshot.getValue(Person.class);
-                if(person.getKey().equals(key)){
+                    if(person.getKey().equals(key)){
                     Log.d("Change", dataSnapshot.getKey());
                     mDatabase.child("persons").child(dataSnapshot.getKey()).child("name").setValue(name.getText().toString());
                     mDatabase.child("persons").child(dataSnapshot.getKey()).child("phonenumber").setValue(phonenumber.getText().toString());
